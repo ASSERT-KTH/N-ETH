@@ -1,0 +1,8 @@
+[submodule "go-ethereum"]
+	path = go-ethereum
+	url = https://github.com/javierron/go-ethereum.git
+	branch = subnode-3
+[submodule "ethereum-docker"]
+	path = ethereum-docker
+	url = https://github.com/gluckzhang/ethereum-docker.git
+	branch = geth-v1.10.12
