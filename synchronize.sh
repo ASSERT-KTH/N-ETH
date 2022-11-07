@@ -3,21 +3,28 @@
 # ssd setup
 
 # find device name
+echo "Finding snapshot device name..."
 DEVICE=`lsblk | grep 1.5T | awk -e '$0 ~ /sd.\s/ {print $1}'`
 DEVICE="$DEVICE"1
+echo "Device name found : $DEVICE"
+
 # mount
 sudo mount /dev/$DEVICE /home/javier/ssd
 
+
 # nvme setup
 # nvme create partition
-
 sudo fdisk -u -p /dev/nvme0n1 <<EOF
 n
 p
 1
 
+
 w
 EOF
+
+# format new partition
+sudo mkfs.ext4 /dev/nvme0n1p1
 
 # copy eth state from snapshot ? maybe copy directory instead of partition
 sudo dd if=/dev/sda1 of=/dev/nvme0n1p1 bs=500M status=progress
@@ -27,13 +34,13 @@ sudo mount /dev/nvme0n1p1 /home/javier/nvme
 
 # start geth
 cd /home/javier/go-ethereum/build/bin
-GETH_LOG=`/home/javier/geth-sync-"$(date -I)".log`
+GETH_LOG=/home/javier/geth-sync-"$(date -I)".log
 nohup ./geth --datadir=/home/javier/nvme/data-dir -http > $GETH_LOG &
 GETH_PID=$!
 
 # start teku
 cd /home/javier/teku/build/install/teku/bin
-TEKU_LOG=`/home/javier/teku-sync"$(date -I)".log`
+TEKU_LOG=/home/javier/teku-sync"$(date -I)".log
 nohup ./teku --ee-endpoint=http://localhost:8551 --ee-jwt-secret-file=/home/javier/nvme/data-dir/geth/jwtsecret --data-beacon-path=/home/javier/nvme/teku-data-dir/ > $TEKU_LOG &
 TEKU_PID=$!
 
@@ -51,7 +58,7 @@ do
 
     # curl to geth and get number
     GETH_BLOCK_HEX=`curl --data '{"method":"eth_getBlockByNumber","params":["latest", false],"id":1,"jsonrpc":"2.0"}' -H "Content-Type: application/json" -X POST 127.0.0.1:8545 | jq -r .result.number | awk '{ print substr( $0, 3 ) }' | awk '{print toupper($0)}'`
-    GETH_BLOCK=`echo "obase=10; ibase=16; $ETHERSCAN_BLOCK_HEX" | bc`
+    GETH_BLOCK=`echo "obase=10; ibase=16; $GETH_BLOCK_HEX" | bc`
 
     # compute distances
     SYNC_DISTANCE=$(( $ETHERSCAN_BLOCK - $GETH_BLOCK ))
