@@ -44,11 +44,11 @@ cd $BESU_DIR
 BESU_PID=$!
 
 # wait for jwt key
-
 STAT_RETURN=1
 while [ $STAT_RETURN -ne 0 ]
 do
-    STAT_RETURN=`stat /home/javier/nvme/data-dir/jwt.hex`
+    stat /home/javier/nvme/data-dir/jwt.hex
+    STAT_RETURN=$?
     sleep 10
 done
 
