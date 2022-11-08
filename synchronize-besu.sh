@@ -43,6 +43,14 @@ cd $BESU_DIR
 ./besu --rpc-http-enabled --data-path=/home/javier/nvme/data-dir --pruning-enabled &> $BESU_LOG &
 BESU_PID=$!
 
+# wait for jwt key
+
+STAT_RETURN=1
+while [ $STAT_RETURN -ne 0 ]
+do
+    STAT_RETURN=`stat /home/javier/nvme/data-dir/jwt.hex`
+    sleep 10
+done
 
 # start teku
 TEKU_DIR=/home/javier/teku/build/install/teku/bin
@@ -85,11 +93,11 @@ AZURE_STORAGE_CONNECTION_STRING==xxxxxx
 
 # stop besu
 
-kill -2 GETH_PID
+kill -2 $BESU_PID
 
 # stop teku
 
-kill -2 TEKU_PID
+kill -2 $TEKU_PID
 
 # check that processes have terminated.
 

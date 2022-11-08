@@ -84,11 +84,11 @@ done
 
 # stop geth
 
-kill -2 GETH_PID
+kill -2 $GETH_PID
 
 # stop teku
 
-kill -2 TEKU_PID
+kill -2 $TEKU_PID
 
 # check that processes have terminated.
 
