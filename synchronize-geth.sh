@@ -26,7 +26,7 @@ w
 EOF
 
 # format new partition
-NVME_PARTITION=/dev/nvme0n1
+NVME_PARTITION=/dev/nvme0n1p1
 sudo mkfs.ext4 -F $NVME_PARTITION
 
 # copy eth state from snapshot ? maybe copy directory instead of partition
