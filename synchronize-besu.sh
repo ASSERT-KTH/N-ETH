@@ -85,7 +85,7 @@ done
 
 # save logs
 # set connection string
-AZURE_STORAGE_CONNECTION_STRING==xxxxxx
+# AZURE_STORAGE_CONNECTION_STRING==xxxxxx
 
 # geth
 # az storage blob upload -f $BESU_LOG -c logs -n $BESU_LOG
