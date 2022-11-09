@@ -40,14 +40,14 @@ sudo mount $NVME_PARTITION $NVME_MOUNT_POINT
 GETH_DIR=/home/javier/go-ethereum/build/bin
 GETH_LOG=/home/javier/geth-sync-"$(date -I)".log
 cd $GETH_DIR
-{ ./geth --datadir=/home/javier/nvme/data-dir -http &> $GETH_LOG & }
+{ ./geth --datadir=/home/javier/nvme/data-dir -http &> $GETH_LOG; } &
 GETH_PID=`ps aux | grep "\\./[g]eth" | awk '{print $2}'`
 
 # start teku
 TEKU_DIR=/home/javier/teku/build/install/teku/bin
 TEKU_LOG=/home/javier/teku-sync-"$(date -I)".log
 cd $TEKU_DIR
-./teku --ee-endpoint=http://localhost:8551 --ee-jwt-secret-file=/home/javier/nvme/data-dir/geth/jwtsecret --data-beacon-path=/home/javier/nvme/teku-data-dir/ &> $TEKU_LOG &
+{ ./teku --ee-endpoint=http://localhost:8551 --ee-jwt-secret-file=/home/javier/nvme/data-dir/geth/jwtsecret --data-beacon-path=/home/javier/nvme/teku-data-dir/ &> $TEKU_LOG; } &
 TEKU_PID=`ps aux | grep "teku\\.home" | awk '{print $2}'`
 
 # check is synchonized < 2 blocks from etherscan
