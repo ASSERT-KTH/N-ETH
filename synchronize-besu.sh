@@ -87,7 +87,7 @@ done
 # set connection string
 # AZURE_STORAGE_CONNECTION_STRING==xxxxxx
 
-# geth
+# besu
 # az storage blob upload -f $BESU_LOG -c logs -n $BESU_LOG
 
 # teku
