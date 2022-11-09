@@ -41,6 +41,7 @@ BESU_DIR=/home/javier/besu/build/install/besu/bin
 BESU_LOG=/home/javier/besu-sync-"$(date -I)".log
 cd $BESU_DIR
 { ./besu --rpc-http-enabled --data-path=/home/javier/nvme/data-dir --pruning-enabled &> $BESU_LOG; } &
+sleep 2
 BESU_PID=`ps aux | grep "besu\\.home" | awk '{print $2}'`
 
 # wait for jwt key
@@ -57,6 +58,7 @@ TEKU_DIR=/home/javier/teku/build/install/teku/bin
 TEKU_LOG=/home/javier/teku-sync-"$(date -I)".log
 cd $TEKU_DIR
 { ./teku --ee-endpoint=http://localhost:8551 --ee-jwt-secret-file=/home/javier/nvme/data-dir/jwt.hex --data-beacon-path=/home/javier/nvme/teku-data-dir/ &> $TEKU_LOG; } &
+sleep 2
 TEKU_PID=`ps aux | grep "teku\\.home" | awk '{print $2}'`
 
 # check is synchonized < 2 blocks from etherscan
@@ -92,15 +94,23 @@ AZURE_STORAGE_CONNECTION_STRING==xxxxxx
 # az storage blob upload -f $TEKU_LOG -c logs -n $TEKU_LOG
 
 # stop besu
-
 kill -2 $BESU_PID
 
 # stop teku
-
 kill -2 $TEKU_PID
 
 # check that processes have terminated.
+BESU_GREP="besu"
+TEKU_GREP="teku"
 
+while [ ! -z $BESU_GREP ] || [ ! -z $TEKU_GREP ]
+do
+    sleep 10
+    BESU_GREP=`ps aux | grep "besu\\.home"`
+    TEKU_GREP=`ps aux | grep "teku\\.home"`
+done
+
+echo "Sync complete!"
 # copy eth state to snapshot
 
 # rsync --delete -r nvme/ ssd
