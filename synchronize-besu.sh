@@ -40,8 +40,8 @@ sudo mount $NVME_PARTITION $NVME_MOUNT_POINT
 BESU_DIR=/home/javier/besu/build/install/besu/bin
 BESU_LOG=/home/javier/besu-sync-"$(date -I)".log
 cd $BESU_DIR
-./besu --rpc-http-enabled --data-path=/home/javier/nvme/data-dir --pruning-enabled &> $BESU_LOG &
-BESU_PID=$!
+{ ./besu --rpc-http-enabled --data-path=/home/javier/nvme/data-dir --pruning-enabled &> $BESU_LOG } &
+BESU_PID=`ps aux | grep "besu\\.home" | awk '{print $2}'`
 
 # wait for jwt key
 STAT_RETURN=1
@@ -56,8 +56,8 @@ done
 TEKU_DIR=/home/javier/teku/build/install/teku/bin
 TEKU_LOG=/home/javier/teku-sync-"$(date -I)".log
 cd $TEKU_DIR
-./teku --ee-endpoint=http://localhost:8551 --ee-jwt-secret-file=/home/javier/nvme/data-dir/jwt.hex --data-beacon-path=/home/javier/nvme/teku-data-dir/ &> $TEKU_LOG &
-TEKU_PID=$!
+{ ./teku --ee-endpoint=http://localhost:8551 --ee-jwt-secret-file=/home/javier/nvme/data-dir/jwt.hex --data-beacon-path=/home/javier/nvme/teku-data-dir/ &> $TEKU_LOG } &
+TEKU_PID=`ps aux | grep "teku\\.home" | awk '{print $2}'`
 
 # check is synchonized < 2 blocks from etherscan
 SYNC_DISTANCE=10000
