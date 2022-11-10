@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 # start besu
 BESU_DIR=/home/javier/besu/build/install/besu/bin

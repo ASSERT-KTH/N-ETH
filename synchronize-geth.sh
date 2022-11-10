@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 # start geth
 GETH_DIR=/home/javier/go-ethereum/build/bin

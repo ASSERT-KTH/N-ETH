@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 # start erigon
 ERIGON_DIR=/home/javier/erigon/build/bin

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 # ssd setup
 # find device name
