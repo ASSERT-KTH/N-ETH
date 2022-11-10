@@ -58,7 +58,7 @@ kill -2 $TEKU_PID
 GETH_GREP="geth"
 TEKU_GREP="teku"
 
-while [ ! -z $GETH_GREP ] || [ ! -z $TEKU_GREP ]
+while [ ! -z "$GETH_GREP" ] || [ ! -z "$TEKU_GREP" ]
 do
     sleep 10
     GETH_GREP=`ps aux | grep "\\./[g]eth"`

@@ -67,7 +67,7 @@ kill -2 $TEKU_PID
 BESU_GREP="besu"
 TEKU_GREP="teku"
 
-while [ ! -z $BESU_GREP ] || [ ! -z $TEKU_GREP ]
+while [ ! -z "$BESU_GREP" ] || [ ! -z "$TEKU_GREP" ]
 do
     sleep 10
     BESU_GREP=`ps aux | grep "besu\\.home"`

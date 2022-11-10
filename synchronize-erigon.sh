@@ -58,7 +58,7 @@ kill -2 $TEKU_PID
 ERIGON_GREP="erigon"
 TEKU_GREP="teku"
 
-while [ ! -z $ERIGON_GREP ] || [ ! -z $TEKU_GREP ]
+while [ ! -z "$ERIGON_GREP" ] || [ ! -z "$TEKU_GREP" ]
 do
     sleep 10
     ERIGON_GREP=`ps aux | grep "\\./[g]eth"`
