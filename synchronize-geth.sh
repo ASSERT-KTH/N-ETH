@@ -69,7 +69,7 @@ done
 echo "Sync complete!"
 
 # copy eth state to snapshot
-
+cd
 rsync --delete -r nvme/ ssd
 
 # # save snapshot

@@ -1,0 +1,25 @@
+working_dir = "/home/javier"
+
+[geth]
+exec_dir    = "/home/javier/go-ethereum/build/bin"
+exec_cmd    = "./geth --datadir=/home/javier/nvme/data-dir -http"
+grep_str    = "\\./[g]eth"
+jwt_path    = "/home/javier/nvme/data-dir/geth/jwtsecret"
+
+[besu]
+exec_dir    = "/home/javier/besu/build/install/besu/bin"
+exec_cmd    = "./besu --rpc-http-enabled --data-path=/home/javier/nvme/data-dir --pruning-enabled"
+grep_str    = "besu\\.home"
+jwt_path    = "/home/javier/nvme/data-dir/jwt.hex"
+
+[erigon]
+exec_dir    = "/home/javier/erigon/build/bin"
+exec_cmd    = "./erigon --datadir=/home/javier/nvme/data-dir --http --prune.h.older=90000 --prune.t.older=90000 --prune.c.older=90000 --prune.r.before=11052984"
+grep_str    = "\\./[e]rigon"
+jwt_path    = "/home/javier/nvme/data-dir/jwt.hex"
+
+[nethermind]
+exec_dir    = ""
+exec_cmd    = ""
+grep_str    = ""
+jwt_path    = ""
