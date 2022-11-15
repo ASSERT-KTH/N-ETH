@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 )
 
 type Request struct {
@@ -15,27 +16,49 @@ type Request struct {
 	Jsonrpc string        `json:"jsonrpc"`
 }
 
-func main() {
+func doRequest(req Request, out chan string) {
 
-	// {"method":"eth_getBlockByNumber","params":["0xa55e27", false],"id":1,"jsonrpc":"2.0"}
+	json_data, err := json.Marshal(req)
+
+	resp, err := http.Post("http://localhost:8545", "application/json", bytes.NewBuffer(json_data))
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	sb := string(body)
+	out <- sb
+}
+
+func main() {
 	request := Request{
 		Method:  "eth_getBlockByNumber",
 		Params:  []interface{}{"0xa55e27", false},
 		Id:      1,
 		Jsonrpc: "2.0",
 	}
-	json_data, err := json.Marshal(request)
 
-	resp, err := http.Post("http://localhost:8545", "application/json", bytes.NewBuffer(json_data))
-	if err != nil {
-		log.Fatalln(err)
+	out := make(chan string)
+
+	for i := 0; i < 50; i++ {
+		go doRequest(request, out)
+		time.Sleep(100 * time.Millisecond)
 	}
-	//We Read the response body on the line below.
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatalln(err)
+
+	n := 0
+	for response := range out {
+		println(response)
+		n++
+
+		if n == 50 {
+			close(out)
+		}
 	}
-	//Convert the body to type string
-	sb := string(body)
-	log.Printf(sb)
+
+	println("Done!")
+
 }
