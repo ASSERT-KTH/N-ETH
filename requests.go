@@ -26,7 +26,7 @@ func main() {
 	}
 	json_data, err := json.Marshal(request)
 
-	resp, err := http.Post("http://localhost:4545", "application/json", bytes.NewBuffer(json_data))
+	resp, err := http.Post("http://localhost:8545", "application/json", bytes.NewBuffer(json_data))
 	if err != nil {
 		log.Fatalln(err)
 	}
