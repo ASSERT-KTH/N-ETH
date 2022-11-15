@@ -2,7 +2,13 @@
 
 ### Requirements
 
-sudo apt-get install jq 
 java8
 go
-toml
+sudo apt-get install jq 
+stoml
+
+### Verisons 
+
+teku: 22.10.1
+
+geth: v1.10.25
