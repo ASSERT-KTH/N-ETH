@@ -1,7 +1,7 @@
 #!/bin/bash
 set -x
 
-CONFIG_FILE=./config.toml
+CONFIG_FILE=$(pwd)/config.toml
 TARGET=$1
 
 get_config () {
