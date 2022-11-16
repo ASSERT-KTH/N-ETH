@@ -58,7 +58,7 @@ while true; do
     do
         TARGET_GREP=`ps aux | grep "$TARGET_GREP_STR"`
         TEKU_GREP=`ps aux | grep "teku\\.home"`
-        CHAOS_ETH_GREP=`ps aux | grep "$CHAOS_ETH_GREP"`
+        CHAOS_ETH_GREP=`ps aux | grep "$CHAOS_ETH_GREP_STR"`
 
         sleep 10
     done
