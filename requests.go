@@ -46,7 +46,7 @@ func main() {
 
 	for i := 0; i < 50; i++ {
 		go doRequest(request, out)
-		time.Sleep(100 * time.Millisecond)
+		time.Sleep(10 * time.Millisecond)
 	}
 
 	n := 0

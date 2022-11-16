@@ -10,6 +10,9 @@ RUN apt-get install -y openjdk-11-jdk git
 
 RUN git clone https://github.com/ConsenSys/teku.git
 RUN cd teku && git checkout 22.10.1 && ./gradlew installDist
+RUN cp -r teku/build/install/teku /usr/local/teku
+ENV PATH="${PATH}:/usr/local/teku/bin"
+RUN rm -rf teku
 
 # install tools
 
@@ -27,6 +30,7 @@ RUN git clone https://github.com/iovisor/bcc.git
 RUN mkdir bcc/build
 RUN cd bcc/build && cmake .. && make && make install && \
         cmake -DPYTHON_CMD=python .. && cd src/python/ && make && make install
+RUN rm -rf bcc
 
 RUN git clone https://github.com/javierron/royal-chaos.git
 RUN cd royal-chaos && git checkout error-model-extraction
