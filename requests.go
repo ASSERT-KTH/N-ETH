@@ -44,20 +44,20 @@ func main() {
 
 	out := make(chan string)
 	go func() {
-		for i := 0; i < 50; i++ {
+		for {
 			go doRequest(request, out)
-			time.Sleep(10 * time.Millisecond)
+			time.Sleep(1 * time.Second)
 		}
 	}()
 
-	n := 0
+	// n := 0
 	for response := range out {
 		println(response)
-		n++
+		// n++
 
-		if n == 50 {
-			close(out)
-		}
+		// if n == 50 {
+		// 	close(out)
+		// }
 	}
 
 	println("Done!")
