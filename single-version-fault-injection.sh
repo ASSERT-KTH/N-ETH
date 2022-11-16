@@ -8,8 +8,9 @@ get_config () {
     stoml $CONFIG_FILE $1
 }
 
-CHAOS_ETH_DIR=$(get_config "chaos_eth_dir")
-ERROR_MODELS=$2
+WORKING_DIR=$HOME
+CHAOS_ETH_DIR=$WORKING_DIR/$(get_config "chaos_eth_dir")
+ERROR_MODELS=$CHAOS_ETH_DIR/experiments/$TARGET/error-model.json
 
 # spawn + sync wait
 ./synchronize $TARGET
@@ -18,7 +19,6 @@ echo "START" > ipc.dat
 while true
 do
     # get working dir
-WORKING_DIR=$HOME
 
     # start target
     TARGET_LOG="$WORKING_DIR/$TARGET-sync-$(date -I).log"
@@ -37,8 +37,8 @@ WORKING_DIR=$HOME
     TEKU_PID=`ps aux | grep "teku\\.home" | awk '{print $2}'`
 
     #attach error injection
-    CHAOS_ETH_GREP_STR="[s]yscall_injector.py"
     sleep 10
+    CHAOS_ETH_GREP_STR="[s]yscall_injector.py"
     cd $CHAOS_ETH_DIR
     { python syscall_injector.py --config $ERROR_MODELS -p $TARGET_PID } &
     CHAOS_ETH_PID=`ps aux | grep "$CHAOS_ETH_GREP_STR" | awk '{print $2}'`
