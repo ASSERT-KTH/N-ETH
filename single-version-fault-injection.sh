@@ -11,9 +11,10 @@ get_config () {
 WORKING_DIR=$HOME
 CHAOS_ETH_DIR=$WORKING_DIR/$(get_config "chaos_eth_dir")
 ERROR_MODELS=$CHAOS_ETH_DIR/experiments/$TARGET/error-model.json
+PRE_SYNC_CMD=$(pwd)/synchronize.sh
 
 # spawn + sync wait
-./synchronize $TARGET
+$PRE_SYNC_CMD $TARGET
 echo "START" > ipc.dat
 
 while true
