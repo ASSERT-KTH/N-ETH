@@ -17,9 +17,7 @@ PRE_SYNC_CMD=$(pwd)/synchronize.sh
 $PRE_SYNC_CMD $TARGET
 echo "START" > ipc.dat
 
-while true
-do
-    # get working dir
+while true; do
 
     # start target
     TARGET_LOG="$WORKING_DIR/$TARGET-sync-$(date -I).log"
