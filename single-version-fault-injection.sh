@@ -50,11 +50,11 @@ while true; do
 
     # check that everything is still running
 
-    TARGET_GREP=""
-    TEKU_GREP=""
-    CHAOS_ETH_GREP=""
+    TARGET_GREP="target"
+    TEKU_GREP="teku"
+    CHAOS_ETH_GREP="chaoseth"
 
-    while [ -z "$TARGET_GREP" ] && [ -z "$TEKU_GREP" ] && [ -z "$CHAOS_ETH_GREP" ]
+    while [ ! -z "$TARGET_GREP" ] && [ ! -z "$TEKU_GREP" ] && [ ! -z "$CHAOS_ETH_GREP" ]
     do
         TARGET_GREP=`ps aux | grep "$TARGET_GREP_STR"`
         TEKU_GREP=`ps aux | grep "teku\\.home"`
