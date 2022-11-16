@@ -1,15 +1,15 @@
 #!/bin/bash
 set -x
 
+CONFIG_FILE=$(pwd)/config.toml
 TARGET=$1
-CONFIG_FILE=$2
 
 get_config () {
     stoml $CONFIG_FILE $1
 }
 
 CHAOS_ETH_DIR=$(get_config "chaos_eth_dir")
-ERROR_MODELS=./error-models.json
+ERROR_MODELS=$2
 
 # spawn + sync wait
 ./synchronize $TARGET
@@ -18,26 +18,21 @@ echo "START" > ipc.dat
 while true
 do
     # get working dir
-    WORKING_DIR=$(get_config "working_dir")
+WORKING_DIR=$HOME
 
     # start target
-    TARGET_DIR=$(get_config "$TARGET.exec_dir")
-    TARGET_LOG="$WORKING_DIR/$TARGET-sync-\"$(date -I)\".log"
-    cd $TARGET_DIR
+    TARGET_LOG="$WORKING_DIR/$TARGET-sync-$(date -I).log"
     TARGET_CMD=$(get_config "$TARGET.exec_cmd")
-    { $TARGET_CMD &> $TARGET_LOG; } &
+    DATA_DIR_PARAM=$(get_config "$TARGET.datadir_flag")=$WORKING_DIR/$(get_config "$TARGET.datadir")
+    { $TARGET_CMD $DATA_DIR_PARAM &> $TARGET_LOG; } &
     sleep 2
     TARGET_GREP_STR=$(get_config "$TARGET.grep_str")
     TARGET_PID=`ps aux | grep "$TARGET_GREP_STR" | awk '{print $2}'`
 
     # start teku
-    TEKU_DIR=$(get_config "teku.exec_dir")
-    TEKU_LOG=$WORKING_DIR/teku-sync-"$(date -I)".log
-    cd $TEKU_DIR
-    TARGET_JWT_FILE=$(get_config "$TARGET.jwt_path")
-    TEKU_CMD=$(get_config "teku.exec_cmd")
-    # { ./teku --ee-endpoint=http://localhost:8551 --ee-jwt-secret-file=$TARGET_JWT_FILE --data-beacon-path=/home/javier/nvme/teku-data-dir/ &> $TEKU_LOG; } &
-    { $TEKU_CMD --ee-jwt-secret-file=$TARGET_JWT_FILE --data-beacon-path=$WORKING_DIR/nvme/teku-data-dir/ &> $TEKU_LOG; } &
+    TEKU_LOG=$WORKING_DIR/teku-sync-$(date -I).log
+    TARGET_JWT_FILE=$WORKING_DIR/$(get_config "$TARGET.jwt_path")
+    { teku --ee-endpoint=http://localhost:8551 --ee-jwt-secret-file=$TARGET_JWT_FILE --data-beacon-path=$WORKING_DIR/nvme/teku-data-dir/ &> $TEKU_LOG; } &
     sleep 2
     TEKU_PID=`ps aux | grep "teku\\.home" | awk '{print $2}'`
 
@@ -45,7 +40,7 @@ do
     CHAOS_ETH_GREP_STR="[s]yscall_injector.py"
     sleep 10
     cd $CHAOS_ETH_DIR
-    { python syscall_injector.py -c $ERROR_MODELS -p $TARGET_PID } &
+    { python syscall_injector.py --config $ERROR_MODELS -p $TARGET_PID } &
     CHAOS_ETH_PID=`ps aux | grep "$CHAOS_ETH_GREP_STR" | awk '{print $2}'`
 
     sleep 3

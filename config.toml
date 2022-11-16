@@ -1,23 +1,23 @@
-working_dir = "/home/javier"
-
 [geth]
 exec_cmd        = "geth -http"
 datadir_flag   = "--datadir"
 datadir         = "nvme/data-dir"
-grep_str        = "[g]eth"
+grep_str        = "[g]eth -http"
 jwt_path        = "nvme/data-dir/geth/jwtsecret"
 
 [besu]
-exec_dir        = "/home/javier/besu/build/install/besu/bin"
-exec_cmd        = "./besu --rpc-http-enabled --data-path=/home/javier/nvme/data-dir --pruning-enabled"
+exec_cmd        = "./besu --rpc-http-enabled --pruning-enabled"
+datadir_flag   = "--data-path"
+datadir         = "nvme/data-dir"
 grep_str        = "besu\\.home"
-jwt_path        = "/home/javier/nvme/data-dir/jwt.hex"
+jwt_path        = "nvme/data-dir/jwt.hex"
 
 [erigon]
-exec_dir        = "/home/javier/erigon/build/bin"
-exec_cmd        = "./erigon --datadir=/home/javier/nvme/data-dir --http --prune.h.older=90000 --prune.t.older=90000 --prune.c.older=90000 --prune.r.before=11052984"
-grep_str        = "\\./[e]rigon"
-jwt_path        = "/home/javier/nvme/data-dir/jwt.hex"
+exec_cmd        = "./erigon --http --prune.h.older=90000 --prune.t.older=90000 --prune.c.older=90000 --prune.r.before=11052984"
+datadir_flag   = "--datadir"
+datadir         = "nvme/data-dir"
+grep_str        = "[e]rigon --http"
+jwt_path        = "nvme/data-dir/jwt.hex"
 
 [nethermind]
 exec_dir        = ""
