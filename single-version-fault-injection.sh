@@ -1,6 +1,9 @@
 #!/bin/bash
 set -x
 
+# TODO:
+# exclude sudo if in container
+
 if [ -z $1]; then
     echo "target client undefined"
     exit 1
@@ -67,6 +70,6 @@ while true; do
 
     kill -2 $TARGET_PID
     kill -2 $TEKU_PID
-    kill -2 $CHAOS_ETH_PID
+    sudo kill -2 $CHAOS_ETH_PID
 
 done
