@@ -1,6 +1,11 @@
 #!/bin/bash
 set -x
 
+if [ -z $1]
+    echo "target client undefined"
+    exit 1
+fi
+
 CONFIG_FILE=$(pwd)/config.toml
 TARGET=$1
 
@@ -38,7 +43,7 @@ while true; do
     sleep 10
     CHAOS_ETH_GREP_STR="[s]yscall_injector.py"
     cd $CHAOS_ETH_DIR
-    { python syscall_injector.py --config $ERROR_MODELS -p $TARGET_PID } &
+    { sudo python syscall_injector.py --config $ERROR_MODELS -p $TARGET_PID > $WORKING_DIR/chaos.log; } &
     CHAOS_ETH_PID=`ps aux | grep "$CHAOS_ETH_GREP_STR" | awk '{print $2}'`
 
     sleep 3
