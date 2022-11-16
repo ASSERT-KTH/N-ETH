@@ -22,12 +22,12 @@ func doRequest(req Request, out chan string) {
 
 	resp, err := http.Post("http://localhost:8545", "application/json", bytes.NewBuffer(json_data))
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 	}
 
 	sb := string(body)
