@@ -8,5 +8,5 @@
     # sleep 1m
 
 # start workload localhost:port
-
+# go run requests.go
 # done

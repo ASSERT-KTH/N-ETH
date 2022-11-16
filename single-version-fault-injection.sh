@@ -1,15 +1,15 @@
 #!/bin/bash
 set -x
 
+TARGET=$1
+CONFIG_FILE=$2
+
 get_config () {
     stoml $CONFIG_FILE $1
 }
 
 CHAOS_ETH_DIR=$(get_config "chaos_eth_dir")
 ERROR_MODELS=./error-models.json
-CONFIG_FILE=./config.toml
-TARGET=$1
-
 
 # spawn + sync wait
 ./synchronize $TARGET
@@ -31,11 +31,13 @@ do
     TARGET_PID=`ps aux | grep "$TARGET_GREP_STR" | awk '{print $2}'`
 
     # start teku
-    TEKU_DIR=/home/javier/teku/build/install/teku/bin
-    TEKU_LOG=/home/javier/teku-sync-"$(date -I)".log
+    TEKU_DIR=$(get_config "teku.exec_dir")
+    TEKU_LOG=$WORKING_DIR/teku-sync-"$(date -I)".log
     cd $TEKU_DIR
     TARGET_JWT_FILE=$(get_config "$TARGET.jwt_path")
-    { ./teku --ee-endpoint=http://localhost:8551 --ee-jwt-secret-file=$TARGET_JWT_FILE --data-beacon-path=/home/javier/nvme/teku-data-dir/ &> $TEKU_LOG; } &
+    TEKU_CMD=$(get_config "teku.exec_cmd")
+    # { ./teku --ee-endpoint=http://localhost:8551 --ee-jwt-secret-file=$TARGET_JWT_FILE --data-beacon-path=/home/javier/nvme/teku-data-dir/ &> $TEKU_LOG; } &
+    { $TEKU_CMD --ee-jwt-secret-file=$TARGET_JWT_FILE --data-beacon-path=$WORKING_DIR/nvme/teku-data-dir/ &> $TEKU_LOG; } &
     sleep 2
     TEKU_PID=`ps aux | grep "teku\\.home" | awk '{print $2}'`
 
