@@ -15,7 +15,7 @@ WORKING_DIR=$(get_config "working_dir")
 
 # start target
 TARGET_DIR=$(get_config "$TARGET.exec_dir")
-TARGET_LOG="$WORKING_DIR/$TARGET-sync-\"$(date -I)\".log"
+TARGET_LOG="$WORKING_DIR/$TARGET-sync-$(date -I).log"
 cd $TARGET_DIR
 TARGET_CMD=$(get_config "$TARGET.exec_cmd")
 { $TARGET_CMD &> $TARGET_LOG; } &
@@ -25,7 +25,7 @@ TARGET_PID=`ps aux | grep "$TARGET_GREP_STR" | awk '{print $2}'`
 
 # start teku
 TEKU_DIR=/home/javier/teku/build/install/teku/bin
-TEKU_LOG=/home/javier/teku-sync-"$(date -I)".log
+TEKU_LOG=/home/javier/teku-sync-$(date -I).log
 cd $TEKU_DIR
 TARGET_JWT_FILE=$(get_config "$TARGET.jwt_path")
 { ./teku --ee-endpoint=http://localhost:8551 --ee-jwt-secret-file=$TARGET_JWT_FILE --data-beacon-path=/home/javier/nvme/teku-data-dir/ &> $TEKU_LOG; } &
