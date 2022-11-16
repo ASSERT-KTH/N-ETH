@@ -1,7 +1,7 @@
 #!/bin/bash
 set -x
 
-if [ -z $1]
+if [ -z $1]; then
     echo "target client undefined"
     exit 1
 fi
