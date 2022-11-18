@@ -1,12 +1,13 @@
 #!/bin/bash
 
-# echo "WAIT" > ipc.dat
+echo "WAIT" > ipc.dat
 
-# read ipc.dat
+VAL=$(cat ipc.dat)
 
-# while WAIT
-    # sleep 1m
+while [[ $VAL = "WAIT" ]]
+do
+    VAL=$(cat ipc.dat)
+    sleep 1m
+done
 
-# start workload localhost:port
-# go run requests.go
-# done
+go run requests.go

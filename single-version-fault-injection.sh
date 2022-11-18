@@ -3,6 +3,12 @@ set -x
 
 # TODO:
 # exclude sudo if in container
+USER=$(whoami)
+SUDO=""
+if [[ $USER = "root" ]]; then
+    SUDO="sudo"
+fi
+
 
 if [ -z $1]; then
     echo "target client undefined"
@@ -46,7 +52,7 @@ while true; do
     sleep 10
     CHAOS_ETH_GREP_STR="[s]yscall_injector.py"
     cd $CHAOS_ETH_DIR
-    { sudo python syscall_injector.py --config $ERROR_MODELS -p $TARGET_PID > $WORKING_DIR/chaos.log; } &
+    { $SUDO python syscall_injector.py --config $ERROR_MODELS -p $TARGET_PID > $WORKING_DIR/chaos.log; } &
     CHAOS_ETH_PID=`ps aux | grep "$CHAOS_ETH_GREP_STR" | awk '{print $2}'`
 
     sleep 3
@@ -70,6 +76,6 @@ while true; do
 
     kill -2 $TARGET_PID
     kill -2 $TEKU_PID
-    sudo kill -2 $CHAOS_ETH_PID
+    $SUDO kill -2 $CHAOS_ETH_PID
 
 done
