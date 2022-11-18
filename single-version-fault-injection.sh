@@ -7,6 +7,11 @@ USER=$(whoami)
 SUDO=""
 if [[ $USER != "root" ]]; then
     SUDO="sudo"
+else
+    # HACK: root if inside container -> mount debugfs and tracefs
+    mount -t debugfs debugfs /sys/kernel/debug
+    mount -t tracefs tracefs /sys/kernel/tracing
+    # END HACK :)
 fi
 
 
@@ -52,12 +57,6 @@ while true; do
     sleep 10
     CHAOS_ETH_GREP_STR="[s]yscall_injector.py"
     cd $CHAOS_ETH_DIR
-
-    # HACK: root if inside container -> mount debugfs and tracefs
-    mount -t debugfs debugfs /sys/kernel/debug
-    mount -t tracefs tracefs /sys/kernel/tracing
-
-    # END HACK :)
 
     { $SUDO python syscall_injector.py --config $ERROR_MODELS -p $TARGET_PID > $WORKING_DIR/chaos.log; } &
     CHAOS_ETH_PID=`ps aux | grep "$CHAOS_ETH_GREP_STR" | awk '{print $2}'`
