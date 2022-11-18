@@ -5,7 +5,7 @@ set -x
 # exclude sudo if in container
 USER=$(whoami)
 SUDO=""
-if [[ $USER = "root" ]]; then
+if [[ $USER != "root" ]]; then
     SUDO="sudo"
 fi
 
