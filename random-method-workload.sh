@@ -10,4 +10,5 @@ do
     sleep 1m
 done
 
+echo "Starting requests..."
 go run requests.go > requests.log
