@@ -14,7 +14,7 @@ sleep 20
 # rsync -r --delete $SOURCE_DIR $TARGET_DIR
 
 # run eth client!
-{./single-version-fault-injection.sh geth; } &
+{ ./single-version-fault-injection.sh geth; } &
 
 # run workload!
 ./random-method-workload.sh
