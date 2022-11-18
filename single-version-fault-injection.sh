@@ -23,7 +23,7 @@ get_config () {
 }
 
 WORKING_DIR=$HOME
-CHAOS_ETH_DIR=$WORKING_DIR/$(get_config "chaos_eth_dir")
+CHAOS_ETH_DIR=/$(get_config "chaos_eth_dir")
 ERROR_MODELS=$CHAOS_ETH_DIR/experiments/$TARGET/error_models.json
 PRE_SYNC_CMD=$(pwd)/synchronize.sh
 
