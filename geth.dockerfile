@@ -50,4 +50,5 @@ RUN rm -rf go-ethereum
 
 COPY ./*.sh /
 COPY ./config.toml /
+COPY ./requests.go /
 # CMD bash single-version-controller.sh
