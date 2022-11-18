@@ -28,7 +28,7 @@ ERROR_MODELS=$CHAOS_ETH_DIR/experiments/$TARGET/error_models.json
 PRE_SYNC_CMD=$(pwd)/synchronize.sh
 
 # spawn + sync wait
-$PRE_SYNC_CMD $TARGET
+{ $PRE_SYNC_CMD $TARGET; }
 echo "START" > ipc.dat
 
 while true; do
