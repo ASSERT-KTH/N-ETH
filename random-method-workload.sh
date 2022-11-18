@@ -10,4 +10,4 @@ do
     sleep 1m
 done
 
-go run requests.go
+go run requests.go > requests.log
