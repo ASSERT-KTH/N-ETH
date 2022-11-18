@@ -48,4 +48,5 @@ RUN cd go-ethereum && git checkout v1.10.25 && make geth
 RUN cp go-ethereum/build/bin/geth /usr/local/bin/geth
 RUN rm -rf go-ethereum
 
+COPY ./*.sh /
 # CMD bash single-version-controller.sh
