@@ -48,7 +48,7 @@ while true; do
     TARGET_PPID=$!
     sleep 2
     TARGET_GREP_STR=$TARGET_PPID.*$(get_config "$TARGET.grep_str")
-    TARGET_PID=`ps axo pid,ppid,cmd | grep "$TARGET_GREP_STR" | awk '{print $2}'`
+    TARGET_PID=`ps axo pid,ppid,cmd | grep "$TARGET_GREP_STR" | awk '{print $1}'`
 
     # start teku
     TEKU_LOG=$WORKING_DIR/teku-sync-$(date -I).log
@@ -57,7 +57,7 @@ while true; do
     TEKU_PPID=$!
     sleep 2
     TEKU_GREP_STR=$TEKU_PPID.*teku\\.home
-    TEKU_PID=`ps axo pid,ppid,cmd | grep "$TEKU_GREP_STR" | awk '{print $2}'`
+    TEKU_PID=`ps axo pid,ppid,cmd | grep "$TEKU_GREP_STR" | awk '{print $1}'`
 
     #attach error injection
     sleep 10
@@ -67,7 +67,7 @@ while true; do
     { $SUDO python syscall_injector.py --config $ERROR_MODELS -p $TARGET_PID > $WORKING_DIR/chaos.log; } &
     CHAOS_ETH_PPID=$!
     CHAOS_ETH_GREP_STR=$CHAOS_ETH_PPID.*$CHAOS_ETH_GREP_STR
-    CHAOS_ETH_PID=`ps axo pid,ppid,cmd | grep "$CHAOS_ETH_GREP_STR" | awk '{print $2}'`
+    CHAOS_ETH_PID=`ps axo pid,ppid,cmd | grep "$CHAOS_ETH_GREP_STR" | awk '{print $1}'`
 
     sleep 3
 
