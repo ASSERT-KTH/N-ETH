@@ -12,19 +12,7 @@ echo "Partition name found : $SSD_PARTITION"
 SSD_MOUNT_POINT=/home/javier/ssd
 sudo mount $SSD_PARTITION $SSD_MOUNT_POINT
 
-# nvme setup
-sudo fdisk -l /dev/nvme[0-9]n[0-9] | grep /dev | awk '{print substr($2, 1, length($2)-1) }' | xargs sudo fdisk <<EOF
-n
-p
-1
-
-
-w
-EOF
-
-# format new partition
 NVME_PARTITION=/dev/nvme0n1p1
-sudo mkfs.ext4 -F $NVME_PARTITION
 
 # copy eth state from snapshot ? maybe copy directory instead of partition
 sudo dd if=$SSD_PARTITION of=$NVME_PARTITION bs=500M status=progress
