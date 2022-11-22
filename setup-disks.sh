@@ -13,9 +13,7 @@ SSD_MOUNT_POINT=/home/javier/ssd
 sudo mount $SSD_PARTITION $SSD_MOUNT_POINT
 
 # nvme setup
-# nvme create partition
-NVME_DEVICE=/dev/nvme0n1
-sudo fdisk $NVME_DEVICE <<EOF
+sudo fdisk -l /dev/nvme[0-9]n[0-9] | grep /dev | awk '{print substr($2, 1, length($2)-1) }' | xargs sudo fdisk <<EOF
 n
 p
 1
