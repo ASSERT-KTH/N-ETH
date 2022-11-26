@@ -24,7 +24,7 @@ fi
 
 CONFIG_FILE=$(pwd)/config.toml
 TARGET=$1
-CONTAINER_N=$2
+ERROR_MODEL_URL="$2"
 
 get_config () {
     stoml $CONFIG_FILE $1
@@ -32,7 +32,8 @@ get_config () {
 
 WORKING_DIR=$HOME
 CHAOS_ETH_DIR=/$(get_config "chaos_eth_dir")
-ERROR_MODELS=$CHAOS_ETH_DIR/experiments/$TARGET/error_models.json
+wget -O error-models.json $ERROR_MODEL_URL
+ERROR_MODELS=error_models.json
 PRE_SYNC_CMD=$(pwd)/synchronize.sh
 
 # spawn + sync wait

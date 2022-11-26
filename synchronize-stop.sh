@@ -33,7 +33,7 @@ TEKU_PID=`ps axo pid,ppid,cmd | grep $TEKU_GREP_STR | awk '{print $1}'`
 # check is synchonized < 2 blocks from etherscan
 SYNC_DISTANCE=10000
 
-while [ true ]
+while [ $SYNC_DISTANCE -gt 2 ]
 do
     # wait 30 seconds
     sleep 30
@@ -50,3 +50,35 @@ do
     SYNC_DISTANCE=$(( $ETHERSCAN_BLOCK - $TARGET_BLOCK ))
     echo "Sync distance: $SYNC_DISTANCE"
 done
+
+
+# save logs
+# set connection string
+# AZURE_STORAGE_CONNECTION_STRING==xxxxxx
+
+# target
+# az storage blob upload -f $TARGET_LOG -c logs -n $TARGET_LOG --connection-string="$AZURE_STORAGE_CONNECTION_STRING"
+
+# teku
+# az storage blob upload -f $TARGET_LOG -c logs -n $TARGET_LOG --connection-string="$AZURE_STORAGE_CONNECTION_STRING"
+
+# stop target
+kill -2 $TARGET_PID
+
+# stop teku
+kill -2 $TEKU_PID
+
+# check that processes have terminated.
+TARGET_GREP="target"
+TEKU_GREP="teku"
+
+while [ ! -z "$TARGET_GREP" ] || [ ! -z "$TEKU_GREP" ]
+do
+    sleep 10
+    TARGET_GREP=`ps axo pid,ppid,cmd | grep "$TARGET_GREP_STR"`
+    TEKU_GREP=`ps axo pid,ppid,cmd | grep "$TEKU_GREP_STR"`
+done
+
+echo "Sync complete!"
+
+
