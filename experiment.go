@@ -14,34 +14,34 @@ const experiments = 30
 var error_models = [experiments]string{
 	"error_models_processed_1_1.005.json",
 	"error_models_processed_1_1.015.json",
-	"error_models_processed_1_1.01.json",
-	"error_models_processed_1_1.025.json",
-	"error_models_processed_1_1.05.json",
-	"error_models_processed_1_1.1.json",
-	"error_models_processed_2_1.005.json",
-	"error_models_processed_2_1.015.json",
-	"error_models_processed_2_1.01.json",
-	"error_models_processed_2_1.025.json",
-	"error_models_processed_2_1.05.json",
-	"error_models_processed_2_1.1.json",
-	"error_models_processed_3_1.005.json",
-	"error_models_processed_3_1.015.json",
-	"error_models_processed_3_1.01.json",
-	"error_models_processed_3_1.025.json",
-	"error_models_processed_3_1.05.json",
-	"error_models_processed_3_1.1.json",
-	"error_models_processed_4_1.005.json",
-	"error_models_processed_4_1.015.json",
-	"error_models_processed_4_1.01.json",
-	"error_models_processed_4_1.025.json",
-	"error_models_processed_4_1.05.json",
-	"error_models_processed_4_1.1.json",
-	"error_models_processed_5_1.005.json",
-	"error_models_processed_5_1.015.json",
-	"error_models_processed_5_1.01.json",
-	"error_models_processed_5_1.025.json",
-	"error_models_processed_5_1.05.json",
-	"error_models_processed_5_1.1.json",
+	// "error_models_processed_1_1.01.json",
+	// "error_models_processed_1_1.025.json",
+	// "error_models_processed_1_1.05.json",
+	// "error_models_processed_1_1.1.json",
+	// "error_models_processed_2_1.005.json",
+	// "error_models_processed_2_1.015.json",
+	// "error_models_processed_2_1.01.json",
+	// "error_models_processed_2_1.025.json",
+	// "error_models_processed_2_1.05.json",
+	// "error_models_processed_2_1.1.json",
+	// "error_models_processed_3_1.005.json",
+	// "error_models_processed_3_1.015.json",
+	// "error_models_processed_3_1.01.json",
+	// "error_models_processed_3_1.025.json",
+	// "error_models_processed_3_1.05.json",
+	// "error_models_processed_3_1.1.json",
+	// "error_models_processed_4_1.005.json",
+	// "error_models_processed_4_1.015.json",
+	// "error_models_processed_4_1.01.json",
+	// "error_models_processed_4_1.025.json",
+	// "error_models_processed_4_1.05.json",
+	// "error_models_processed_4_1.1.json",
+	// "error_models_processed_5_1.005.json",
+	// "error_models_processed_5_1.015.json",
+	// "error_models_processed_5_1.01.json",
+	// "error_models_processed_5_1.025.json",
+	// "error_models_processed_5_1.05.json",
+	// "error_models_processed_5_1.1.json",
 }
 
 type MutexStack struct {
@@ -108,6 +108,16 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 	nvme_dir := fmt.Sprintf("%s/docker-nvme-%d", os.Getenv("HOME"), index)
 	error_models_prefix := "https://raw.githubusercontent.com/javierron/royal-chaos/error-model-extraction/chaoseth/experiments/common-error-models"
 
+	output_dir := fmt.Sprintf("./output-%d", index)
+
+	mkdir := exec.Command(
+		"mkdir",
+		output_dir,
+	)
+
+	mkdir.Start()
+	mkdir.Wait()
+
 	cmd := exec.Command(
 		"docker",
 		"run",
@@ -115,6 +125,7 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 		"--rm",
 		"--pid=host",
 		fmt.Sprintf("-v %s:/root/nvme", nvme_dir),
+		fmt.Sprintf("-v %s:/output", output_dir),
 		"./single-version-fault-injection.sh", //command
 		target,
 		fmt.Sprintf("%s/%s", error_models_prefix, error_models[exp_number]),
