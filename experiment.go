@@ -191,6 +191,7 @@ func copy_state(index int) {
 		source_partition_mount_pouint,
 	)
 
+	fmt.Println(umount_source.String())
 	umount_source.Run()
 
 	umount_target := exec.Command(
@@ -199,6 +200,7 @@ func copy_state(index int) {
 		target_partition_mount_pouint,
 	)
 
+	fmt.Println(umount_target.String())
 	umount_target.Run()
 
 	umount_source.Wait()
@@ -212,6 +214,8 @@ func copy_state(index int) {
 		"bs=3000M",
 		"status=progress",
 	)
+
+	fmt.Println(cmd.String())
 
 	outfile, err := os.Create(fmt.Sprintf("%s/dd_progress-%d.log", os.Getenv("HOME"), index))
 	if err != nil {
@@ -230,6 +234,7 @@ func copy_state(index int) {
 		source_partition_mount_pouint,
 	)
 
+	fmt.Println(mount_source.String())
 	mount_source.Run()
 
 	mount_target := exec.Command(
@@ -239,6 +244,7 @@ func copy_state(index int) {
 		target_partition_mount_pouint,
 	)
 
+	fmt.Println(mount_target.String())
 	mount_target.Run()
 
 	mount_source.Wait()
