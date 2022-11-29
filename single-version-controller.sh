@@ -1,24 +1,16 @@
 #!/bin/bash
 
-TARGET_DATA=/nvme
-
-# with bucket 0 stopped!!!
-echo "Stop client in bucket 0 before starting!"
-
-sleep 20
-
-# copy data-dirs
-# SOURCE_DIR=$HOME/nvme/bucket0
-# TARGET_DIR=$HOME/nvme/bucket$BUCKET
-
-# rsync -r --delete $SOURCE_DIR $TARGET_DIR
+TARGET=$1
+ERROR_MODEL=$2
 
 # run eth client!
-{ ./single-version-fault-injection.sh geth; } &
+{ ./single-version-fault-injection.sh $TARGET $ERROR_MODEL; } &
+SUBSHELL=$!
 
 # run workload!
 ./random-method-workload.sh
 
+kill -2 $SUBSHELL
 # rm -rf $TARGET_DIR/*
 
 # done

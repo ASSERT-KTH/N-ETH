@@ -5,43 +5,41 @@ import (
 	"math/rand"
 	"os"
 	"os/exec"
+	"strconv"
 	"time"
 )
 
-const disks = 9
-const experiments = 30
-
-var error_models = [experiments]string{
+var error_models = []string{
 	"error_models_processed_1_1.005.json",
 	"error_models_processed_1_1.015.json",
-	// "error_models_processed_1_1.01.json",
-	// "error_models_processed_1_1.025.json",
-	// "error_models_processed_1_1.05.json",
-	// "error_models_processed_1_1.1.json",
-	// "error_models_processed_2_1.005.json",
-	// "error_models_processed_2_1.015.json",
-	// "error_models_processed_2_1.01.json",
-	// "error_models_processed_2_1.025.json",
-	// "error_models_processed_2_1.05.json",
-	// "error_models_processed_2_1.1.json",
-	// "error_models_processed_3_1.005.json",
-	// "error_models_processed_3_1.015.json",
-	// "error_models_processed_3_1.01.json",
-	// "error_models_processed_3_1.025.json",
-	// "error_models_processed_3_1.05.json",
-	// "error_models_processed_3_1.1.json",
-	// "error_models_processed_4_1.005.json",
-	// "error_models_processed_4_1.015.json",
-	// "error_models_processed_4_1.01.json",
-	// "error_models_processed_4_1.025.json",
-	// "error_models_processed_4_1.05.json",
-	// "error_models_processed_4_1.1.json",
-	// "error_models_processed_5_1.005.json",
-	// "error_models_processed_5_1.015.json",
-	// "error_models_processed_5_1.01.json",
-	// "error_models_processed_5_1.025.json",
-	// "error_models_processed_5_1.05.json",
-	// "error_models_processed_5_1.1.json",
+	"error_models_processed_1_1.01.json",
+	"error_models_processed_1_1.025.json",
+	"error_models_processed_1_1.05.json",
+	"error_models_processed_1_1.1.json",
+	"error_models_processed_2_1.005.json",
+	"error_models_processed_2_1.015.json",
+	"error_models_processed_2_1.01.json",
+	"error_models_processed_2_1.025.json",
+	"error_models_processed_2_1.05.json",
+	"error_models_processed_2_1.1.json",
+	"error_models_processed_3_1.005.json",
+	"error_models_processed_3_1.015.json",
+	"error_models_processed_3_1.01.json",
+	"error_models_processed_3_1.025.json",
+	"error_models_processed_3_1.05.json",
+	"error_models_processed_3_1.1.json",
+	"error_models_processed_4_1.005.json",
+	"error_models_processed_4_1.015.json",
+	"error_models_processed_4_1.01.json",
+	"error_models_processed_4_1.025.json",
+	"error_models_processed_4_1.05.json",
+	"error_models_processed_4_1.1.json",
+	"error_models_processed_5_1.005.json",
+	"error_models_processed_5_1.015.json",
+	"error_models_processed_5_1.01.json",
+	"error_models_processed_5_1.025.json",
+	"error_models_processed_5_1.05.json",
+	"error_models_processed_5_1.1.json",
 }
 
 type MutexStack struct {
@@ -112,6 +110,7 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 
 	mkdir := exec.Command(
 		"mkdir",
+		"-p",
 		output_dir,
 	)
 
@@ -126,7 +125,7 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 		"--pid=host",
 		fmt.Sprintf("-v %s:/root/nvme", nvme_dir),
 		fmt.Sprintf("-v %s:/output", output_dir),
-		"./single-version-fault-injection.sh", //command
+		"./single-version-controller.sh", //command
 		target,
 		fmt.Sprintf("%s/%s", error_models_prefix, error_models[exp_number]),
 	)
@@ -192,7 +191,7 @@ const (
 	Copying State = "COPY"
 )
 
-func sourceLoop(start chan int, copy chan CopyInfo, err_chan chan error) {
+func source_loop(start chan int, copy chan CopyInfo, err_chan chan error) {
 	err := first_sync()
 	if err != nil {
 		err_chan <- err
@@ -246,27 +245,38 @@ func sourceLoop(start chan int, copy chan CopyInfo, err_chan chan error) {
 	}
 }
 
-func errorHandler(err_chan chan error) {
+func error_handler(err_chan chan error) {
 	err := <-err_chan
 	panic(err)
+}
+
+func print_usage() {
+	fmt.Printf("Usage: go run experiment.go <target> <n_disks> \n")
 }
 
 func main() {
 
 	target := os.Args[1]
-	if len(os.Args) < 2 {
-		fmt.Printf("No target specified")
+	parsed, err := strconv.ParseInt(os.Args[2], 10, 32)
+	disks := int(parsed)
+	experiments := len(error_models)
+
+	if len(os.Args) < 3 {
+		fmt.Printf("Argument error\n")
+		print_usage()
 		os.Exit(-1)
 	}
-	if target != "geth" {
-		fmt.Printf("Target %s not supported", target)
-		os.Exit(-1)
+
+	if err != nil {
+		fmt.Printf("cannot parse number of disks argument: %s", os.Args[2])
+		return
 	}
 
 	start_chan := make(chan int)
 	copy_chan := make(chan CopyInfo)
 	err_chan := make(chan error)
-	go sourceLoop(start_chan, copy_chan, err_chan)
+	go source_loop(start_chan, copy_chan, err_chan)
+	go error_handler(err_chan)
 	<-start_chan
 
 	mstack := new(MutexStack)

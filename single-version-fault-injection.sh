@@ -31,6 +31,7 @@ get_config () {
 }
 
 WORKING_DIR=$HOME
+OUTPUT_DIR="/output"
 CHAOS_ETH_DIR=/$(get_config "chaos_eth_dir")
 wget -O error-models.json $ERROR_MODEL_URL
 ERROR_MODELS=error_models.json
@@ -42,7 +43,7 @@ echo "START" > ipc.dat
 
 while true; do
     # start target
-    TARGET_LOG="$WORKING_DIR/$TARGET-sync-$(date -I).log"
+    TARGET_LOG="$OUTPUT_DIR/$TARGET-sync-$(date -Iseconds).log"
     TARGET_CMD=$(get_config "$TARGET.exec_cmd")
     DATA_DIR_PARAM=$(get_config "$TARGET.datadir_flag")=$WORKING_DIR/$(get_config "$TARGET.datadir")
     { $TARGET_CMD $DATA_DIR_PARAM &> $TARGET_LOG; } &
@@ -52,7 +53,7 @@ while true; do
     TARGET_PID=`ps axo pid,ppid,cmd | grep "$TARGET_GREP_STR" | awk '{print $1}'`
 
     # start teku
-    TEKU_LOG=$WORKING_DIR/teku-sync-$(date -I).log
+    TEKU_LOG=$OUTPUT_DIR/teku-sync-$(date -Iseconds).log
     TARGET_JWT_FILE=$WORKING_DIR/$(get_config "$TARGET.jwt_path")
     { teku --ee-endpoint=http://localhost:8551 --ee-jwt-secret-file=$TARGET_JWT_FILE --data-beacon-path=$WORKING_DIR/nvme/teku-data-dir/ &> $TEKU_LOG; } &
     TEKU_PPID=$!
@@ -65,7 +66,7 @@ while true; do
     CHAOS_ETH_GREP_STR="[s]yscall_injector.py"
     cd $CHAOS_ETH_DIR
 
-    { $SUDO python syscall_injector.py --config $ERROR_MODELS -p $TARGET_PID > $WORKING_DIR/chaos.log; } &
+    { $SUDO python syscall_injector.py --config $ERROR_MODELS -p $TARGET_PID &> $OUTPUT_DIR/chaos.log-$(date -Iseconds); } &
     CHAOS_ETH_PPID=$!
     CHAOS_ETH_GREP_STR=$CHAOS_ETH_PPID.*$CHAOS_ETH_GREP_STR
     CHAOS_ETH_PID=`ps axo pid,ppid,cmd | grep "$CHAOS_ETH_GREP_STR" | awk '{print $1}'`

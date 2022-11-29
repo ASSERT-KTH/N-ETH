@@ -10,9 +10,10 @@ get_config () {
 
 # get working dir
 WORKING_DIR=$HOME
+OUTPUT_DIR="/output"
 
 # start target
-TARGET_LOG="$WORKING_DIR/$TARGET-sync-$(date -I).log"
+TARGET_LOG="$OUTPUT_DIR/$TARGET-sync-$(date -Iseconds).log"
 TARGET_CMD=$(get_config "$TARGET.exec_cmd")
 DATA_DIR_PARAM=$(get_config "$TARGET.datadir_flag")=$WORKING_DIR/$(get_config "$TARGET.datadir")
 { $TARGET_CMD $DATA_DIR_PARAM &> $TARGET_LOG; } &
@@ -22,7 +23,7 @@ TARGET_GREP_STR=$TARGET_PPID.*$(get_config "$TARGET.grep_str")
 TARGET_PID=`ps axo pid,ppid,cmd | grep "$TARGET_GREP_STR" | awk '{print $1}'`
 
 # start teku
-TEKU_LOG=$WORKING_DIR/teku-sync-$(date -I).log
+TEKU_LOG=$OUTPUT_DIR/teku-sync-$(date -Iseconds).log
 TARGET_JWT_FILE=$WORKING_DIR/$(get_config "$TARGET.jwt_path")
 { teku --ee-endpoint=http://localhost:8551 --ee-jwt-secret-file=$TARGET_JWT_FILE --data-beacon-path=$WORKING_DIR/nvme/teku-data-dir/ &> $TEKU_LOG; } &
 TEKU_PPID=$!
