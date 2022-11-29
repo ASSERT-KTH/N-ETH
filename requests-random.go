@@ -111,7 +111,7 @@ func main() {
 		for n := 0; n < n_requests; n++ {
 			req := requests[rand.Intn(len(requests))]
 			go do_request(n, req, &time_pairs, out)
-			time.Sleep(1 * time.Second)
+			time.Sleep(10 * time.Millisecond)
 		}
 	}()
 
