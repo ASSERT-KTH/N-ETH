@@ -171,7 +171,7 @@ func sync(stop chan int) {
 }
 
 func copy_state(index int) {
-	target_nvme := fmt.Sprintf("if=/dev/nvme%dn1p1", index)
+	target_nvme := fmt.Sprintf("/dev/nvme%dn1p1", index)
 	cmd := exec.Command(
 		"sudo",
 		"dd",
