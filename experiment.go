@@ -69,7 +69,7 @@ func (mstack *MutexStack) Init(n int) {
 	mstack.semaphore = make(chan int, n)
 	mstack.stack_index = -1
 
-	for x := 0; x < n; x++ {
+	for x := 1; x <= n; x++ {
 		mstack.push(x)
 	}
 }
@@ -98,11 +98,6 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 	index := mstack.Request()
 	fmt.Printf("Start task %d with index %d\n", exp_number, index)
 
-	request_copy(index, copy)
-
-	time.Sleep(time.Duration(45+rand.Intn(30)) * time.Second)
-	mstack.Done(index)
-
 	nvme_dir := fmt.Sprintf("%s/docker-nvme-%d", os.Getenv("HOME"), index)
 
 	mkdir := exec.Command(
@@ -111,9 +106,14 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 		nvme_dir,
 	)
 
+	request_copy(index, copy)
+
+	time.Sleep(time.Duration(45+rand.Intn(30)) * time.Second)
+	mstack.Done(index)
+
 	error_models_prefix := "https://raw.githubusercontent.com/javierron/royal-chaos/error-model-extraction/chaoseth/experiments/common-error-models"
 
-	output_dir := fmt.Sprintf("./output-%d", index)
+	output_dir := fmt.Sprintf("./output-%d", exp_number)
 
 	mkdir = exec.Command(
 		"mkdir",
@@ -136,8 +136,13 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 		target,
 		fmt.Sprintf("%s/%s", error_models_prefix, error_models[exp_number]),
 	)
+
+	fmt.Printf("Begin experiment %d in disk %d\n", exp_number, index)
+	fmt.Println(cmd.String())
+	cmd.Start()
+
 	cmd.Wait()
-	fmt.Printf("Exit experiment %d with index %d\n", exp_number, index)
+	fmt.Printf("Exit experiment %d in disk %d\n", exp_number, index)
 }
 
 func request_copy(index int, copy chan CopyInfo) {
@@ -350,7 +355,7 @@ func main() {
 	mstack.Init(disks)
 
 	go func() {
-		for exp := 1; exp <= experiments; exp++ {
+		for exp := 0; exp < experiments; exp++ {
 			go new_run(mstack, exp, target, copy_chan)
 			time.Sleep(time.Duration(rand.Intn(3)) * time.Second)
 		}
