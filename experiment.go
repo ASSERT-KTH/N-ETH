@@ -256,21 +256,21 @@ func print_usage() {
 
 func main() {
 
-	target := os.Args[1]
-	parsed, err := strconv.ParseInt(os.Args[2], 10, 32)
-	disks := int(parsed)
-	experiments := len(error_models)
-
 	if len(os.Args) < 3 {
 		fmt.Printf("Argument error\n")
 		print_usage()
 		os.Exit(-1)
 	}
 
+	target := os.Args[1]
+	experiments := len(error_models)
+
+	parsed, err := strconv.ParseInt(os.Args[2], 10, 32)
 	if err != nil {
 		fmt.Printf("cannot parse number of disks argument: %s", os.Args[2])
 		return
 	}
+	disks := int(parsed)
 
 	start_chan := make(chan int)
 	copy_chan := make(chan CopyInfo)
@@ -283,7 +283,7 @@ func main() {
 	mstack.Init(disks)
 
 	go func() {
-		for exp := 0; exp < experiments; exp++ {
+		for exp := 1; exp <= experiments; exp++ {
 			go new_run(mstack, exp, target, copy_chan)
 			time.Sleep(time.Duration(rand.Intn(3)) * time.Second)
 		}
