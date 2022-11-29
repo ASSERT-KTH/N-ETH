@@ -115,7 +115,7 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 
 	output_dir := fmt.Sprintf("./output-%d", index)
 
-	mkdir := exec.Command(
+	mkdir = exec.Command(
 		"mkdir",
 		"-p",
 		output_dir,
