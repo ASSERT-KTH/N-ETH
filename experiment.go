@@ -104,6 +104,13 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 	mstack.Done(index)
 
 	nvme_dir := fmt.Sprintf("%s/docker-nvme-%d", os.Getenv("HOME"), index)
+
+	mkdir := exec.Command(
+		"mkdir",
+		"-p",
+		nvme_dir,
+	)
+
 	error_models_prefix := "https://raw.githubusercontent.com/javierron/royal-chaos/error-model-extraction/chaoseth/experiments/common-error-models"
 
 	output_dir := fmt.Sprintf("./output-%d", index)
@@ -171,17 +178,65 @@ func sync(stop chan int) {
 }
 
 func copy_state(index int) {
-	target_nvme := fmt.Sprintf("/dev/nvme%dn1p1", index)
+
+	source_partition := "/dev/nvme0n1p1"
+	source_partition_mount_pouint := fmt.Sprintf("%s/nvme", os.Getenv("HOME"))
+
+	target_partition := fmt.Sprintf("/dev/nvme%dn1p1", index)
+	target_partition_mount_pouint := fmt.Sprintf("%s/docker-nvme-%d", os.Getenv("HOME"), index)
+
+	umount_source := exec.Command(
+		"sudo",
+		"umount",
+		source_partition_mount_pouint,
+	)
+
+	umount_source.Run()
+
+	umount_target := exec.Command(
+		"sudo",
+		"umount",
+		target_partition_mount_pouint,
+	)
+
+	umount_target.Run()
+
+	umount_source.Wait()
+	umount_target.Wait()
+
 	cmd := exec.Command(
 		"sudo",
 		"dd",
-		"if=/dev/nvme0n1p1",
-		fmt.Sprintf("of=%s", target_nvme),
+		fmt.Sprintf("if=%s", source_partition),
+		fmt.Sprintf("of=%s", target_partition),
 		"bs=3000M",
 		"status=progress",
+		">",
+		fmt.Sprintf("dd_progress-%s.log", index),
 	)
 	cmd.Run()
 	cmd.Wait()
+
+	mount_source := exec.Command(
+		"sudo",
+		"mount",
+		source_partition,
+		source_partition_mount_pouint,
+	)
+
+	mount_source.Run()
+
+	mount_target := exec.Command(
+		"sudo",
+		"mount",
+		target_partition,
+		target_partition_mount_pouint,
+	)
+
+	mount_target.Run()
+
+	mount_source.Wait()
+	mount_target.Wait()
 }
 
 type State string
