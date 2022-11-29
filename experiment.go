@@ -211,9 +211,15 @@ func copy_state(index int) {
 		fmt.Sprintf("of=%s", target_partition),
 		"bs=3000M",
 		"status=progress",
-		">",
-		fmt.Sprintf("dd_progress-%s.log", index),
 	)
+
+	outfile, err := os.Create(fmt.Sprintf("%s/dd_progress-%s.log", os.Getenv("HOME"), index))
+	if err != nil {
+		panic(err)
+	}
+	defer outfile.Close()
+	cmd.Stdout = outfile
+
 	cmd.Run()
 	cmd.Wait()
 
