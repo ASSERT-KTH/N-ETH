@@ -213,7 +213,7 @@ func copy_state(index int) {
 		"status=progress",
 	)
 
-	outfile, err := os.Create(fmt.Sprintf("%s/dd_progress-%s.log", os.Getenv("HOME"), index))
+	outfile, err := os.Create(fmt.Sprintf("%s/dd_progress-%d.log", os.Getenv("HOME"), index))
 	if err != nil {
 		panic(err)
 	}
