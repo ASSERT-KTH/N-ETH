@@ -139,6 +139,15 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 
 	fmt.Printf("Begin experiment %d in disk %d\n", exp_number, index)
 	fmt.Println(cmd.String())
+
+	outfile, err := os.Create(fmt.Sprintf("%s/docker-%d.log", os.Getenv("HOME"), exp_number))
+	if err != nil {
+		panic(err)
+	}
+	defer outfile.Close()
+
+	cmd.Stdout = outfile
+
 	cmd.Start()
 
 	cmd.Wait()
@@ -160,7 +169,16 @@ func request_copy(index int, copy chan CopyInfo) {
 func first_sync() error {
 	cmd := exec.Command("./synchronize-stop.sh", "geth")
 	fmt.Println("init first sync")
-	err := cmd.Run()
+
+	outfile, err := os.Create(fmt.Sprintf("%s/sync-stop.log", os.Getenv("HOME")))
+	if err != nil {
+		panic(err)
+	}
+	defer outfile.Close()
+
+	cmd.Stdout = outfile
+
+	err = cmd.Run()
 	if err != nil {
 		println("failed to start first sync")
 		return err
@@ -173,6 +191,15 @@ func first_sync() error {
 func sync(stop chan int) {
 	fmt.Println("init sync sript")
 	cmd := exec.Command("./synchronize.sh", "geth")
+
+	outfile, err := os.OpenFile(fmt.Sprintf("%s/sync.log", os.Getenv("HOME")), os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		panic(err)
+	}
+	defer outfile.Close()
+
+	cmd.Stdout = outfile
+
 	<-stop
 	fmt.Println("kill sync script")
 	cmd.Process.Signal(os.Interrupt) //TODO: check if kills sub-processes
@@ -227,7 +254,9 @@ func copy_state(index int) {
 		panic(err)
 	}
 	defer outfile.Close()
-	cmd.Stdout = outfile
+
+	//note: dd outputs to std err
+	cmd.Stderr = outfile
 
 	cmd.Run()
 	cmd.Wait()

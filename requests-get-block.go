@@ -1,4 +1,4 @@
-package getblock
+package main
 
 import (
 	"bytes"
