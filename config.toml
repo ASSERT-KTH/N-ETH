@@ -8,21 +8,22 @@ grep_str        = "[g]eth -http"
 jwt_path        = "nvme/data-dir/geth/jwtsecret"
 
 [besu]
-exec_cmd        = "./besu --rpc-http-enabled --pruning-enabled"
+exec_cmd        = "besu --rpc-http-enabled --pruning-enabled"
 datadir_flag    = "--data-path"
 datadir         = "nvme/data-dir"
 grep_str        = "besu\\.home"
 jwt_path        = "nvme/data-dir/jwt.hex"
 
 [erigon]
-exec_cmd        = "./erigon --http --prune.h.older=90000 --prune.t.older=90000 --prune.c.older=90000 --prune.r.before=11052984"
+exec_cmd        = "erigon --http --prune.h.older=90000 --prune.t.older=90000 --prune.c.older=90000 --prune.r.before=11052984"
 datadir_flag    = "--datadir"
 datadir         = "nvme/data-dir"
 grep_str        = "[e]rigon --http"
 jwt_path        = "nvme/data-dir/jwt.hex"
 
 [nethermind]
-exec_dir        = ""
-exec_cmd        = ""
-grep_str        = ""
-jwt_path        = ""
+exec_cmd        = "cd nethermind/src/Nethermind/Nethermind.Runner && dotnet run -c Release -- -c mainnet"
+datadir_flag    = "--datadir"
+datadir         = "nvme/data-dir"
+grep_str        = "[d]otnet run"
+jwt_path        = "nethermind/src/Nethermind/Nethermind.Runner/keystore/jwt-secret"
