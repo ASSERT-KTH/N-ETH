@@ -22,7 +22,8 @@ grep_str        = "[e]rigon --http"
 jwt_path        = "nvme/data-dir/jwt.hex"
 
 [nethermind]
-exec_cmd        = "cd nethermind/src/Nethermind/Nethermind.Runner && dotnet run -c Release -- -c mainnet"
+exec_dir        = "nethermind/src/Nethermind/Nethermind.Runner"
+exec_cmd        = "dotnet run -c Release -- -c mainnet"
 datadir_flag    = "--datadir"
 datadir         = "nvme/data-dir"
 grep_str        = "[d]otnet run"
