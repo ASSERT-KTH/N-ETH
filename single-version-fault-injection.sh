@@ -46,7 +46,11 @@ while true; do
     TARGET_LOG="$OUTPUT_DIR/$TARGET-sync-$(date -Iseconds).log"
     TARGET_CMD=$(get_config "$TARGET.exec_cmd")
     DATA_DIR_PARAM=$(get_config "$TARGET.datadir_flag")=$WORKING_DIR/$(get_config "$TARGET.datadir")
-    { $TARGET_CMD $DATA_DIR_PARAM &> $TARGET_LOG; } &
+
+    TARGET_DIR=$(get_config "$TARGET.exec_dir")
+    TARGET_DIR_CMD="cd $WORKING_DIR/$TARGET_DIR"
+
+    { $TARGET_DIR_CMD; $TARGET_CMD $DATA_DIR_PARAM &> $TARGET_LOG; } &
     TARGET_PPID=$!
     sleep 2
     TARGET_GREP_STR=$TARGET_PPID.*$(get_config "$TARGET.grep_str")
