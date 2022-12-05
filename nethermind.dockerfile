@@ -35,12 +35,17 @@ RUN rm -rf bcc
 RUN git clone https://github.com/javierron/royal-chaos.git
 RUN cd royal-chaos && git checkout error-model-extraction
 
-# install besu
-RUN git clone https://github.com/hyperledger/besu.git
-RUN cd besu && git checkout 22.10.2 && ./gradlew installDist
-RUN cp -r besu/build/install/besu /usr/local/besu
-ENV PATH="${PATH}:/usr/local/besu/bin"
-RUN rm -rf besu
+# install dotnet + nethermind
+
+RUN wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+RUN dpkg -i packages-microsoft-prod.deb
+RUN packages-microsoft-prod.deb
+
+RUN apt-get update 
+RUN apt-get install -y dotnet-sdk-6.0 libsnappy-dev libc6-dev libc6 librocksdb5.17
+
+RUN git clone https://github.com/nethermindeth/nethermind --recursive
+RUN cd nethermind && git checkout 1.14.5
 
 COPY ./*.sh /
 COPY ./config.toml /

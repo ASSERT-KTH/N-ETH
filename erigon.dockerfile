@@ -45,5 +45,10 @@ RUN rm go1.19.3.linux-amd64.tar.gz
 
 RUN git clone https://github.com/ledgerwatch/erigon.git
 RUN cd erigon && git checkout v2.28.1 && make erigon
+RUN cp erigon/build/bin/geth /usr/local/bin/erigon
+RUN rm -rf erigon
 
+COPY ./*.sh /
+COPY ./config.toml /
+COPY ./requests.go /
 # CMD bash single-version-controller.sh
