@@ -1,0 +1,10 @@
+{
+  "experiments": [
+    {
+      "syscall_name": "accept4",
+      "error_code": "-EAGAIN",
+      "original_mean_rate": 0.49944444444444447,
+      "failure_rate": 0.5244166666666668
+    }
+  ]
+}

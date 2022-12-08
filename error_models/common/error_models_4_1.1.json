@@ -1,0 +1,28 @@
+{
+  "experiments": [
+    {
+      "syscall_name": "accept4",
+      "error_code": "-EAGAIN",
+      "original_mean_rate": 0.49944444444444447,
+      "failure_rate": 0.5493888888888889
+    },
+    {
+      "syscall_name": "connect",
+      "error_code": "-EINPROGRESS",
+      "original_mean_rate": 0.48464726439239586,
+      "failure_rate": 0.5331119908316355
+    },
+    {
+      "syscall_name": "futex",
+      "error_code": "-ETIMEDOUT",
+      "original_mean_rate": 0.003665403955610856,
+      "failure_rate": 0.004031944351171942
+    },
+    {
+      "syscall_name": "futex",
+      "error_code": "-EAGAIN",
+      "original_mean_rate": 0.0020666110567707737,
+      "failure_rate": 0.0022732721624478514
+    }
+  ]
+}
