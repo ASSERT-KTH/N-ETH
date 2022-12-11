@@ -130,7 +130,7 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 		"--pid=host",
 		fmt.Sprintf("-v %s:/root/nvme", nvme_dir),
 		fmt.Sprintf("-v %s:/output", output_dir),
-		fmt.Sprintf("javierron/neth:%s", target),
+		fmt.Sprintf("javierron/neth:%s-kernel", target),
 		"./single-version-controller.sh", //command
 		target,
 		fmt.Sprintf("%s/%s", error_models_prefix, error_models[exp_number]),
@@ -146,6 +146,14 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 	defer outfile.Close()
 
 	cmd.Stdout = outfile
+
+	errfile, err := os.Create(fmt.Sprintf("%s/docker-err-%d.log", os.Getenv("HOME"), exp_number))
+	if err != nil {
+		panic(err)
+	}
+	defer errfile.Close()
+
+	cmd.Stderr = errfile
 
 	cmd.Start()
 
