@@ -125,7 +125,7 @@ func main() {
 
 	n := 0
 	for response := range out {
-		fmt.Fprint(f, "%d: %s\n", response.index, response.Response)
+		fmt.Fprintf(f, "%d: %s\n", response.index, response.Response)
 		n++
 
 		if n == n_requests {
