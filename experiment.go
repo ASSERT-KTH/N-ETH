@@ -100,6 +100,9 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 		nvme_dir,
 	)
 
+	mkdir.Start()
+	mkdir.Wait()
+
 	request_copy(index, copy)
 
 	time.Sleep(time.Duration(45+rand.Intn(30)) * time.Second)
