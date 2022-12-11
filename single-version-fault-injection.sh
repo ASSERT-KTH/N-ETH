@@ -34,7 +34,7 @@ WORKING_DIR=$HOME
 OUTPUT_DIR=$(get_config "output_dir")
 CHAOS_ETH_DIR=/$(get_config "chaos_eth_dir")
 wget -O error-models.json $ERROR_MODEL_URL
-ERROR_MODELS=error_models.json
+ERROR_MODELS="$WORKING_DIR/error_models.json"
 PRE_SYNC_CMD=$(pwd)/synchronize-stop.sh
 
 # spawn + sync wait

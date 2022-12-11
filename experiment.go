@@ -108,9 +108,10 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 	time.Sleep(time.Duration(45+rand.Intn(30)) * time.Second)
 	mstack.Done(index)
 
-	error_models_prefix := "https://raw.githubusercontent.com/KTH/n-version-ethereum/neth/error_models/common/"
+	error_models_prefix := "https://raw.githubusercontent.com/KTH/n-version-ethereum/neth/error_models/common"
 
-	output_dir := fmt.Sprintf("./output-%d", exp_number)
+	path, err := os.Getwd()
+	output_dir := fmt.Sprintf("%s/output-%d", path, exp_number)
 
 	mkdir = exec.Command(
 		"mkdir",
@@ -129,6 +130,7 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 		"--pid=host",
 		fmt.Sprintf("-v %s:/root/nvme", nvme_dir),
 		fmt.Sprintf("-v %s:/output", output_dir),
+		fmt.Sprintf("javierron/neth:%s", target),
 		"./single-version-controller.sh", //command
 		target,
 		fmt.Sprintf("%s/%s", error_models_prefix, error_models[exp_number]),
