@@ -10,36 +10,30 @@ import (
 )
 
 var error_models = []string{
-	"error_models_processed_1_1.005.json",
-	// "error_models_processed_1_1.015.json",
-	// "error_models_processed_1_1.01.json",
-	// "error_models_processed_1_1.025.json",
-	// "error_models_processed_1_1.05.json",
-	// "error_models_processed_1_1.1.json",
-	"error_models_processed_2_1.005.json",
-	// "error_models_processed_2_1.015.json",
-	// "error_models_processed_2_1.01.json",
-	// "error_models_processed_2_1.025.json",
-	// "error_models_processed_2_1.05.json",
-	// "error_models_processed_2_1.1.json",
-	"error_models_processed_3_1.005.json",
-	// "error_models_processed_3_1.015.json",
-	// "error_models_processed_3_1.01.json",
-	// "error_models_processed_3_1.025.json",
-	// "error_models_processed_3_1.05.json",
-	// "error_models_processed_3_1.1.json",
-	"error_models_processed_4_1.005.json",
-	// "error_models_processed_4_1.015.json",
-	// "error_models_processed_4_1.01.json",
-	// "error_models_processed_4_1.025.json",
-	// "error_models_processed_4_1.05.json",
-	// "error_models_processed_4_1.1.json",
-	"error_models_processed_5_1.005.json",
-	// "error_models_processed_5_1.015.json",
-	// "error_models_processed_5_1.01.json",
-	// "error_models_processed_5_1.025.json",
-	// "error_models_processed_5_1.05.json",
-	// "error_models_processed_5_1.1.json",
+	"error_models_1_1.005.json",
+	// "error_models_1_1.015.json",
+	// "error_models_1_1.01.json",
+	// "error_models_1_1.025.json",
+	// "error_models_1_1.05.json",
+	// "error_models_1_1.1.json",
+	"error_models_2_1.005.json",
+	// "error_models_2_1.015.json",
+	// "error_models_2_1.01.json",
+	// "error_models_2_1.025.json",
+	// "error_models_2_1.05.json",
+	// "error_models_2_1.1.json",
+	"error_models_3_1.005.json",
+	// "error_models_3_1.015.json",
+	// "error_models_3_1.01.json",
+	// "error_models_3_1.025.json",
+	// "error_models_3_1.05.json",
+	// "error_models_3_1.1.json",
+	"error_models_4_1.005.json",
+	// "error_models_4_1.015.json",
+	// "error_models_4_1.01.json",
+	// "error_models_4_1.025.json",
+	// "error_models_4_1.05.json",
+	// "error_models_4_1.1.json",
 }
 
 type MutexStack struct {
@@ -111,7 +105,7 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 	time.Sleep(time.Duration(45+rand.Intn(30)) * time.Second)
 	mstack.Done(index)
 
-	error_models_prefix := "https://raw.githubusercontent.com/javierron/royal-chaos/error-model-extraction/chaoseth/experiments/common-error-models"
+	error_models_prefix := "https://raw.githubusercontent.com/KTH/n-version-ethereum/neth/error_models/common/"
 
 	output_dir := fmt.Sprintf("./output-%d", exp_number)
 

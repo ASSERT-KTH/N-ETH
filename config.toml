@@ -1,4 +1,5 @@
 chaos_eth_dir   = "royal-chaos/chaoseth"
+output_dir      = "/output"
 
 [geth]
 exec_cmd        = "geth -http"

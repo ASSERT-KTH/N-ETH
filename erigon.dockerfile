@@ -50,5 +50,5 @@ RUN rm -rf erigon
 
 COPY ./*.sh /
 COPY ./config.toml /
-COPY ./requests.go /
+COPY ./*.go /
 # CMD bash single-version-controller.sh

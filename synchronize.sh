@@ -10,7 +10,7 @@ get_config () {
 
 # get working dir
 WORKING_DIR=$HOME
-OUTPUT_DIR="/output"
+OUTPUT_DIR=$(get_config "output_dir")
 
 # start target
 TARGET_LOG="$OUTPUT_DIR/$TARGET-sync-$(date -Iseconds).log"

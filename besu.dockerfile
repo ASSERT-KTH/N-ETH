@@ -44,5 +44,5 @@ RUN rm -rf besu
 
 COPY ./*.sh /
 COPY ./config.toml /
-COPY ./requests.go /
+COPY ./*.go /
 # CMD bash single-version-controller.sh

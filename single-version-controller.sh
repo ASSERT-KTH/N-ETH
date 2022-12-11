@@ -10,7 +10,7 @@ SUBSHELL=$!
 # run workload!
 ./random-method-workload.sh
 
-kill -2 $SUBSHELL
+kill -9 $SUBSHELL
 # rm -rf $TARGET_DIR/*
 
 # done

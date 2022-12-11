@@ -31,7 +31,7 @@ get_config () {
 }
 
 WORKING_DIR=$HOME
-OUTPUT_DIR="/output"
+OUTPUT_DIR=$(get_config "output_dir")
 CHAOS_ETH_DIR=/$(get_config "chaos_eth_dir")
 wget -O error-models.json $ERROR_MODEL_URL
 ERROR_MODELS=error_models.json
