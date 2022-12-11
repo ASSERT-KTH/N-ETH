@@ -17,7 +17,7 @@ else
 fi
 
 
-if [ -z $1]; then
+if [ -z $1 ]; then
     echo "target client undefined"
     exit 1
 fi
@@ -105,7 +105,7 @@ while true; do
 
     while [ ! -z "$TARGET_GREP" ] || [ ! -z "$TEKU_GREP" ] || [ ! -z "$CHAOS_ETH_GREP" ]
     do
-        sleep 10
+        sleep 1
         TARGET_GREP=`ps axo pid,ppid,cmd | grep "$TARGET_GREP_STR"`
         TEKU_GREP=`ps axo pid,ppid,cmd | grep "$TEKU_GREP_STR"`
         CHAOS_ETH_GREP=`ps axo pid,ppid,cmd | grep "$CHAOS_ETH_GREP_STR"`
