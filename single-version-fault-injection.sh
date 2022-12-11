@@ -33,8 +33,8 @@ get_config () {
 WORKING_DIR=$HOME
 OUTPUT_DIR=$(get_config "output_dir")
 CHAOS_ETH_DIR=/$(get_config "chaos_eth_dir")
-wget -O error-models.json $ERROR_MODEL_URL
 ERROR_MODELS="$WORKING_DIR/error_models.json"
+wget -O $ERROR_MODELS $ERROR_MODEL_URL
 PRE_SYNC_CMD=$(pwd)/synchronize-stop.sh
 
 # spawn + sync wait
@@ -97,5 +97,18 @@ while true; do
     kill -2 $TARGET_PID
     kill -2 $TEKU_PID
     $SUDO kill -2 $CHAOS_ETH_PID
+
+
+    TARGET_GREP="target"
+    TEKU_GREP="teku"
+    CHAOS_ETH_GREP="chaoseth"
+
+    while [ ! -z "$TARGET_GREP" ] || [ ! -z "$TEKU_GREP" ] || [ ! -z "$CHAOS_ETH_GREP" ]
+    do
+        sleep 10
+        TARGET_GREP=`ps axo pid,ppid,cmd | grep "$TARGET_GREP_STR"`
+        TEKU_GREP=`ps axo pid,ppid,cmd | grep "$TEKU_GREP_STR"`
+        CHAOS_ETH_GREP=`ps axo pid,ppid,cmd | grep "$CHAOS_ETH_GREP_STR"`
+    done
 
 done
