@@ -125,7 +125,7 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 	cmd := exec.Command(
 		"docker",
 		"run",
-		"--privilieged",
+		"--privileged",
 		"--rm",
 		"--pid=host",
 		fmt.Sprintf("-v %s:/root/nvme", nvme_dir),
@@ -391,7 +391,7 @@ func main() {
 
 	for {
 		mstack.Print()
-		time.Sleep(2 * time.Second)
+		time.Sleep(30 * time.Second)
 	}
 
 }
