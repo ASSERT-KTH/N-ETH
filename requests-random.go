@@ -52,6 +52,7 @@ func do_request(index int, req Request, time_pairs *[]TimePair, out chan Indexed
 	// error on request
 	if err != nil {
 		error_response := IndexedResponse{index: index, Response: err.Error()}
+		fmt.Printf("Error: %s", err.Error())
 		out <- error_response
 		return
 	}
@@ -60,15 +61,17 @@ func do_request(index int, req Request, time_pairs *[]TimePair, out chan Indexed
 	// error on reading response
 	if err != nil {
 		error_response := IndexedResponse{index: index, Response: err.Error()}
+		fmt.Printf("Error: %s", err.Error())
 		out <- error_response
 		return
 	}
 
-	json_obj := make(map[string]interface{})
+	json_obj := new(map[string]interface{})
 	err = json.Unmarshal(body, json_obj)
 	// error on parsing json
 	if err != nil {
 		error_response := IndexedResponse{index: index, Response: err.Error()}
+		fmt.Printf("Error: %s", err.Error())
 		out <- error_response
 		return
 	}
@@ -102,7 +105,7 @@ func main() {
 	time_pairs := make([]TimePair, n_requests)
 
 	if err != nil {
-		println("Unable to load file with JSON requests")
+		fmt.Println("Unable to load file with JSON requests")
 		os.Exit(-1)
 	}
 
@@ -119,7 +122,7 @@ func main() {
 	defer f.Close()
 
 	if err != nil {
-		println("Unable to create results file")
+		fmt.Println("Unable to create results file")
 		os.Exit(-1)
 	}
 
@@ -144,6 +147,6 @@ func main() {
 	// h, err := os.Create("/output/recency.dat")
 	// defer h.Close()
 
-	println("Done!")
+	fmt.Println("Done!")
 
 }

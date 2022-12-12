@@ -52,6 +52,7 @@ func do_request(index int, req Request, time_pairs *[]TimePair, out chan Indexed
 	// error on request
 	if err != nil {
 		error_response := IndexedResponse{index: index, Response: err.Error()}
+		fmt.Printf("Error: %s", err.Error())
 		out <- error_response
 		return
 	}
@@ -60,15 +61,17 @@ func do_request(index int, req Request, time_pairs *[]TimePair, out chan Indexed
 	// error on reading response
 	if err != nil {
 		error_response := IndexedResponse{index: index, Response: err.Error()}
+		fmt.Printf("Error: %s", err.Error())
 		out <- error_response
 		return
 	}
 
-	json_obj := make(map[string]interface{})
+	json_obj := new(map[string]interface{})
 	err = json.Unmarshal(body, json_obj)
 	// error on parsing json
 	if err != nil {
 		error_response := IndexedResponse{index: index, Response: err.Error()}
+		fmt.Printf("Error: %s", err.Error())
 		out <- error_response
 		return
 	}
