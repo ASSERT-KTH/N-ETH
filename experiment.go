@@ -111,7 +111,7 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 	error_models_prefix := "https://raw.githubusercontent.com/KTH/n-version-ethereum/neth/error_models/common"
 
 	path, err := os.Getwd()
-	output_dir := fmt.Sprintf("%s/output-%d", path, exp_number)
+	output_dir := fmt.Sprintf("%s/output-%s", path, error_models[exp_number])
 
 	mkdir = exec.Command(
 		"mkdir",
