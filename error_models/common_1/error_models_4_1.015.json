@@ -1,22 +1,16 @@
 {
   "experiments": [
     {
+      "syscall_name": "accept4",
+      "error_code": "-EAGAIN",
+      "original_mean_rate": 0.49944444444444447,
+      "failure_rate": 0.506936111111111
+    },
+    {
       "syscall_name": "connect",
       "error_code": "-EINPROGRESS",
       "original_mean_rate": 0.48464726439239586,
       "failure_rate": 0.4919169733582818
-    },
-    {
-      "syscall_name": "recvfrom",
-      "error_code": "-EAGAIN",
-      "original_mean_rate": 0.18817211794682093,
-      "failure_rate": 0.19099469971602323
-    },
-    {
-      "syscall_name": "read",
-      "error_code": "-EAGAIN",
-      "original_mean_rate": 0.006702384230646547,
-      "failure_rate": 0.0068029199941062445
     },
     {
       "syscall_name": "futex",
