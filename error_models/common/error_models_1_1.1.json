@@ -1,10 +1,10 @@
 {
   "experiments": [
     {
-      "syscall_name": "connect",
-      "error_code": "-EINPROGRESS",
-      "original_mean_rate": 0.48464726439239586,
-      "failure_rate": 0.5331119908316355
+      "syscall_name": "recvmmsg",
+      "error_code": "-EAGAIN",
+      "original_mean_rate": 0.4970447967676863,
+      "failure_rate": 0.546749276444455
     }
   ]
 }

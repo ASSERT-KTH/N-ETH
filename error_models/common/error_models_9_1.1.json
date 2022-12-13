@@ -29,6 +29,30 @@
       "error_code": "-EISDIR",
       "original_mean_rate": 0.3037037037037037,
       "failure_rate": 0.3340740740740741
+    },
+    {
+      "syscall_name": "unlinkat",
+      "error_code": "-ENOENT",
+      "original_mean_rate": 0.25228937728937734,
+      "failure_rate": 0.2775183150183151
+    },
+    {
+      "syscall_name": "recvfrom",
+      "error_code": "-EAGAIN",
+      "original_mean_rate": 0.18817211794682093,
+      "failure_rate": 0.20698932974150303
+    },
+    {
+      "syscall_name": "unlinkat",
+      "error_code": "-ENOTEMPTY",
+      "original_mean_rate": 0.15185185185185185,
+      "failure_rate": 0.16703703703703704
+    },
+    {
+      "syscall_name": "shutdown",
+      "error_code": "-ENOTCONN",
+      "original_mean_rate": 0.14868849111752852,
+      "failure_rate": 0.1635573402292814
     }
   ]
 }

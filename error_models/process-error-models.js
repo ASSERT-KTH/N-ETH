@@ -27,7 +27,7 @@ errormodels.forEach(em => {
 const filtered = []
 
 Object.keys(union).forEach(k => {
-    if (union[k][0].syscall_name !== "accept4" && union[k].length >= targets.length -1) {
+    if (union[k][0].syscall_name !== "accept4") {
         filtered.push(union[k])
     }
 })
@@ -51,8 +51,8 @@ const minRates = filtered.map(em => {
 })
 
 
-const aggroFactor = [1.005, 1.01, 1.015, 1.025, 1.05, 1.1]
-const aggroTopN = [1, 2, 3, 4, 5]
+const aggroFactor = [1.005, 1.05, 1.1]
+const aggroTopN = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 const main = () => {
 

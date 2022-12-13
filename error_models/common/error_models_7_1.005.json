@@ -4,31 +4,43 @@
       "syscall_name": "recvmmsg",
       "error_code": "-EAGAIN",
       "original_mean_rate": 0.4970447967676863,
-      "failure_rate": 0.5218970366060707
+      "failure_rate": 0.4995300207515247
     },
     {
       "syscall_name": "connect",
       "error_code": "-EINPROGRESS",
       "original_mean_rate": 0.48464726439239586,
-      "failure_rate": 0.5088796276120157
+      "failure_rate": 0.4870705007143578
     },
     {
       "syscall_name": "recvmsg",
       "error_code": "-EAGAIN",
       "original_mean_rate": 0.40359204263816223,
-      "failure_rate": 0.42377164477007034
+      "failure_rate": 0.405610002851353
     },
     {
       "syscall_name": "unlink",
       "error_code": "-ENOENT",
       "original_mean_rate": 0.32808905380333947,
-      "failure_rate": 0.34449350649350646
+      "failure_rate": 0.32972949907235616
     },
     {
       "syscall_name": "unlinkat",
       "error_code": "-EISDIR",
       "original_mean_rate": 0.3037037037037037,
-      "failure_rate": 0.3188888888888889
+      "failure_rate": 0.3052222222222222
+    },
+    {
+      "syscall_name": "unlinkat",
+      "error_code": "-ENOENT",
+      "original_mean_rate": 0.25228937728937734,
+      "failure_rate": 0.2535508241758242
+    },
+    {
+      "syscall_name": "recvfrom",
+      "error_code": "-EAGAIN",
+      "original_mean_rate": 0.18817211794682093,
+      "failure_rate": 0.189112978536555
     }
   ]
 }
