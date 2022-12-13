@@ -30,8 +30,9 @@ type Request struct {
 }
 
 type IndexedResponse struct {
+	Method   string
 	Response string
-	index    int
+	Index    int
 }
 
 func do_request(index int, req Request, time_pairs *[]TimePair, out chan IndexedResponse) {
@@ -51,7 +52,7 @@ func do_request(index int, req Request, time_pairs *[]TimePair, out chan Indexed
 
 	// error on request
 	if err != nil {
-		error_response := IndexedResponse{index: index, Response: err.Error()}
+		error_response := IndexedResponse{Method: req.Method, Index: index, Response: err.Error()}
 		fmt.Printf("Error: %s", err.Error())
 		out <- error_response
 		return
@@ -60,7 +61,7 @@ func do_request(index int, req Request, time_pairs *[]TimePair, out chan Indexed
 	body, err := ioutil.ReadAll(resp.Body)
 	// error on reading response
 	if err != nil {
-		error_response := IndexedResponse{index: index, Response: err.Error()}
+		error_response := IndexedResponse{Method: req.Method, Index: index, Response: err.Error()}
 		fmt.Printf("Error: %s", err.Error())
 		out <- error_response
 		return
@@ -70,13 +71,13 @@ func do_request(index int, req Request, time_pairs *[]TimePair, out chan Indexed
 	err = json.Unmarshal(body, json_obj)
 	// error on parsing json
 	if err != nil {
-		error_response := IndexedResponse{index: index, Response: err.Error()}
+		error_response := IndexedResponse{Method: req.Method, Index: index, Response: err.Error()}
 		fmt.Printf("Error: %s", err.Error())
 		out <- error_response
 		return
 	}
 
-	out_response := IndexedResponse{index: index, Response: string(body)}
+	out_response := IndexedResponse{Method: req.Method, Index: index, Response: string(body)}
 	out <- out_response
 }
 
@@ -128,7 +129,7 @@ func main() {
 
 	n := 0
 	for response := range out {
-		fmt.Fprintf(f, "%d: %s\n", response.index, response.Response)
+		fmt.Fprintf(f, "%d, %s, %s\n", response.Index, response.Method, response.Response)
 		n++
 
 		if n == n_requests {
@@ -140,7 +141,7 @@ func main() {
 	defer g.Close()
 
 	for index, lat := range time_pairs {
-		fmt.Fprintf(g, "%d,%d,%d%d\n", index, lat.start, lat.end, lat.getTime())
+		fmt.Fprintf(g, "%d,%d,%d,%d\n", index, lat.start, lat.end, lat.getTime())
 	}
 
 	//run again w/ getBlock only workload

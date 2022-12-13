@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -115,9 +116,9 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 	mstack.Done(index)
 
 	error_models_prefix := "https://raw.githubusercontent.com/KTH/n-version-ethereum/neth/error_models/common"
-
+	error_models_name := strings.Replace(error_models[exp_number], ".json", "", 1)
 	path, err := os.Getwd()
-	output_dir := fmt.Sprintf("%s/output-%s", path, error_models[exp_number])
+	output_dir := fmt.Sprintf("%s/output-%s", path, error_models_name)
 
 	mkdir = exec.Command(
 		"mkdir",
@@ -144,10 +145,10 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 		fmt.Sprintf("%s/%s", error_models_prefix, error_models[exp_number]),
 	)
 
-	fmt.Printf("Begin experiment %d in disk %d\n", exp_number, index)
+	fmt.Printf("Begin experiment %s in disk %d\n", error_models_name, index)
 	fmt.Println(cmd.String())
 
-	outfile, err := os.Create(fmt.Sprintf("%s/docker-%d.log", os.Getenv("HOME"), exp_number))
+	outfile, err := os.Create(fmt.Sprintf("%s/docker-%s.log", os.Getenv("HOME"), error_models_name))
 	if err != nil {
 		panic(err)
 	}
@@ -155,7 +156,7 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 
 	cmd.Stdout = outfile
 
-	errfile, err := os.Create(fmt.Sprintf("%s/docker-err-%d.log", os.Getenv("HOME"), exp_number))
+	errfile, err := os.Create(fmt.Sprintf("%s/docker-err-%s.log", os.Getenv("HOME"), error_models_name))
 	if err != nil {
 		panic(err)
 	}
@@ -166,7 +167,7 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 	cmd.Start()
 
 	cmd.Wait()
-	fmt.Printf("Exit experiment %d in disk %d\n", exp_number, index)
+	fmt.Printf("Exit experiment %s in disk %d\n", error_models_name, index)
 }
 
 func request_copy(index int, copy chan CopyInfo) {
