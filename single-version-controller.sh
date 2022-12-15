@@ -8,8 +8,13 @@ ERROR_MODEL=$2
 SUBSHELL=$!
 
 # run workload!
+echo "start random method workload"
 ./random-method-workload.sh
+echo "end random method workload"
+
+echo "start get block workload"
 ./get-block-workload.sh
+echo "end get block workload"
 
 kill -9 $SUBSHELL
 # rm -rf $TARGET_DIR/*

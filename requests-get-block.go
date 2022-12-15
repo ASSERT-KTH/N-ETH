@@ -94,7 +94,7 @@ func do_request(index int, req Request, time_pairs *[]TimePair, out chan Indexed
 		return
 	}
 
-	out_response := IndexedResponse{Method: req.Method, Index: index, Response: json_obj.Res.Number}
+	out_response := IndexedResponse{Method: req.Method, Index: index, Response: fmt.Sprintf("%s,%s\n", json_obj.Res.Number, etherscan_block)}
 	out <- out_response
 }
 
@@ -185,7 +185,7 @@ func main() {
 	go func() {
 		for n := 0; n < n_requests; n++ {
 			go do_request(n, req, &time_pairs, out)
-			time.Sleep(1 * time.Second)
+			time.Sleep(10 * time.Millisecond)
 		}
 	}()
 
