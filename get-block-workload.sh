@@ -11,4 +11,4 @@ do
 done
 
 echo "Starting requests..."
-go run requests-random.go &> /output/requests-random.log
+go run requests-get-block.go &> /output/requests-block.log

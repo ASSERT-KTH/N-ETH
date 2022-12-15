@@ -39,8 +39,12 @@ func do_request(index int, req Request, time_pairs *[]TimePair, out chan Indexed
 
 	json_data, err := json.Marshal(req)
 
+	client := http.Client{
+		Timeout: 1 * time.Second,
+	}
+
 	start := time.Now().UnixMicro()
-	resp, err := http.Post("http://localhost:8545", "application/json", bytes.NewBuffer(json_data))
+	resp, err := client.Post("http://localhost:8545", "application/json", bytes.NewBuffer(json_data))
 	end := time.Now().UnixMicro()
 
 	measured_time := TimePair{
@@ -52,8 +56,9 @@ func do_request(index int, req Request, time_pairs *[]TimePair, out chan Indexed
 
 	// error on request
 	if err != nil {
-		error_response := IndexedResponse{Method: req.Method, Index: index, Response: err.Error()}
-		fmt.Printf("Error: %s", err.Error())
+		err_str := fmt.Sprintf("error: %s\n", err.Error())
+		fmt.Print(err_str)
+		error_response := IndexedResponse{Method: req.Method, Index: index, Response: err_str}
 		out <- error_response
 		return
 	}
@@ -61,8 +66,9 @@ func do_request(index int, req Request, time_pairs *[]TimePair, out chan Indexed
 	body, err := ioutil.ReadAll(resp.Body)
 	// error on reading response
 	if err != nil {
-		error_response := IndexedResponse{Method: req.Method, Index: index, Response: err.Error()}
-		fmt.Printf("Error: %s", err.Error())
+		err_str := fmt.Sprintf("error: %s\n", err.Error())
+		fmt.Print(err_str)
+		error_response := IndexedResponse{Method: req.Method, Index: index, Response: err_str}
 		out <- error_response
 		return
 	}
@@ -71,13 +77,14 @@ func do_request(index int, req Request, time_pairs *[]TimePair, out chan Indexed
 	err = json.Unmarshal(body, json_obj)
 	// error on parsing json
 	if err != nil {
-		error_response := IndexedResponse{Method: req.Method, Index: index, Response: err.Error()}
-		fmt.Printf("Error: %s", err.Error())
+		err_str := fmt.Sprintf("error: %s\n", err.Error())
+		fmt.Print(err_str)
+		error_response := IndexedResponse{Method: req.Method, Index: index, Response: err_str}
 		out <- error_response
 		return
 	}
 
-	out_response := IndexedResponse{Method: req.Method, Index: index, Response: string(body)}
+	out_response := IndexedResponse{Method: req.Method, Index: index, Response: "success"}
 	out <- out_response
 }
 
@@ -101,7 +108,7 @@ func load_requests() (Requests, error) {
 
 func main() {
 
-	n_requests := 100_000
+	n_requests := 1_000_000
 	requests, err := load_requests()
 	time_pairs := make([]TimePair, n_requests)
 
@@ -119,7 +126,7 @@ func main() {
 		}
 	}()
 
-	f, err := os.Create("/output/responses.dat")
+	f, err := os.Create("/output/responses_random.dat")
 	defer f.Close()
 
 	if err != nil {
@@ -137,7 +144,7 @@ func main() {
 		}
 	}
 
-	g, err := os.Create("/output/latencies.dat")
+	g, err := os.Create("/output/latencies-random.dat")
 	defer g.Close()
 
 	for index, lat := range time_pairs {

@@ -1,0 +1,136 @@
+{
+  "experiments": [
+    {
+      "syscall_name": "recvmmsg",
+      "error_code": "-EAGAIN",
+      "original_mean_rate": 0.4970447967676863,
+      "failure_rate": 0.5218970366060707
+    },
+    {
+      "syscall_name": "connect",
+      "error_code": "-EINPROGRESS",
+      "original_mean_rate": 0.48464726439239586,
+      "failure_rate": 0.5088796276120157
+    },
+    {
+      "syscall_name": "recvmsg",
+      "error_code": "-EAGAIN",
+      "original_mean_rate": 0.40359204263816223,
+      "failure_rate": 0.42377164477007034
+    },
+    {
+      "syscall_name": "unlink",
+      "error_code": "-ENOENT",
+      "original_mean_rate": 0.32808905380333947,
+      "failure_rate": 0.34449350649350646
+    },
+    {
+      "syscall_name": "unlinkat",
+      "error_code": "-EISDIR",
+      "original_mean_rate": 0.3037037037037037,
+      "failure_rate": 0.3188888888888889
+    },
+    {
+      "syscall_name": "unlinkat",
+      "error_code": "-ENOENT",
+      "original_mean_rate": 0.25228937728937734,
+      "failure_rate": 0.2649038461538462
+    },
+    {
+      "syscall_name": "recvfrom",
+      "error_code": "-EAGAIN",
+      "original_mean_rate": 0.18817211794682093,
+      "failure_rate": 0.19758072384416198
+    },
+    {
+      "syscall_name": "unlinkat",
+      "error_code": "-ENOTEMPTY",
+      "original_mean_rate": 0.15185185185185185,
+      "failure_rate": 0.15944444444444444
+    },
+    {
+      "syscall_name": "shutdown",
+      "error_code": "-ENOTCONN",
+      "original_mean_rate": 0.14868849111752852,
+      "failure_rate": 0.15612291567340494
+    },
+    {
+      "syscall_name": "newfstatat",
+      "error_code": "-ENOENT",
+      "original_mean_rate": 0.1300378230120478,
+      "failure_rate": 0.1365397141626502
+    },
+    {
+      "syscall_name": "lstat",
+      "error_code": "-ENOENT",
+      "original_mean_rate": 0.12008371048954272,
+      "failure_rate": 0.12608789601401987
+    },
+    {
+      "syscall_name": "writev",
+      "error_code": "-EAGAIN",
+      "original_mean_rate": 0.10560071241889422,
+      "failure_rate": 0.11088074803983894
+    },
+    {
+      "syscall_name": "ioctl",
+      "error_code": "-ENOTTY",
+      "original_mean_rate": 0.10173110064257522,
+      "failure_rate": 0.10681765567470398
+    },
+    {
+      "syscall_name": "sendto",
+      "error_code": "-ENETUNREACH",
+      "original_mean_rate": 0.043374415687463835,
+      "failure_rate": 0.045543136471837026
+    },
+    {
+      "syscall_name": "lseek",
+      "error_code": "-EINVAL",
+      "original_mean_rate": 0.04157598728240382,
+      "failure_rate": 0.04365478664652401
+    },
+    {
+      "syscall_name": "connect",
+      "error_code": "-ENETUNREACH",
+      "original_mean_rate": 0.03445085336350747,
+      "failure_rate": 0.03617339603168285
+    },
+    {
+      "syscall_name": "read",
+      "error_code": "-EAGAIN",
+      "original_mean_rate": 0.006702384230646547,
+      "failure_rate": 0.007037503442178874
+    },
+    {
+      "syscall_name": "epoll_ctl",
+      "error_code": "-EPERM",
+      "original_mean_rate": 0.004886046450959282,
+      "failure_rate": 0.005130348773507246
+    },
+    {
+      "syscall_name": "futex",
+      "error_code": "-ETIMEDOUT",
+      "original_mean_rate": 0.003665403955610856,
+      "failure_rate": 0.003848674153391399
+    },
+    {
+      "syscall_name": "futex",
+      "error_code": "-EAGAIN",
+      "original_mean_rate": 0.0020666110567707737,
+      "failure_rate": 0.0021699416096093126
+    },
+    {
+      "syscall_name": "sendmsg",
+      "error_code": "-EAGAIN",
+      "original_mean_rate": 0.0020550864763909035,
+      "failure_rate": 0.002157840800210449
+    },
+    {
+      "syscall_name": "connect",
+      "error_code": "-ENOENT",
+      "original_mean_rate": 0.0017576615663641043,
+      "failure_rate": 0.0018455446446823095
+    }
+  ]
+}

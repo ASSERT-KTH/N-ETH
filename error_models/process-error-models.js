@@ -50,9 +50,9 @@ const minRates = filtered.map(em => {
     }
 })
 
-
-const aggroFactor = [1.005, 1.05, 1.1]
-const aggroTopN = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+console.log(minRates.length)
+const aggroFactor = [1.05]
+const aggroTopN = Array.from({length: 30}, (_, i) => i + 1)
 
 const main = () => {
 

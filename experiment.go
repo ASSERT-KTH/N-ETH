@@ -11,36 +11,36 @@ import (
 )
 
 var error_models = []string{
-	"error_models_1_1.005.json",
 	"error_models_1_1.05.json",
-	"error_models_1_1.1.json",
-	"error_models_2_1.005.json",
 	"error_models_2_1.05.json",
-	"error_models_2_1.1.json",
-	"error_models_3_1.005.json",
 	"error_models_3_1.05.json",
-	"error_models_3_1.1.json",
-	"error_models_4_1.005.json",
 	"error_models_4_1.05.json",
-	"error_models_4_1.1.json",
-	"error_models_5_1.005.json",
 	"error_models_5_1.05.json",
-	"error_models_5_1.1.json",
-	"error_models_6_1.005.json",
 	"error_models_6_1.05.json",
-	"error_models_6_1.1.json",
-	"error_models_7_1.005.json",
 	"error_models_7_1.05.json",
-	"error_models_7_1.1.json",
-	"error_models_8_1.005.json",
 	"error_models_8_1.05.json",
-	"error_models_8_1.1.json",
-	"error_models_9_1.005.json",
 	"error_models_9_1.05.json",
-	"error_models_9_1.1.json",
-	"error_models_10_1.005.json",
 	"error_models_10_1.05.json",
-	"error_models_10_1.1.json",
+	"error_models_11_1.05.json",
+	"error_models_12_1.05.json",
+	"error_models_13_1.05.json",
+	"error_models_14_1.05.json",
+	"error_models_15_1.05.json",
+	"error_models_16_1.05.json",
+	"error_models_17_1.05.json",
+	"error_models_18_1.05.json",
+	"error_models_19_1.05.json",
+	"error_models_20_1.05.json",
+	"error_models_21_1.05.json",
+	"error_models_22_1.05.json",
+	"error_models_23_1.05.json",
+	"error_models_24_1.05.json",
+	"error_models_25_1.05.json",
+	"error_models_26_1.05.json",
+	"error_models_27_1.05.json",
+	"error_models_28_1.05.json",
+	"error_models_29_1.05.json",
+	"error_models_30_1.05.json",
 }
 
 type MutexStack struct {
@@ -148,7 +148,7 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 	fmt.Printf("Begin experiment %s in disk %d\n", error_models_name, index)
 	fmt.Println(cmd.String())
 
-	outfile, err := os.Create(fmt.Sprintf("%s/docker-%s.log", os.Getenv("HOME"), error_models_name))
+	outfile, err := os.Create(fmt.Sprintf("%s/docker-%s.log", output_dir, error_models_name))
 	if err != nil {
 		panic(err)
 	}
@@ -156,7 +156,7 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 
 	cmd.Stdout = outfile
 
-	errfile, err := os.Create(fmt.Sprintf("%s/docker-err-%s.log", os.Getenv("HOME"), error_models_name))
+	errfile, err := os.Create(fmt.Sprintf("%s/docker-err-%s.log", output_dir, error_models_name))
 	if err != nil {
 		panic(err)
 	}
