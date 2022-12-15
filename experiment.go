@@ -113,7 +113,6 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 	request_copy(index, copy)
 
 	time.Sleep(time.Duration(45+rand.Intn(30)) * time.Second)
-	mstack.Done(index)
 
 	error_models_prefix := "https://raw.githubusercontent.com/KTH/n-version-ethereum/neth/error_models/common"
 	error_models_name := strings.Replace(error_models[exp_number], ".json", "", 1)
@@ -167,7 +166,9 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 	cmd.Start()
 
 	cmd.Wait()
+
 	fmt.Printf("Exit experiment %s in disk %d\n", error_models_name, index)
+	mstack.Done(index)
 }
 
 func request_copy(index int, copy chan CopyInfo) {
