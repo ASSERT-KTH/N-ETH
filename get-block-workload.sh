@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo "WAIT" > ipc.dat
-
 VAL=$(cat ipc.dat)
 
 while [[ $VAL = "WAIT" ]]

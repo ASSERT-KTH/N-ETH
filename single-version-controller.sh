@@ -3,6 +3,8 @@
 TARGET=$1
 ERROR_MODEL=$2
 
+echo "WAIT" > ipc.dat
+
 # run eth client!
 { ./single-version-fault-injection.sh $TARGET $ERROR_MODEL; } &
 SUBSHELL=$!
