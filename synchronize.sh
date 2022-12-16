@@ -1,6 +1,31 @@
 #!/bin/bash
 set -x
 
+trap graceful_shutdown SIGINT SIGQUIT SIGTERM
+
+graceful_shutdown()
+{
+    # stop target
+    kill -2 $TARGET_PID
+    
+    # stop teku 
+    kill -2 $TEKU_PID
+    
+    # check that processes have terminated.
+    TARGET_GREP="target"
+    TEKU_GREP="teku"
+
+    while [ ! -z "$TARGET_GREP" ] || [ ! -z "$TEKU_GREP" ]
+    do
+        sleep 10
+        TARGET_GREP=`ps axo pid,ppid,cmd | grep "$TARGET_GREP_STR"`
+        TEKU_GREP=`ps axo pid,ppid,cmd | grep "$TEKU_GREP_STR"`
+    done
+
+    echo "Sync shutdown success"
+    exit
+}
+
 CONFIG_FILE=$(pwd)/config.toml
 TARGET=$1
 

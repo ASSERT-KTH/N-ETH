@@ -112,8 +112,6 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 
 	request_copy(index, copy)
 
-	time.Sleep(time.Duration(45+rand.Intn(30)) * time.Second)
-
 	error_models_prefix := "https://raw.githubusercontent.com/KTH/n-version-ethereum/neth/error_models/common"
 	error_models_name := strings.Replace(error_models[exp_number], ".json", "", 1)
 	path, err := os.Getwd()
@@ -205,9 +203,9 @@ func first_sync() error {
 	return nil
 }
 
-func sync(stop chan int) {
+func synchronize(target string, stop chan int) {
 	fmt.Println("init sync sript")
-	cmd := exec.Command("./synchronize.sh", "geth")
+	cmd := exec.Command("./synchronize.sh", target)
 
 	outfile, err := os.OpenFile(fmt.Sprintf("%s/sync.log", os.Getenv("HOME")), os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
@@ -217,11 +215,15 @@ func sync(stop chan int) {
 
 	cmd.Stdout = outfile
 
+	cmd.Start()
+
 	<-stop
 	fmt.Println("kill sync script")
-	cmd.Process.Signal(os.Interrupt) //TODO: check if kills sub-processes
+	cmd.Process.Signal(os.Interrupt)
+
 	fmt.Println("check for stop")
-	//check for target + teku to stop
+	cmd.Wait()
+
 	fmt.Println("done stopping")
 	stop <- 1
 }
@@ -309,7 +311,7 @@ const (
 	Copying State = "COPY"
 )
 
-func source_loop(start chan int, copy chan CopyInfo, err_chan chan error) {
+func source_loop(target string, start chan int, copy chan CopyInfo, err_chan chan error) {
 	err := first_sync()
 	if err != nil {
 		err_chan <- err
@@ -355,7 +357,7 @@ func source_loop(start chan int, copy chan CopyInfo, err_chan chan error) {
 				if no_activity_counter > 10 {
 					fmt.Println("no activity, restarting sync!")
 					state = Syncing
-					go sync(stop)
+					go synchronize(target, stop)
 				}
 				fmt.Println("exit default")
 			}
@@ -393,7 +395,7 @@ func main() {
 	start_chan := make(chan int)
 	copy_chan := make(chan CopyInfo)
 	err_chan := make(chan error)
-	go source_loop(start_chan, copy_chan, err_chan)
+	go source_loop(target, start_chan, copy_chan, err_chan)
 	go error_handler(err_chan)
 	<-start_chan
 
