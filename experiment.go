@@ -137,7 +137,7 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 		"-v",
 		fmt.Sprintf("%s:/output", output_dir),
 		"-e",
-		fmt.Sprintf("ETHERSCAN_API_KEY:%s", os.Getenv("ETHERSCAN_API_KEY")),
+		"ETHERSCAN_API_KEY",
 		fmt.Sprintf("javierron/neth:%s-kernel", target),
 		"./single-version-controller.sh", //command
 		target,
