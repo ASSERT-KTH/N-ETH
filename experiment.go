@@ -136,6 +136,8 @@ func new_run(mstack *MutexStack, exp_number int, target string, copy chan CopyIn
 		fmt.Sprintf("%s:/root/nvme", nvme_dir),
 		"-v",
 		fmt.Sprintf("%s:/output", output_dir),
+		"-e",
+		fmt.Sprintf("ETHERSCAN_API_KEY:%s", os.Getenv("ETHERSCAN_API_KEY")),
 		fmt.Sprintf("javierron/neth:%s-kernel", target),
 		"./single-version-controller.sh", //command
 		target,
@@ -387,9 +389,16 @@ func main() {
 
 	parsed, err := strconv.ParseInt(os.Args[2], 10, 32)
 	if err != nil {
-		fmt.Printf("cannot parse number of disks argument: %s", os.Args[2])
+		fmt.Printf("cannot parse number of disks argument: %s\n", os.Args[2])
 		return
 	}
+
+	apikey := os.Getenv("ETHERSCAN_API_KEY")
+	if apikey == "" {
+		fmt.Println("ETHERSCAN_API_KEY env variable not set")
+		return
+	}
+
 	disks := int(parsed)
 
 	start_chan := make(chan int)

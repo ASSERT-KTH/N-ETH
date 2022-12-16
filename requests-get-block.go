@@ -94,7 +94,7 @@ func do_request(index int, req Request, time_pairs *[]TimePair, out chan Indexed
 		return
 	}
 
-	out_response := IndexedResponse{Method: req.Method, Index: index, Response: fmt.Sprintf("%s,%s\n", json_obj.Res.Number, etherscan_block)}
+	out_response := IndexedResponse{Method: req.Method, Index: index, Response: fmt.Sprintf("%s,%d\n", json_obj.Res.Number, etherscan_block)}
 	out <- out_response
 }
 
@@ -126,35 +126,40 @@ type EtherscanResponse struct {
 }
 
 func updateEtherscanBlockNumber() {
-
+	apikey := os.Getenv("ETHERSCAN_API_KEY")
 	for {
-		resp, err := http.Get("https://api.etherscan.io/api?module=proxy&action=eth_blockNumber")
+		resp, err := http.Get(fmt.Sprintf("https://api.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=%s", apikey))
 
 		if err != nil {
-			fmt.Println("failed to update etherscan block number")
+			fmt.Println("failed to update etherscan block number: req")
 			continue
 		}
 
 		body, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
-			fmt.Println("failed to update etherscan block number")
+			fmt.Println("failed to update etherscan block number: res")
 			return
 		}
 
 		etherscan_resp := new(EtherscanResponse)
-		json.Unmarshal(body, etherscan_resp)
+		err = json.Unmarshal(body, etherscan_resp)
+
+		if err != nil {
+			fmt.Println("failed to update etherscan block number: json")
+			return
+		}
 
 		trim := etherscan_resp.Result[2:]
 
 		block_n, err := strconv.ParseInt(trim, 16, 64)
 		if err != nil {
-			fmt.Println("failed to update etherscan block number")
+			fmt.Println("failed to update etherscan block number: parse")
 			return
 		}
 
 		etherscan_block = block_n
 
-		time.Sleep(10 * time.Second)
+		time.Sleep(12 * time.Second)
 
 	}
 }
