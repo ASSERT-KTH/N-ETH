@@ -161,7 +161,7 @@ func updateEtherscanBlockNumber() {
 
 func main() {
 
-	n_requests := 1_000_000
+	n_requests := 360_000
 	time_pairs := make([]TimePair, n_requests)
 
 	// "jsonrpc": "2.0",
@@ -185,7 +185,7 @@ func main() {
 	go func() {
 		for n := 0; n < n_requests; n++ {
 			go do_request(n, req, &time_pairs, out)
-			time.Sleep(10 * time.Millisecond)
+			time.Sleep(5 * time.Millisecond)
 		}
 	}()
 

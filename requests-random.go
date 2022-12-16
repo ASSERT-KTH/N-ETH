@@ -108,7 +108,7 @@ func load_requests() (Requests, error) {
 
 func main() {
 
-	n_requests := 1_000_000
+	n_requests := 360_000
 	requests, err := load_requests()
 	time_pairs := make([]TimePair, n_requests)
 
@@ -122,7 +122,7 @@ func main() {
 		for n := 0; n < n_requests; n++ {
 			req := requests[rand.Intn(len(requests))]
 			go do_request(n, req, &time_pairs, out)
-			time.Sleep(10 * time.Millisecond)
+			time.Sleep(5 * time.Millisecond)
 		}
 	}()
 

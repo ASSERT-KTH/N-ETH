@@ -207,7 +207,7 @@ func synchronize(target string, stop chan int) {
 	fmt.Println("init sync sript")
 	cmd := exec.Command("./synchronize.sh", target)
 
-	outfile, err := os.OpenFile(fmt.Sprintf("%s/sync.log", os.Getenv("HOME")), os.O_CREATE|os.O_APPEND, 0666)
+	outfile, err := os.OpenFile(fmt.Sprintf("%s/sync.log", os.Getenv("HOME")), os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
 	if err != nil {
 		panic(err)
 	}
