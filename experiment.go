@@ -183,8 +183,8 @@ func request_copy(index int, copy chan CopyInfo) {
 	<-w // done!
 }
 
-func first_sync() error {
-	cmd := exec.Command("./synchronize-stop.sh", "geth")
+func first_sync(target string) error {
+	cmd := exec.Command("./synchronize-stop.sh", target)
 	fmt.Println("init first sync")
 
 	outfile, err := os.Create(fmt.Sprintf("%s/sync-stop.log", os.Getenv("HOME")))
@@ -314,7 +314,7 @@ const (
 )
 
 func source_loop(target string, start chan int, copy chan CopyInfo, err_chan chan error) {
-	err := first_sync()
+	err := first_sync(target)
 	if err != nil {
 		err_chan <- err
 		return
