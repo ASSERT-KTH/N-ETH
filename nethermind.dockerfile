@@ -47,6 +47,12 @@ RUN apt-get install -y dotnet-sdk-6.0 libsnappy-dev libc6-dev libc6 librocksdb5.
 RUN git clone https://github.com/nethermindeth/nethermind --recursive
 RUN cd nethermind && git checkout 1.14.5
 
+# install go for scripts
+RUN wget https://go.dev/dl/go1.19.3.linux-amd64.tar.gz
+RUN rm -rf /usr/local/go && tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
+ENV PATH="${PATH}:/usr/local/go/bin"
+RUN rm go1.19.3.linux-amd64.tar.gz
+
 COPY ./*.sh /
 COPY ./config.toml /
 COPY ./*.go /
