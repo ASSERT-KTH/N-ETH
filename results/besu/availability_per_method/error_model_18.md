@@ -1,0 +1,59 @@
+|    | method_name                             |   total | result                                                                                                          |   count |   percentage |
+|---:|:----------------------------------------|--------:|:----------------------------------------------------------------------------------------------------------------|--------:|-------------:|
+|  0 | eth_blockNumber                         |   17267 | error: Post "http://localhost:8545": EOF                                                                        |       1 |  5.79139e-05 |
+|  1 | eth_blockNumber                         |   17267 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       5 |  0.00028957  |
+|  2 | eth_blockNumber                         |   17267 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       1 |  5.79139e-05 |
+|  3 | eth_blockNumber                         |   17267 | error: invalid byte in chunk length                                                                             |       1 |  5.79139e-05 |
+|  4 | eth_blockNumber                         |   17267 | success                                                                                                         |   17259 |  0.999537    |
+|  5 | eth_estimateGas                         |   17199 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       5 |  0.000290715 |
+|  6 | eth_estimateGas                         |   17199 | success                                                                                                         |   17194 |  0.999709    |
+|  7 | eth_feeHistory                          |   17099 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       5 |  0.000292415 |
+|  8 | eth_feeHistory                          |   17099 | success                                                                                                         |   17094 |  0.999708    |
+|  9 | eth_gasPrice                            |   17133 | error: Post "http://localhost:8545": EOF                                                                        |       1 |  5.83669e-05 |
+| 10 | eth_gasPrice                            |   17133 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       4 |  0.000233468 |
+| 11 | eth_gasPrice                            |   17133 | success                                                                                                         |   17128 |  0.999708    |
+| 12 | eth_getBalance                          |   17049 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       4 |  0.000234618 |
+| 13 | eth_getBalance                          |   17049 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       1 |  5.86545e-05 |
+| 14 | eth_getBalance                          |   17049 | success                                                                                                         |   17044 |  0.999707    |
+| 15 | eth_getBlockByHash                      |   16990 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       4 |  0.000235433 |
+| 16 | eth_getBlockByHash                      |   16990 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       1 |  5.88582e-05 |
+| 17 | eth_getBlockByHash                      |   16990 | error: invalid byte in chunk length                                                                             |     109 |  0.00641554  |
+| 18 | eth_getBlockByHash                      |   16990 | success                                                                                                         |   16876 |  0.99329     |
+| 19 | eth_getBlockByNumber                    |   17138 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       6 |  0.000350099 |
+| 20 | eth_getBlockByNumber                    |   17138 | error: invalid byte in chunk length                                                                             |      45 |  0.00262574  |
+| 21 | eth_getBlockByNumber                    |   17138 | success                                                                                                         |   17087 |  0.997024    |
+| 22 | eth_getBlockTransactionCountByHash      |   17427 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       6 |  0.000344293 |
+| 23 | eth_getBlockTransactionCountByHash      |   17427 | success                                                                                                         |   17421 |  0.999656    |
+| 24 | eth_getBlockTransactionCountByNumber    |   17036 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       4 |  0.000234797 |
+| 25 | eth_getBlockTransactionCountByNumber    |   17036 | success                                                                                                         |   17032 |  0.999765    |
+| 26 | eth_getCode                             |   17127 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       8 |  0.000467099 |
+| 27 | eth_getCode                             |   17127 | error: invalid byte in chunk length                                                                             |      94 |  0.00548841  |
+| 28 | eth_getCode                             |   17127 | success                                                                                                         |   17025 |  0.994044    |
+| 29 | eth_getLogs                             |   17125 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       5 |  0.000291971 |
+| 30 | eth_getLogs                             |   17125 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       1 |  5.83942e-05 |
+| 31 | eth_getLogs                             |   17125 | error: gzip: invalid checksum                                                                                   |     127 |  0.00741606  |
+| 32 | eth_getLogs                             |   17125 | error: invalid byte in chunk length                                                                             |     107 |  0.00624818  |
+| 33 | eth_getLogs                             |   17125 | error: unexpected EOF                                                                                           |       1 |  5.83942e-05 |
+| 34 | eth_getLogs                             |   17125 | success                                                                                                         |   16884 |  0.985927    |
+| 35 | eth_getStorageAt                        |   17173 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       4 |  0.000232924 |
+| 36 | eth_getStorageAt                        |   17173 | success                                                                                                         |   17169 |  0.999767    |
+| 37 | eth_getTransactionByBlockHashAndIndex   |   17381 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       9 |  0.000517807 |
+| 38 | eth_getTransactionByBlockHashAndIndex   |   17381 | error: invalid byte in chunk length                                                                             |       1 |  5.75341e-05 |
+| 39 | eth_getTransactionByBlockHashAndIndex   |   17381 | success                                                                                                         |   17371 |  0.999425    |
+| 40 | eth_getTransactionByBlockNumberAndIndex |   16882 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      14 |  0.000829286 |
+| 41 | eth_getTransactionByBlockNumberAndIndex |   16882 | success                                                                                                         |   16868 |  0.999171    |
+| 42 | eth_getTransactionByHash                |   17239 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       7 |  0.000406056 |
+| 43 | eth_getTransactionByHash                |   17239 | success                                                                                                         |   17232 |  0.999594    |
+| 44 | eth_getTransactionCount                 |   17175 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       3 |  0.000174672 |
+| 45 | eth_getTransactionCount                 |   17175 | success                                                                                                         |   17172 |  0.999825    |
+| 46 | eth_getTransactionReceipt               |   17090 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       3 |  0.000175541 |
+| 47 | eth_getTransactionReceipt               |   17090 | success                                                                                                         |   17087 |  0.999824    |
+| 48 | eth_getUncleByBlockHashAndIndex         |   17368 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       9 |  0.000518194 |
+| 49 | eth_getUncleByBlockHashAndIndex         |   17368 | success                                                                                                         |   17359 |  0.999482    |
+| 50 | eth_getUncleByBlockNumberAndIndex       |   16871 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      11 |  0.000652006 |
+| 51 | eth_getUncleByBlockNumberAndIndex       |   16871 | success                                                                                                         |   16860 |  0.999348    |
+| 52 | eth_getUncleCountByBlockHash            |   17126 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       3 |  0.000175172 |
+| 53 | eth_getUncleCountByBlockHash            |   17126 | error: invalid byte in chunk length                                                                             |       1 |  5.83908e-05 |
+| 54 | eth_getUncleCountByBlockHash            |   17126 | success                                                                                                         |   17122 |  0.999766    |
+| 55 | eth_getUncleCountByBlockNumber          |   17105 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       6 |  0.000350775 |
+| 56 | eth_getUncleCountByBlockNumber          |   17105 | success                                                                                                         |   17099 |  0.999649    |

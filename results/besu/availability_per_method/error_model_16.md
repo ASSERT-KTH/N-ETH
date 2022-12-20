@@ -1,0 +1,32 @@
+|    | method_name                             |   total | result                                                                                                             |   count |   percentage |
+|---:|:----------------------------------------|--------:|:-------------------------------------------------------------------------------------------------------------------|--------:|-------------:|
+|  0 | eth_blockNumber                         |   17267 | success                                                                                                            |   17267 |  1           |
+|  1 | eth_estimateGas                         |   17199 | success                                                                                                            |   17199 |  1           |
+|  2 | eth_feeHistory                          |   17099 | success                                                                                                            |   17099 |  1           |
+|  3 | eth_gasPrice                            |   17133 | success                                                                                                            |   17133 |  1           |
+|  4 | eth_getBalance                          |   17049 | success                                                                                                            |   17049 |  1           |
+|  5 | eth_getBlockByHash                      |   16990 | error: invalid byte in chunk length                                                                                |      98 |  0.0057681   |
+|  6 | eth_getBlockByHash                      |   16990 | success                                                                                                            |   16892 |  0.994232    |
+|  7 | eth_getBlockByNumber                    |   17138 | error: invalid byte in chunk length                                                                                |      35 |  0.00204225  |
+|  8 | eth_getBlockByNumber                    |   17138 | success                                                                                                            |   17103 |  0.997958    |
+|  9 | eth_getBlockTransactionCountByHash      |   17427 | success                                                                                                            |   17427 |  1           |
+| 10 | eth_getBlockTransactionCountByNumber    |   17036 | error: invalid byte in chunk length                                                                                |       1 |  5.86992e-05 |
+| 11 | eth_getBlockTransactionCountByNumber    |   17036 | success                                                                                                            |   17035 |  0.999941    |
+| 12 | eth_getCode                             |   17127 | error: invalid byte in chunk length                                                                                |      87 |  0.0050797   |
+| 13 | eth_getCode                             |   17127 | success                                                                                                            |   17040 |  0.99492     |
+| 14 | eth_getLogs                             |   17125 | error: gzip: invalid checksum                                                                                      |     103 |  0.0060146   |
+| 15 | eth_getLogs                             |   17125 | error: invalid byte in chunk length                                                                                |      83 |  0.00484672  |
+| 16 | eth_getLogs                             |   17125 | success                                                                                                            |   16939 |  0.989139    |
+| 17 | eth_getStorageAt                        |   17173 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers)    |       1 |  5.82309e-05 |
+| 18 | eth_getStorageAt                        |   17173 | error: invalid byte in chunk length                                                                                |       1 |  5.82309e-05 |
+| 19 | eth_getStorageAt                        |   17173 | success                                                                                                            |   17171 |  0.999884    |
+| 20 | eth_getTransactionByBlockHashAndIndex   |   17381 | success                                                                                                            |   17381 |  1           |
+| 21 | eth_getTransactionByBlockNumberAndIndex |   16882 | success                                                                                                            |   16882 |  1           |
+| 22 | eth_getTransactionByHash                |   17239 | success                                                                                                            |   17239 |  1           |
+| 23 | eth_getTransactionCount                 |   17175 | success                                                                                                            |   17175 |  1           |
+| 24 | eth_getTransactionReceipt               |   17090 | success                                                                                                            |   17090 |  1           |
+| 25 | eth_getUncleByBlockHashAndIndex         |   17368 | success                                                                                                            |   17368 |  1           |
+| 26 | eth_getUncleByBlockNumberAndIndex       |   16871 | success                                                                                                            |   16871 |  1           |
+| 27 | eth_getUncleCountByBlockHash            |   17126 | success                                                                                                            |   17126 |  1           |
+| 28 | eth_getUncleCountByBlockNumber          |   17105 | error: Post "http://localhost:8545": net/http: HTTP/1.x transport connection broken: malformed HTTP response "296" |       1 |  5.84624e-05 |
+| 29 | eth_getUncleCountByBlockNumber          |   17105 | success                                                                                                            |   17104 |  0.999942    |

@@ -1,0 +1,127 @@
+|     | method_name                             |   total | result                                                                                                          |   count |   percentage |
+|----:|:----------------------------------------|--------:|:----------------------------------------------------------------------------------------------------------------|--------:|-------------:|
+|   0 | eth_blockNumber                         |   17267 | error: Post "http://localhost:8545": EOF                                                                        |    1594 |  0.0923148   |
+|   1 | eth_blockNumber                         |   17267 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       1 |  5.79139e-05 |
+|   2 | eth_blockNumber                         |   17267 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     858 |  0.0496902   |
+|   3 | eth_blockNumber                         |   17267 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       6 |  0.000347484 |
+|   4 | eth_blockNumber                         |   17267 | error: Post "http://localhost:8545": read: connection reset by peer                                             |   10145 |  0.587537    |
+|   5 | eth_blockNumber                         |   17267 | success                                                                                                         |    4663 |  0.270053    |
+|   6 | eth_estimateGas                         |   17199 | error: Post "http://localhost:8545": EOF                                                                        |    1595 |  0.0927379   |
+|   7 | eth_estimateGas                         |   17199 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     846 |  0.0491889   |
+|   8 | eth_estimateGas                         |   17199 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       7 |  0.000407    |
+|   9 | eth_estimateGas                         |   17199 | error: Post "http://localhost:8545": read: connection reset by peer                                             |   10097 |  0.587069    |
+|  10 | eth_estimateGas                         |   17199 | success                                                                                                         |    4654 |  0.270597    |
+|  11 | eth_feeHistory                          |   17099 | error: Post "http://localhost:8545": EOF                                                                        |    1527 |  0.0893035   |
+|  12 | eth_feeHistory                          |   17099 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     844 |  0.0493596   |
+|  13 | eth_feeHistory                          |   17099 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       6 |  0.000350898 |
+|  14 | eth_feeHistory                          |   17099 | error: Post "http://localhost:8545": read: connection reset by peer                                             |   10067 |  0.588748    |
+|  15 | eth_feeHistory                          |   17099 | success                                                                                                         |    4655 |  0.272238    |
+|  16 | eth_gasPrice                            |   17133 | error: Post "http://localhost:8545": EOF                                                                        |    1608 |  0.093854    |
+|  17 | eth_gasPrice                            |   17133 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       1 |  5.83669e-05 |
+|  18 | eth_gasPrice                            |   17133 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     833 |  0.0486196   |
+|  19 | eth_gasPrice                            |   17133 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       8 |  0.000466935 |
+|  20 | eth_gasPrice                            |   17133 | error: Post "http://localhost:8545": read: connection reset by peer                                             |   10098 |  0.589389    |
+|  21 | eth_gasPrice                            |   17133 | success                                                                                                         |    4585 |  0.267612    |
+|  22 | eth_getBalance                          |   17049 | error: Post "http://localhost:8545": EOF                                                                        |    1498 |  0.0878644   |
+|  23 | eth_getBalance                          |   17049 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       3 |  0.000175963 |
+|  24 | eth_getBalance                          |   17049 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     856 |  0.0502082   |
+|  25 | eth_getBalance                          |   17049 | error: Post "http://localhost:8545": http: server closed idle connection                                        |      13 |  0.000762508 |
+|  26 | eth_getBalance                          |   17049 | error: Post "http://localhost:8545": read: connection reset by peer                                             |   10091 |  0.591882    |
+|  27 | eth_getBalance                          |   17049 | success                                                                                                         |    4588 |  0.269107    |
+|  28 | eth_getBlockByHash                      |   16990 | error: Post "http://localhost:8545": EOF                                                                        |    1523 |  0.089641    |
+|  29 | eth_getBlockByHash                      |   16990 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       2 |  0.000117716 |
+|  30 | eth_getBlockByHash                      |   16990 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     882 |  0.0519129   |
+|  31 | eth_getBlockByHash                      |   16990 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       9 |  0.000529723 |
+|  32 | eth_getBlockByHash                      |   16990 | error: Post "http://localhost:8545": read: connection reset by peer                                             |    9979 |  0.587345    |
+|  33 | eth_getBlockByHash                      |   16990 | error: invalid byte in chunk length                                                                             |      30 |  0.00176574  |
+|  34 | eth_getBlockByHash                      |   16990 | success                                                                                                         |    4565 |  0.268687    |
+|  35 | eth_getBlockByNumber                    |   17138 | error: Post "http://localhost:8545": EOF                                                                        |    1551 |  0.0905006   |
+|  36 | eth_getBlockByNumber                    |   17138 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       2 |  0.0001167   |
+|  37 | eth_getBlockByNumber                    |   17138 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     850 |  0.0495974   |
+|  38 | eth_getBlockByNumber                    |   17138 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       5 |  0.000291749 |
+|  39 | eth_getBlockByNumber                    |   17138 | error: Post "http://localhost:8545": read: connection reset by peer                                             |   10050 |  0.586416    |
+|  40 | eth_getBlockByNumber                    |   17138 | error: invalid byte in chunk length                                                                             |      11 |  0.000641849 |
+|  41 | eth_getBlockByNumber                    |   17138 | success                                                                                                         |    4669 |  0.272436    |
+|  42 | eth_getBlockTransactionCountByHash      |   17427 | error: Post "http://localhost:8545": EOF                                                                        |    1583 |  0.0908361   |
+|  43 | eth_getBlockTransactionCountByHash      |   17427 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       1 |  5.73822e-05 |
+|  44 | eth_getBlockTransactionCountByHash      |   17427 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     804 |  0.0461353   |
+|  45 | eth_getBlockTransactionCountByHash      |   17427 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       7 |  0.000401676 |
+|  46 | eth_getBlockTransactionCountByHash      |   17427 | error: Post "http://localhost:8545": read: connection reset by peer                                             |   10359 |  0.594422    |
+|  47 | eth_getBlockTransactionCountByHash      |   17427 | success                                                                                                         |    4673 |  0.268147    |
+|  48 | eth_getBlockTransactionCountByNumber    |   17036 | error: Post "http://localhost:8545": EOF                                                                        |    1518 |  0.0891054   |
+|  49 | eth_getBlockTransactionCountByNumber    |   17036 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     757 |  0.0444353   |
+|  50 | eth_getBlockTransactionCountByNumber    |   17036 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       7 |  0.000410895 |
+|  51 | eth_getBlockTransactionCountByNumber    |   17036 | error: Post "http://localhost:8545": read: connection reset by peer                                             |   10123 |  0.594212    |
+|  52 | eth_getBlockTransactionCountByNumber    |   17036 | success                                                                                                         |    4631 |  0.271836    |
+|  53 | eth_getCode                             |   17127 | error: Post "http://localhost:8545": EOF                                                                        |    1605 |  0.0937117   |
+|  54 | eth_getCode                             |   17127 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     790 |  0.046126    |
+|  55 | eth_getCode                             |   17127 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       6 |  0.000350324 |
+|  56 | eth_getCode                             |   17127 | error: Post "http://localhost:8545": read: connection reset by peer                                             |   10088 |  0.589012    |
+|  57 | eth_getCode                             |   17127 | error: invalid byte in chunk length                                                                             |      21 |  0.00122613  |
+|  58 | eth_getCode                             |   17127 | success                                                                                                         |    4617 |  0.269574    |
+|  59 | eth_getLogs                             |   17125 | error: Post "http://localhost:8545": EOF                                                                        |    1547 |  0.0903358   |
+|  60 | eth_getLogs                             |   17125 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     895 |  0.0522628   |
+|  61 | eth_getLogs                             |   17125 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       6 |  0.000350365 |
+|  62 | eth_getLogs                             |   17125 | error: Post "http://localhost:8545": read: connection reset by peer                                             |   10166 |  0.593635    |
+|  63 | eth_getLogs                             |   17125 | error: gzip: invalid checksum                                                                                   |      31 |  0.00181022  |
+|  64 | eth_getLogs                             |   17125 | error: invalid byte in chunk length                                                                             |      24 |  0.00140146  |
+|  65 | eth_getLogs                             |   17125 | success                                                                                                         |    4456 |  0.260204    |
+|  66 | eth_getStorageAt                        |   17173 | error: Post "http://localhost:8545": EOF                                                                        |    1591 |  0.0926454   |
+|  67 | eth_getStorageAt                        |   17173 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       3 |  0.000174693 |
+|  68 | eth_getStorageAt                        |   17173 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     816 |  0.0475165   |
+|  69 | eth_getStorageAt                        |   17173 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       2 |  0.000116462 |
+|  70 | eth_getStorageAt                        |   17173 | error: Post "http://localhost:8545": read: connection reset by peer                                             |   10206 |  0.594305    |
+|  71 | eth_getStorageAt                        |   17173 | success                                                                                                         |    4555 |  0.265242    |
+|  72 | eth_getTransactionByBlockHashAndIndex   |   17381 | error: Post "http://localhost:8545": EOF                                                                        |    1643 |  0.0945285   |
+|  73 | eth_getTransactionByBlockHashAndIndex   |   17381 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     870 |  0.0500547   |
+|  74 | eth_getTransactionByBlockHashAndIndex   |   17381 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       5 |  0.00028767  |
+|  75 | eth_getTransactionByBlockHashAndIndex   |   17381 | error: Post "http://localhost:8545": read: connection reset by peer                                             |   10180 |  0.585697    |
+|  76 | eth_getTransactionByBlockHashAndIndex   |   17381 | error: invalid byte in chunk length                                                                             |       2 |  0.000115068 |
+|  77 | eth_getTransactionByBlockHashAndIndex   |   17381 | success                                                                                                         |    4681 |  0.269317    |
+|  78 | eth_getTransactionByBlockNumberAndIndex |   16882 | error: Post "http://localhost:8545": EOF                                                                        |    1529 |  0.0905698   |
+|  79 | eth_getTransactionByBlockNumberAndIndex |   16882 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       1 |  5.92347e-05 |
+|  80 | eth_getTransactionByBlockNumberAndIndex |   16882 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     796 |  0.0471508   |
+|  81 | eth_getTransactionByBlockNumberAndIndex |   16882 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       4 |  0.000236939 |
+|  82 | eth_getTransactionByBlockNumberAndIndex |   16882 | error: Post "http://localhost:8545": read: connection reset by peer                                             |    9980 |  0.591162    |
+|  83 | eth_getTransactionByBlockNumberAndIndex |   16882 | success                                                                                                         |    4572 |  0.270821    |
+|  84 | eth_getTransactionByHash                |   17239 | error: Post "http://localhost:8545": EOF                                                                        |    1483 |  0.0860259   |
+|  85 | eth_getTransactionByHash                |   17239 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       2 |  0.000116016 |
+|  86 | eth_getTransactionByHash                |   17239 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     834 |  0.0483787   |
+|  87 | eth_getTransactionByHash                |   17239 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       7 |  0.000406056 |
+|  88 | eth_getTransactionByHash                |   17239 | error: Post "http://localhost:8545": read: connection reset by peer                                             |   10166 |  0.589709    |
+|  89 | eth_getTransactionByHash                |   17239 | success                                                                                                         |    4747 |  0.275364    |
+|  90 | eth_getTransactionCount                 |   17175 | error: Post "http://localhost:8545": EOF                                                                        |    1489 |  0.0866958   |
+|  91 | eth_getTransactionCount                 |   17175 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       1 |  5.82242e-05 |
+|  92 | eth_getTransactionCount                 |   17175 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     816 |  0.0475109   |
+|  93 | eth_getTransactionCount                 |   17175 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       9 |  0.000524017 |
+|  94 | eth_getTransactionCount                 |   17175 | error: Post "http://localhost:8545": read: connection reset by peer                                             |   10149 |  0.590917    |
+|  95 | eth_getTransactionCount                 |   17175 | success                                                                                                         |    4711 |  0.274294    |
+|  96 | eth_getTransactionReceipt               |   17090 | error: Post "http://localhost:8545": EOF                                                                        |    1492 |  0.0873025   |
+|  97 | eth_getTransactionReceipt               |   17090 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     787 |  0.0460503   |
+|  98 | eth_getTransactionReceipt               |   17090 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       3 |  0.000175541 |
+|  99 | eth_getTransactionReceipt               |   17090 | error: Post "http://localhost:8545": read: connection reset by peer                                             |   10102 |  0.591106    |
+| 100 | eth_getTransactionReceipt               |   17090 | success                                                                                                         |    4706 |  0.275366    |
+| 101 | eth_getUncleByBlockHashAndIndex         |   17368 | error: Post "http://localhost:8545": EOF                                                                        |    1622 |  0.0933901   |
+| 102 | eth_getUncleByBlockHashAndIndex         |   17368 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       5 |  0.000287886 |
+| 103 | eth_getUncleByBlockHashAndIndex         |   17368 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     859 |  0.0494588   |
+| 104 | eth_getUncleByBlockHashAndIndex         |   17368 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       6 |  0.000345463 |
+| 105 | eth_getUncleByBlockHashAndIndex         |   17368 | error: Post "http://localhost:8545": read: connection reset by peer                                             |   10218 |  0.588323    |
+| 106 | eth_getUncleByBlockHashAndIndex         |   17368 | success                                                                                                         |    4658 |  0.268194    |
+| 107 | eth_getUncleByBlockNumberAndIndex       |   16871 | error: Post "http://localhost:8545": EOF                                                                        |    1383 |  0.081975    |
+| 108 | eth_getUncleByBlockNumberAndIndex       |   16871 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     876 |  0.0519234   |
+| 109 | eth_getUncleByBlockNumberAndIndex       |   16871 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       4 |  0.000237093 |
+| 110 | eth_getUncleByBlockNumberAndIndex       |   16871 | error: Post "http://localhost:8545": read: connection reset by peer                                             |   10036 |  0.594867    |
+| 111 | eth_getUncleByBlockNumberAndIndex       |   16871 | success                                                                                                         |    4572 |  0.270998    |
+| 112 | eth_getUncleCountByBlockHash            |   17126 | error: Post "http://localhost:8545": EOF                                                                        |    1602 |  0.093542    |
+| 113 | eth_getUncleCountByBlockHash            |   17126 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       3 |  0.000175172 |
+| 114 | eth_getUncleCountByBlockHash            |   17126 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     860 |  0.050216    |
+| 115 | eth_getUncleCountByBlockHash            |   17126 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       8 |  0.000467126 |
+| 116 | eth_getUncleCountByBlockHash            |   17126 | error: Post "http://localhost:8545": read: connection reset by peer                                             |   10075 |  0.588287    |
+| 117 | eth_getUncleCountByBlockHash            |   17126 | success                                                                                                         |    4578 |  0.267313    |
+| 118 | eth_getUncleCountByBlockNumber          |   17105 | error: Post "http://localhost:8545": EOF                                                                        |    1481 |  0.0865829   |
+| 119 | eth_getUncleCountByBlockNumber          |   17105 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       1 |  5.84624e-05 |
+| 120 | eth_getUncleCountByBlockNumber          |   17105 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     795 |  0.0464776   |
+| 121 | eth_getUncleCountByBlockNumber          |   17105 | error: Post "http://localhost:8545": http: server closed idle connection                                        |       8 |  0.0004677   |
+| 122 | eth_getUncleCountByBlockNumber          |   17105 | error: Post "http://localhost:8545": read: connection reset by peer                                             |   10202 |  0.596434    |
+| 123 | eth_getUncleCountByBlockNumber          |   17105 | error: invalid byte in chunk length                                                                             |       1 |  5.84624e-05 |
+| 124 | eth_getUncleCountByBlockNumber          |   17105 | success                                                                                                         |    4617 |  0.269921    |
