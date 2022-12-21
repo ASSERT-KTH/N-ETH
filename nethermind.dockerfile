@@ -56,4 +56,5 @@ RUN rm go1.19.3.linux-amd64.tar.gz
 COPY ./*.sh /
 COPY ./config.toml /
 COPY ./*.go /
+COPY ./*.json /
 # CMD bash single-version-controller.sh

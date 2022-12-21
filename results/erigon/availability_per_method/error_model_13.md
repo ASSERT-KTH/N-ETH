@@ -1,0 +1,66 @@
+|    | method_name                             |   total | result                                                                                                          |   count |   percentage |
+|---:|:----------------------------------------|--------:|:----------------------------------------------------------------------------------------------------------------|--------:|-------------:|
+|  0 | eth_blockNumber                         |   17267 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     179 |  0.0103666   |
+|  1 | eth_blockNumber                         |   17267 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       4 |  0.000231656 |
+|  2 | eth_blockNumber                         |   17267 | success                                                                                                         |   17084 |  0.989402    |
+|  3 | eth_estimateGas                         |   17199 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     190 |  0.0110472   |
+|  4 | eth_estimateGas                         |   17199 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       4 |  0.000232572 |
+|  5 | eth_estimateGas                         |   17199 | success                                                                                                         |   17005 |  0.98872     |
+|  6 | eth_feeHistory                          |   17099 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     207 |  0.012106    |
+|  7 | eth_feeHistory                          |   17099 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       4 |  0.000233932 |
+|  8 | eth_feeHistory                          |   17099 | success                                                                                                         |   16888 |  0.98766     |
+|  9 | eth_gasPrice                            |   17133 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     192 |  0.0112064   |
+| 10 | eth_gasPrice                            |   17133 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       1 |  5.83669e-05 |
+| 11 | eth_gasPrice                            |   17133 | success                                                                                                         |   16940 |  0.988735    |
+| 12 | eth_getBalance                          |   17049 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     193 |  0.0113203   |
+| 13 | eth_getBalance                          |   17049 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       2 |  0.000117309 |
+| 14 | eth_getBalance                          |   17049 | success                                                                                                         |   16854 |  0.988562    |
+| 15 | eth_getBlockByHash                      |   16990 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     210 |  0.0123602   |
+| 16 | eth_getBlockByHash                      |   16990 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       7 |  0.000412007 |
+| 17 | eth_getBlockByHash                      |   16990 | success                                                                                                         |   16773 |  0.987228    |
+| 18 | eth_getBlockByNumber                    |   17138 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     196 |  0.0114366   |
+| 19 | eth_getBlockByNumber                    |   17138 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       4 |  0.000233399 |
+| 20 | eth_getBlockByNumber                    |   17138 | success                                                                                                         |   16938 |  0.98833     |
+| 21 | eth_getBlockTransactionCountByHash      |   17427 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     210 |  0.0120503   |
+| 22 | eth_getBlockTransactionCountByHash      |   17427 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       3 |  0.000172147 |
+| 23 | eth_getBlockTransactionCountByHash      |   17427 | success                                                                                                         |   17214 |  0.987778    |
+| 24 | eth_getBlockTransactionCountByNumber    |   17036 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     175 |  0.0102724   |
+| 25 | eth_getBlockTransactionCountByNumber    |   17036 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       2 |  0.000117398 |
+| 26 | eth_getBlockTransactionCountByNumber    |   17036 | success                                                                                                         |   16859 |  0.98961     |
+| 27 | eth_getCode                             |   17127 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     207 |  0.0120862   |
+| 28 | eth_getCode                             |   17127 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       1 |  5.83873e-05 |
+| 29 | eth_getCode                             |   17127 | success                                                                                                         |   16919 |  0.987855    |
+| 30 | eth_getLogs                             |   17125 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     183 |  0.0106861   |
+| 31 | eth_getLogs                             |   17125 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       4 |  0.000233577 |
+| 32 | eth_getLogs                             |   17125 | success                                                                                                         |   16938 |  0.98908     |
+| 33 | eth_getStorageAt                        |   17173 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     181 |  0.0105398   |
+| 34 | eth_getStorageAt                        |   17173 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       1 |  5.82309e-05 |
+| 35 | eth_getStorageAt                        |   17173 | success                                                                                                         |   16991 |  0.989402    |
+| 36 | eth_getTransactionByBlockHashAndIndex   |   17381 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     198 |  0.0113917   |
+| 37 | eth_getTransactionByBlockHashAndIndex   |   17381 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       2 |  0.000115068 |
+| 38 | eth_getTransactionByBlockHashAndIndex   |   17381 | success                                                                                                         |   17181 |  0.988493    |
+| 39 | eth_getTransactionByBlockNumberAndIndex |   16882 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     197 |  0.0116692   |
+| 40 | eth_getTransactionByBlockNumberAndIndex |   16882 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       4 |  0.000236939 |
+| 41 | eth_getTransactionByBlockNumberAndIndex |   16882 | success                                                                                                         |   16681 |  0.988094    |
+| 42 | eth_getTransactionByHash                |   17239 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      15 |  0.00087012  |
+| 43 | eth_getTransactionByHash                |   17239 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     190 |  0.0110215   |
+| 44 | eth_getTransactionByHash                |   17239 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       1 |  5.8008e-05  |
+| 45 | eth_getTransactionByHash                |   17239 | success                                                                                                         |   17033 |  0.98805     |
+| 46 | eth_getTransactionCount                 |   17175 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     187 |  0.0108879   |
+| 47 | eth_getTransactionCount                 |   17175 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       4 |  0.000232897 |
+| 48 | eth_getTransactionCount                 |   17175 | success                                                                                                         |   16984 |  0.988879    |
+| 49 | eth_getTransactionReceipt               |   17090 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      15 |  0.000877706 |
+| 50 | eth_getTransactionReceipt               |   17090 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     203 |  0.0118783   |
+| 51 | eth_getTransactionReceipt               |   17090 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       2 |  0.000117028 |
+| 52 | eth_getTransactionReceipt               |   17090 | success                                                                                                         |   16870 |  0.987127    |
+| 53 | eth_getUncleByBlockHashAndIndex         |   17368 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     200 |  0.0115154   |
+| 54 | eth_getUncleByBlockHashAndIndex         |   17368 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       2 |  0.000115154 |
+| 55 | eth_getUncleByBlockHashAndIndex         |   17368 | success                                                                                                         |   17166 |  0.988369    |
+| 56 | eth_getUncleByBlockNumberAndIndex       |   16871 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     224 |  0.0132772   |
+| 57 | eth_getUncleByBlockNumberAndIndex       |   16871 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       4 |  0.000237093 |
+| 58 | eth_getUncleByBlockNumberAndIndex       |   16871 | success                                                                                                         |   16643 |  0.986486    |
+| 59 | eth_getUncleCountByBlockHash            |   17126 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     197 |  0.011503    |
+| 60 | eth_getUncleCountByBlockHash            |   17126 | success                                                                                                         |   16929 |  0.988497    |
+| 61 | eth_getUncleCountByBlockNumber          |   17105 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |     208 |  0.0121602   |
+| 62 | eth_getUncleCountByBlockNumber          |   17105 | error: Post "http://localhost:8545": read: connection reset by peer                                             |       1 |  5.84624e-05 |
+| 63 | eth_getUncleCountByBlockNumber          |   17105 | success                                                                                                         |   16896 |  0.987781    |
