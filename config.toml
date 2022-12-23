@@ -23,8 +23,8 @@ grep_str        = "[e]rigon --http"
 jwt_path        = "nvme/data-dir/jwt.hex"
 
 [nethermind]
-exec_cmd        = "[N]ethermind.Runner -c mainnet"
+exec_cmd        = "Nethermind.Runner -c mainnet"
 datadir_flag    = "--datadir"
 datadir         = "nvme/data-dir"
 grep_str        = "[N]ethermind.Runner -c mainnet"
-jwt_path        = "nethermind/src/Nethermind/Nethermind.Runner/keystore/jwt-secret"
+jwt_path        = "keystore/jwt-secret"
