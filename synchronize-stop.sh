@@ -17,10 +17,7 @@ TARGET_LOG="$OUTPUT_DIR/$TARGET-sync-$(date -Iseconds).log"
 TARGET_CMD=$(get_config "$TARGET.exec_cmd")
 DATA_DIR_PARAM=$(get_config "$TARGET.datadir_flag")=$WORKING_DIR/$(get_config "$TARGET.datadir")
 
-TARGET_DIR=$(get_config "$TARGET.exec_dir")
-TARGET_DIR_CMD="cd $WORKING_DIR/$TARGET_DIR"
-
-{ $TARGET_DIR_CMD; $TARGET_CMD $DATA_DIR_PARAM &> $TARGET_LOG; } &
+{ $TARGET_CMD $DATA_DIR_PARAM &> $TARGET_LOG; } &
 TARGET_PPID=$!
 sleep 5
 TARGET_GREP_STR=$TARGET_PPID.*$(get_config "$TARGET.grep_str")
@@ -55,17 +52,6 @@ do
     SYNC_DISTANCE=$(( $ETHERSCAN_BLOCK - $TARGET_BLOCK ))
     echo "Sync distance: $SYNC_DISTANCE"
 done
-
-
-# save logs
-# set connection string
-# AZURE_STORAGE_CONNECTION_STRING==xxxxxx
-
-# target
-# az storage blob upload -f $TARGET_LOG -c logs -n $TARGET_LOG --connection-string="$AZURE_STORAGE_CONNECTION_STRING"
-
-# teku
-# az storage blob upload -f $TARGET_LOG -c logs -n $TARGET_LOG --connection-string="$AZURE_STORAGE_CONNECTION_STRING"
 
 # stop target
 kill -2 $TARGET_PID
