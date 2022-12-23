@@ -47,7 +47,13 @@ while true; do
     TARGET_CMD=$(get_config "$TARGET.exec_cmd")
     DATA_DIR_PARAM=$(get_config "$TARGET.datadir_flag")=$WORKING_DIR/$(get_config "$TARGET.datadir")
 
-    { $TARGET_CMD $DATA_DIR_PARAM &> $TARGET_LOG; } &
+    JWT_FLAG=$(get_config "$TARGET.jwt_flag")
+    TARGET_JWT_FILE=$WORKING_DIR/$(get_config "$TARGET.jwt_path")
+    if [ -z JWT_FLAG ]; then
+        JWT_PARAM="$JWT_FLAG=$TARGET_JWT_FILE"
+    fi 
+
+    { $TARGET_CMD $JWT_PARAM $DATA_DIR_PARAM &> $TARGET_LOG; } &
     TARGET_PPID=$!
     sleep 2
     TARGET_GREP_STR=$TARGET_PPID.*$(get_config "$TARGET.grep_str")
@@ -55,7 +61,6 @@ while true; do
 
     # start teku
     TEKU_LOG=$OUTPUT_DIR/teku-sync-$(date -Iseconds).log
-    TARGET_JWT_FILE=$WORKING_DIR/$(get_config "$TARGET.jwt_path")
     { teku --ee-endpoint=http://localhost:8551 --ee-jwt-secret-file=$TARGET_JWT_FILE --data-beacon-path=$WORKING_DIR/nvme/teku-data-dir/ &> $TEKU_LOG; } &
     TEKU_PPID=$!
     sleep 2
