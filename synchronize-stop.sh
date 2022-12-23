@@ -19,7 +19,7 @@ DATA_DIR_PARAM=$(get_config "$TARGET.datadir_flag")=$WORKING_DIR/$(get_config "$
 
 JWT_FLAG=$(get_config "$TARGET.jwt_flag")
 TARGET_JWT_FILE=$WORKING_DIR/$(get_config "$TARGET.jwt_path")
-if [ -z JWT_FLAG ]; then
+if [ ! -z JWT_FLAG ]; then
     JWT_PARAM="$JWT_FLAG=$TARGET_JWT_FILE"
 fi 
 
