@@ -55,7 +55,7 @@ while true; do
 
     { $TARGET_CMD $JWT_PARAM $DATA_DIR_PARAM &> $TARGET_LOG; } &
     TARGET_PPID=$!
-    sleep 2
+    sleep 60
     TARGET_GREP_STR=$TARGET_PPID.*$(get_config "$TARGET.grep_str")
     TARGET_PID=`ps axo pid,ppid,cmd | grep "$TARGET_GREP_STR" | awk '{print $1}'`
 
