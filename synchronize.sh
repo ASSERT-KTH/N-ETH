@@ -5,6 +5,8 @@ trap graceful_shutdown SIGINT SIGQUIT SIGTERM
 
 graceful_shutdown()
 {
+    echo "begin shutdown..."
+
     # stop target
     kill -2 $TARGET_PID
     
@@ -51,9 +53,10 @@ fi
 { $TARGET_CMD $JWT_PARAM $DATA_DIR_PARAM &> $TARGET_LOG; } &
 
 TARGET_PPID=$!
-sleep 60
 TARGET_GREP_STR=$TARGET_PPID.*$(get_config "$TARGET.grep_str")
 TARGET_PID=`ps axo pid,ppid,cmd | grep "$TARGET_GREP_STR" | awk '{print $1}'`
+
+sleep 60
 
 # start teku
 TEKU_LOG=$OUTPUT_DIR/teku-sync-$(date -Iseconds).log
