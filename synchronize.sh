@@ -62,9 +62,10 @@ sleep 60
 TEKU_LOG=$OUTPUT_DIR/teku-sync-$(date -Iseconds).log
 { teku --ee-endpoint=http://localhost:8551 --ee-jwt-secret-file=$TARGET_JWT_FILE --data-beacon-path=$WORKING_DIR/nvme/teku-data-dir/ &> $TEKU_LOG; } &
 TEKU_PPID=$!
-sleep 2
 TEKU_GREP_STR=$TEKU_PPID.*teku\\.home
 TEKU_PID=`ps axo pid,ppid,cmd | grep $TEKU_GREP_STR | awk '{print $1}'`
+
+sleep 2
 
 # check is synchonized < 2 blocks from etherscan
 SYNC_DISTANCE=10000
