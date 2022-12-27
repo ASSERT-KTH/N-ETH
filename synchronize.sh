@@ -20,8 +20,14 @@ graceful_shutdown()
     while [ ! -z "$TARGET_GREP" ] || [ ! -z "$TEKU_GREP" ]
     do
         sleep 10
-        TARGET_GREP=`ps axo pid,ppid,cmd | grep "$TARGET_GREP_STR"`
-        TEKU_GREP=`ps axo pid,ppid,cmd | grep "$TEKU_GREP_STR"`
+        TARGET_GREP=""
+        if [ ! -z $TARGET_GREP_STR ]; then
+            TARGET_GREP=`ps axo pid,ppid,cmd | grep "$TARGET_GREP_STR"`
+        fi
+        TEKU_GREP=""
+        if [ ! -z $TEKU_GREP_STR ]; then
+            TEKU_GREP=`ps axo pid,ppid,cmd | grep "$TEKU_GREP_STR"`
+        fi
     done
 
     echo "Sync shutdown success"
