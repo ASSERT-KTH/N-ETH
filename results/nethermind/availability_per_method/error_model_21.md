@@ -1,0 +1,113 @@
+|     | method_name                             |   total | result                                                                                                          |   count |   percentage |
+|----:|:----------------------------------------|--------:|:----------------------------------------------------------------------------------------------------------------|--------:|-------------:|
+|   0 | eth_blockNumber                         |   17267 | error: Post "http://localhost:8545": EOF                                                                        |       1 |  5.79139e-05 |
+|   1 | eth_blockNumber                         |   17267 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      31 |  0.00179533  |
+|   2 | eth_blockNumber                         |   17267 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    7169 |  0.415185    |
+|   3 | eth_blockNumber                         |   17267 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     108 |  0.00625471  |
+|   4 | eth_blockNumber                         |   17267 | error: unexpected EOF                                                                                           |       7 |  0.000405398 |
+|   5 | eth_blockNumber                         |   17267 | success                                                                                                         |    9951 |  0.576302    |
+|   6 | eth_estimateGas                         |   17199 | error: Post "http://localhost:8545": EOF                                                                        |       1 |  5.81429e-05 |
+|   7 | eth_estimateGas                         |   17199 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      31 |  0.00180243  |
+|   8 | eth_estimateGas                         |   17199 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    7126 |  0.414326    |
+|   9 | eth_estimateGas                         |   17199 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     110 |  0.00639572  |
+|  10 | eth_estimateGas                         |   17199 | error: unexpected EOF                                                                                           |       3 |  0.000174429 |
+|  11 | eth_estimateGas                         |   17199 | success                                                                                                         |    9928 |  0.577243    |
+|  12 | eth_feeHistory                          |   17099 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      28 |  0.00163752  |
+|  13 | eth_feeHistory                          |   17099 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    7087 |  0.414469    |
+|  14 | eth_feeHistory                          |   17099 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     111 |  0.00649161  |
+|  15 | eth_feeHistory                          |   17099 | error: unexpected EOF                                                                                           |       5 |  0.000292415 |
+|  16 | eth_feeHistory                          |   17099 | success                                                                                                         |    9868 |  0.57711     |
+|  17 | eth_gasPrice                            |   17133 | error: Post "http://localhost:8545": EOF                                                                        |       1 |  5.83669e-05 |
+|  18 | eth_gasPrice                            |   17133 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      30 |  0.00175101  |
+|  19 | eth_gasPrice                            |   17133 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    7156 |  0.417673    |
+|  20 | eth_gasPrice                            |   17133 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     127 |  0.0074126   |
+|  21 | eth_gasPrice                            |   17133 | error: unexpected EOF                                                                                           |       6 |  0.000350201 |
+|  22 | eth_gasPrice                            |   17133 | success                                                                                                         |    9813 |  0.572754    |
+|  23 | eth_getBalance                          |   17049 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      27 |  0.00158367  |
+|  24 | eth_getBalance                          |   17049 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    7028 |  0.412224    |
+|  25 | eth_getBalance                          |   17049 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     118 |  0.00692123  |
+|  26 | eth_getBalance                          |   17049 | error: unexpected EOF                                                                                           |       2 |  0.000117309 |
+|  27 | eth_getBalance                          |   17049 | success                                                                                                         |    9874 |  0.579154    |
+|  28 | eth_getBlockByHash                      |   16990 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      27 |  0.00158917  |
+|  29 | eth_getBlockByHash                      |   16990 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    6993 |  0.411595    |
+|  30 | eth_getBlockByHash                      |   16990 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     123 |  0.00723955  |
+|  31 | eth_getBlockByHash                      |   16990 | error: unexpected EOF                                                                                           |       3 |  0.000176574 |
+|  32 | eth_getBlockByHash                      |   16990 | success                                                                                                         |    9844 |  0.5794      |
+|  33 | eth_getBlockByNumber                    |   17138 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      18 |  0.0010503   |
+|  34 | eth_getBlockByNumber                    |   17138 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    7141 |  0.416676    |
+|  35 | eth_getBlockByNumber                    |   17138 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     118 |  0.00688528  |
+|  36 | eth_getBlockByNumber                    |   17138 | error: unexpected EOF                                                                                           |       1 |  5.83499e-05 |
+|  37 | eth_getBlockByNumber                    |   17138 | success                                                                                                         |    9860 |  0.57533     |
+|  38 | eth_getBlockTransactionCountByHash      |   17427 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      34 |  0.001951    |
+|  39 | eth_getBlockTransactionCountByHash      |   17427 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    7258 |  0.41648     |
+|  40 | eth_getBlockTransactionCountByHash      |   17427 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     116 |  0.00665634  |
+|  41 | eth_getBlockTransactionCountByHash      |   17427 | error: unexpected EOF                                                                                           |       3 |  0.000172147 |
+|  42 | eth_getBlockTransactionCountByHash      |   17427 | success                                                                                                         |   10016 |  0.57474     |
+|  43 | eth_getBlockTransactionCountByNumber    |   17036 | error: Post "http://localhost:8545": EOF                                                                        |       1 |  5.86992e-05 |
+|  44 | eth_getBlockTransactionCountByNumber    |   17036 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      30 |  0.00176098  |
+|  45 | eth_getBlockTransactionCountByNumber    |   17036 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    7054 |  0.414064    |
+|  46 | eth_getBlockTransactionCountByNumber    |   17036 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     118 |  0.00692651  |
+|  47 | eth_getBlockTransactionCountByNumber    |   17036 | error: unexpected EOF                                                                                           |       1 |  5.86992e-05 |
+|  48 | eth_getBlockTransactionCountByNumber    |   17036 | success                                                                                                         |    9832 |  0.577131    |
+|  49 | eth_getCode                             |   17127 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      38 |  0.00221872  |
+|  50 | eth_getCode                             |   17127 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    7162 |  0.41817     |
+|  51 | eth_getCode                             |   17127 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     109 |  0.00636422  |
+|  52 | eth_getCode                             |   17127 | error: unexpected EOF                                                                                           |       3 |  0.000175162 |
+|  53 | eth_getCode                             |   17127 | success                                                                                                         |    9815 |  0.573072    |
+|  54 | eth_getLogs                             |   17125 | error: Post "http://localhost:8545": EOF                                                                        |       1 |  5.83942e-05 |
+|  55 | eth_getLogs                             |   17125 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      23 |  0.00134307  |
+|  56 | eth_getLogs                             |   17125 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    7057 |  0.412088    |
+|  57 | eth_getLogs                             |   17125 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     117 |  0.00683212  |
+|  58 | eth_getLogs                             |   17125 | error: unexpected EOF                                                                                           |       2 |  0.000116788 |
+|  59 | eth_getLogs                             |   17125 | success                                                                                                         |    9925 |  0.579562    |
+|  60 | eth_getStorageAt                        |   17173 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      32 |  0.00186339  |
+|  61 | eth_getStorageAt                        |   17173 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    7148 |  0.416235    |
+|  62 | eth_getStorageAt                        |   17173 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     144 |  0.00838526  |
+|  63 | eth_getStorageAt                        |   17173 | error: unexpected EOF                                                                                           |       3 |  0.000174693 |
+|  64 | eth_getStorageAt                        |   17173 | success                                                                                                         |    9846 |  0.573342    |
+|  65 | eth_getTransactionByBlockHashAndIndex   |   17381 | error: Post "http://localhost:8545": EOF                                                                        |       1 |  5.75341e-05 |
+|  66 | eth_getTransactionByBlockHashAndIndex   |   17381 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      25 |  0.00143835  |
+|  67 | eth_getTransactionByBlockHashAndIndex   |   17381 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    7127 |  0.410045    |
+|  68 | eth_getTransactionByBlockHashAndIndex   |   17381 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     139 |  0.00799724  |
+|  69 | eth_getTransactionByBlockHashAndIndex   |   17381 | error: unexpected EOF                                                                                           |       2 |  0.000115068 |
+|  70 | eth_getTransactionByBlockHashAndIndex   |   17381 | success                                                                                                         |   10087 |  0.580346    |
+|  71 | eth_getTransactionByBlockNumberAndIndex |   16882 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      22 |  0.00130316  |
+|  72 | eth_getTransactionByBlockNumberAndIndex |   16882 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    6959 |  0.412214    |
+|  73 | eth_getTransactionByBlockNumberAndIndex |   16882 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     123 |  0.00728587  |
+|  74 | eth_getTransactionByBlockNumberAndIndex |   16882 | error: unexpected EOF                                                                                           |       1 |  5.92347e-05 |
+|  75 | eth_getTransactionByBlockNumberAndIndex |   16882 | success                                                                                                         |    9777 |  0.579138    |
+|  76 | eth_getTransactionByHash                |   17239 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      26 |  0.00150821  |
+|  77 | eth_getTransactionByHash                |   17239 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    7044 |  0.408608    |
+|  78 | eth_getTransactionByHash                |   17239 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     132 |  0.00765706  |
+|  79 | eth_getTransactionByHash                |   17239 | error: unexpected EOF                                                                                           |       3 |  0.000174024 |
+|  80 | eth_getTransactionByHash                |   17239 | success                                                                                                         |   10034 |  0.582052    |
+|  81 | eth_getTransactionCount                 |   17175 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      25 |  0.0014556   |
+|  82 | eth_getTransactionCount                 |   17175 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    7017 |  0.408559    |
+|  83 | eth_getTransactionCount                 |   17175 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     144 |  0.00838428  |
+|  84 | eth_getTransactionCount                 |   17175 | error: unexpected EOF                                                                                           |       2 |  0.000116448 |
+|  85 | eth_getTransactionCount                 |   17175 | success                                                                                                         |    9987 |  0.581485    |
+|  86 | eth_getTransactionReceipt               |   17090 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      21 |  0.00122879  |
+|  87 | eth_getTransactionReceipt               |   17090 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    7012 |  0.410298    |
+|  88 | eth_getTransactionReceipt               |   17090 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     126 |  0.00737273  |
+|  89 | eth_getTransactionReceipt               |   17090 | error: unexpected EOF                                                                                           |       3 |  0.000175541 |
+|  90 | eth_getTransactionReceipt               |   17090 | success                                                                                                         |    9928 |  0.580925    |
+|  91 | eth_getUncleByBlockHashAndIndex         |   17368 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      26 |  0.00149701  |
+|  92 | eth_getUncleByBlockHashAndIndex         |   17368 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    7143 |  0.411274    |
+|  93 | eth_getUncleByBlockHashAndIndex         |   17368 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     110 |  0.00633349  |
+|  94 | eth_getUncleByBlockHashAndIndex         |   17368 | error: unexpected EOF                                                                                           |       2 |  0.000115154 |
+|  95 | eth_getUncleByBlockHashAndIndex         |   17368 | success                                                                                                         |   10087 |  0.580781    |
+|  96 | eth_getUncleByBlockNumberAndIndex       |   16871 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      17 |  0.00100765  |
+|  97 | eth_getUncleByBlockNumberAndIndex       |   16871 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    7072 |  0.419181    |
+|  98 | eth_getUncleByBlockNumberAndIndex       |   16871 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     110 |  0.00652006  |
+|  99 | eth_getUncleByBlockNumberAndIndex       |   16871 | error: unexpected EOF                                                                                           |       7 |  0.000414913 |
+| 100 | eth_getUncleByBlockNumberAndIndex       |   16871 | success                                                                                                         |    9665 |  0.572877    |
+| 101 | eth_getUncleCountByBlockHash            |   17126 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      21 |  0.00122621  |
+| 102 | eth_getUncleCountByBlockHash            |   17126 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    7050 |  0.411655    |
+| 103 | eth_getUncleCountByBlockHash            |   17126 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     140 |  0.00817471  |
+| 104 | eth_getUncleCountByBlockHash            |   17126 | error: unexpected EOF                                                                                           |       4 |  0.000233563 |
+| 105 | eth_getUncleCountByBlockHash            |   17126 | success                                                                                                         |    9911 |  0.578711    |
+| 106 | eth_getUncleCountByBlockNumber          |   17105 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |      31 |  0.00181234  |
+| 107 | eth_getUncleCountByBlockNumber          |   17105 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                       |    7109 |  0.415609    |
+| 108 | eth_getUncleCountByBlockNumber          |   17105 | error: Post "http://localhost:8545": read: connection reset by peer                                             |     130 |  0.00760012  |
+| 109 | eth_getUncleCountByBlockNumber          |   17105 | error: unexpected EOF                                                                                           |       3 |  0.000175387 |
+| 110 | eth_getUncleCountByBlockNumber          |   17105 | success                                                                                                         |    9832 |  0.574803    |

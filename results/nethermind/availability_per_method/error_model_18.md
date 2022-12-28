@@ -1,0 +1,67 @@
+|    | method_name                             |   total | result                                                                                                          |   count |   percentage |
+|---:|:----------------------------------------|--------:|:----------------------------------------------------------------------------------------------------------------|--------:|-------------:|
+|  0 | eth_blockNumber                         |   17267 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     177 |  0.0102508   |
+|  1 | eth_blockNumber                         |   17267 | error: unexpected EOF                                                                                           |      26 |  0.00150576  |
+|  2 | eth_blockNumber                         |   17267 | success                                                                                                         |   17064 |  0.988243    |
+|  3 | eth_estimateGas                         |   17199 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     191 |  0.0111053   |
+|  4 | eth_estimateGas                         |   17199 | error: unexpected EOF                                                                                           |      37 |  0.00215129  |
+|  5 | eth_estimateGas                         |   17199 | success                                                                                                         |   16971 |  0.986743    |
+|  6 | eth_feeHistory                          |   17099 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     189 |  0.0110533   |
+|  7 | eth_feeHistory                          |   17099 | error: unexpected EOF                                                                                           |      58 |  0.00339201  |
+|  8 | eth_feeHistory                          |   17099 | success                                                                                                         |   16852 |  0.985555    |
+|  9 | eth_gasPrice                            |   17133 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     207 |  0.0120819   |
+| 10 | eth_gasPrice                            |   17133 | error: unexpected EOF                                                                                           |      33 |  0.00192611  |
+| 11 | eth_gasPrice                            |   17133 | success                                                                                                         |   16893 |  0.985992    |
+| 12 | eth_getBalance                          |   17049 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     187 |  0.0109684   |
+| 13 | eth_getBalance                          |   17049 | error: unexpected EOF                                                                                           |      35 |  0.00205291  |
+| 14 | eth_getBalance                          |   17049 | success                                                                                                         |   16827 |  0.986979    |
+| 15 | eth_getBlockByHash                      |   16990 | error: Post "http://localhost:8545": EOF                                                                        |       1 |  5.88582e-05 |
+| 16 | eth_getBlockByHash                      |   16990 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     218 |  0.0128311   |
+| 17 | eth_getBlockByHash                      |   16990 | error: unexpected EOF                                                                                           |      29 |  0.00170689  |
+| 18 | eth_getBlockByHash                      |   16990 | success                                                                                                         |   16742 |  0.985403    |
+| 19 | eth_getBlockByNumber                    |   17138 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     180 |  0.010503    |
+| 20 | eth_getBlockByNumber                    |   17138 | error: unexpected EOF                                                                                           |      25 |  0.00145875  |
+| 21 | eth_getBlockByNumber                    |   17138 | success                                                                                                         |   16933 |  0.988038    |
+| 22 | eth_getBlockTransactionCountByHash      |   17427 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     201 |  0.0115338   |
+| 23 | eth_getBlockTransactionCountByHash      |   17427 | error: unexpected EOF                                                                                           |      22 |  0.00126241  |
+| 24 | eth_getBlockTransactionCountByHash      |   17427 | success                                                                                                         |   17204 |  0.987204    |
+| 25 | eth_getBlockTransactionCountByNumber    |   17036 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     200 |  0.0117398   |
+| 26 | eth_getBlockTransactionCountByNumber    |   17036 | error: unexpected EOF                                                                                           |      23 |  0.00135008  |
+| 27 | eth_getBlockTransactionCountByNumber    |   17036 | success                                                                                                         |   16813 |  0.98691     |
+| 28 | eth_getCode                             |   17127 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     211 |  0.0123197   |
+| 29 | eth_getCode                             |   17127 | error: unexpected EOF                                                                                           |      30 |  0.00175162  |
+| 30 | eth_getCode                             |   17127 | success                                                                                                         |   16886 |  0.985929    |
+| 31 | eth_getLogs                             |   17125 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     201 |  0.0117372   |
+| 32 | eth_getLogs                             |   17125 | error: unexpected EOF                                                                                           |      34 |  0.0019854   |
+| 33 | eth_getLogs                             |   17125 | success                                                                                                         |   16890 |  0.986277    |
+| 34 | eth_getStorageAt                        |   17173 | error: Post "http://localhost:8545": EOF                                                                        |       1 |  5.82309e-05 |
+| 35 | eth_getStorageAt                        |   17173 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     183 |  0.0106563   |
+| 36 | eth_getStorageAt                        |   17173 | error: unexpected EOF                                                                                           |      32 |  0.00186339  |
+| 37 | eth_getStorageAt                        |   17173 | success                                                                                                         |   16957 |  0.987422    |
+| 38 | eth_getTransactionByBlockHashAndIndex   |   17381 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     200 |  0.0115068   |
+| 39 | eth_getTransactionByBlockHashAndIndex   |   17381 | error: unexpected EOF                                                                                           |      50 |  0.0028767   |
+| 40 | eth_getTransactionByBlockHashAndIndex   |   17381 | success                                                                                                         |   17131 |  0.985616    |
+| 41 | eth_getTransactionByBlockNumberAndIndex |   16882 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     191 |  0.0113138   |
+| 42 | eth_getTransactionByBlockNumberAndIndex |   16882 | error: unexpected EOF                                                                                           |      35 |  0.00207321  |
+| 43 | eth_getTransactionByBlockNumberAndIndex |   16882 | success                                                                                                         |   16656 |  0.986613    |
+| 44 | eth_getTransactionByHash                |   17239 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     173 |  0.0100354   |
+| 45 | eth_getTransactionByHash                |   17239 | error: unexpected EOF                                                                                           |      24 |  0.00139219  |
+| 46 | eth_getTransactionByHash                |   17239 | success                                                                                                         |   17042 |  0.988572    |
+| 47 | eth_getTransactionCount                 |   17175 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     217 |  0.0126346   |
+| 48 | eth_getTransactionCount                 |   17175 | error: unexpected EOF                                                                                           |      41 |  0.00238719  |
+| 49 | eth_getTransactionCount                 |   17175 | success                                                                                                         |   16917 |  0.984978    |
+| 50 | eth_getTransactionReceipt               |   17090 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     195 |  0.0114102   |
+| 51 | eth_getTransactionReceipt               |   17090 | error: unexpected EOF                                                                                           |      41 |  0.00239906  |
+| 52 | eth_getTransactionReceipt               |   17090 | success                                                                                                         |   16854 |  0.986191    |
+| 53 | eth_getUncleByBlockHashAndIndex         |   17368 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     192 |  0.0110548   |
+| 54 | eth_getUncleByBlockHashAndIndex         |   17368 | error: unexpected EOF                                                                                           |      26 |  0.00149701  |
+| 55 | eth_getUncleByBlockHashAndIndex         |   17368 | success                                                                                                         |   17150 |  0.987448    |
+| 56 | eth_getUncleByBlockNumberAndIndex       |   16871 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     195 |  0.0115583   |
+| 57 | eth_getUncleByBlockNumberAndIndex       |   16871 | error: unexpected EOF                                                                                           |      29 |  0.00171893  |
+| 58 | eth_getUncleByBlockNumberAndIndex       |   16871 | success                                                                                                         |   16647 |  0.986723    |
+| 59 | eth_getUncleCountByBlockHash            |   17126 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     192 |  0.011211    |
+| 60 | eth_getUncleCountByBlockHash            |   17126 | error: unexpected EOF                                                                                           |      20 |  0.00116782  |
+| 61 | eth_getUncleCountByBlockHash            |   17126 | success                                                                                                         |   16914 |  0.987621    |
+| 62 | eth_getUncleCountByBlockNumber          |   17105 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |     183 |  0.0106986   |
+| 63 | eth_getUncleCountByBlockNumber          |   17105 | error: unexpected EOF                                                                                           |      40 |  0.0023385   |
+| 64 | eth_getUncleCountByBlockNumber          |   17105 | success                                                                                                         |   16882 |  0.986963    |

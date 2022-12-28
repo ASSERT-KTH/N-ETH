@@ -1,0 +1,34 @@
+|    | method_name                             |   total | result                                                                                                          |   count |   percentage |
+|---:|:----------------------------------------|--------:|:----------------------------------------------------------------------------------------------------------------|--------:|-------------:|
+|  0 | eth_blockNumber                         |   17267 | success                                                                                                         |   17267 |  1           |
+|  1 | eth_estimateGas                         |   17199 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       1 |  5.81429e-05 |
+|  2 | eth_estimateGas                         |   17199 | success                                                                                                         |   17198 |  0.999942    |
+|  3 | eth_feeHistory                          |   17099 | success                                                                                                         |   17099 |  1           |
+|  4 | eth_gasPrice                            |   17133 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       1 |  5.83669e-05 |
+|  5 | eth_gasPrice                            |   17133 | success                                                                                                         |   17132 |  0.999942    |
+|  6 | eth_getBalance                          |   17049 | success                                                                                                         |   17049 |  1           |
+|  7 | eth_getBlockByHash                      |   16990 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       1 |  5.88582e-05 |
+|  8 | eth_getBlockByHash                      |   16990 | success                                                                                                         |   16989 |  0.999941    |
+|  9 | eth_getBlockByNumber                    |   17138 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       1 |  5.83499e-05 |
+| 10 | eth_getBlockByNumber                    |   17138 | success                                                                                                         |   17137 |  0.999942    |
+| 11 | eth_getBlockTransactionCountByHash      |   17427 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       1 |  5.73822e-05 |
+| 12 | eth_getBlockTransactionCountByHash      |   17427 | success                                                                                                         |   17426 |  0.999943    |
+| 13 | eth_getBlockTransactionCountByNumber    |   17036 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       2 |  0.000117398 |
+| 14 | eth_getBlockTransactionCountByNumber    |   17036 | success                                                                                                         |   17034 |  0.999883    |
+| 15 | eth_getCode                             |   17127 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       6 |  0.000350324 |
+| 16 | eth_getCode                             |   17127 | success                                                                                                         |   17121 |  0.99965     |
+| 17 | eth_getLogs                             |   17125 | success                                                                                                         |   17125 |  1           |
+| 18 | eth_getStorageAt                        |   17173 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       1 |  5.82309e-05 |
+| 19 | eth_getStorageAt                        |   17173 | success                                                                                                         |   17172 |  0.999942    |
+| 20 | eth_getTransactionByBlockHashAndIndex   |   17381 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       1 |  5.75341e-05 |
+| 21 | eth_getTransactionByBlockHashAndIndex   |   17381 | success                                                                                                         |   17380 |  0.999942    |
+| 22 | eth_getTransactionByBlockNumberAndIndex |   16882 | success                                                                                                         |   16882 |  1           |
+| 23 | eth_getTransactionByHash                |   17239 | success                                                                                                         |   17239 |  1           |
+| 24 | eth_getTransactionCount                 |   17175 | success                                                                                                         |   17175 |  1           |
+| 25 | eth_getTransactionReceipt               |   17090 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       3 |  0.000175541 |
+| 26 | eth_getTransactionReceipt               |   17090 | success                                                                                                         |   17087 |  0.999824    |
+| 27 | eth_getUncleByBlockHashAndIndex         |   17368 | error: Post "http://localhost:8545": context deadline exceeded (Client.Timeout exceeded while awaiting headers) |       1 |  5.75772e-05 |
+| 28 | eth_getUncleByBlockHashAndIndex         |   17368 | success                                                                                                         |   17367 |  0.999942    |
+| 29 | eth_getUncleByBlockNumberAndIndex       |   16871 | success                                                                                                         |   16871 |  1           |
+| 30 | eth_getUncleCountByBlockHash            |   17126 | success                                                                                                         |   17126 |  1           |
+| 31 | eth_getUncleCountByBlockNumber          |   17105 | success                                                                                                         |   17105 |  1           |
