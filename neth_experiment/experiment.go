@@ -101,6 +101,8 @@ func SyncSourceClients() {
 		go RunClient(client, wg, stop_chan)
 	}
 
+	time.Sleep(10 * time.Second)
+
 	PollInitialSync()
 
 	for range clients {
