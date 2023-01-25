@@ -40,11 +40,11 @@ func do_request(index int, req Request, time_pairs *[]TimePair, out chan Indexed
 	json_data, err := json.Marshal(req)
 
 	client := http.Client{
-		Timeout: 1 * time.Second,
+		Timeout: 10 * time.Second,
 	}
 
 	start := time.Now().UnixMicro()
-	resp, err := client.Post("http://localhost:8545", "application/json", bytes.NewBuffer(json_data))
+	resp, err := client.Post("http://localhost:8080", "application/json", bytes.NewBuffer(json_data))
 	end := time.Now().UnixMicro()
 
 	measured_time := TimePair{
@@ -108,7 +108,8 @@ func load_requests() (Requests, error) {
 
 func main() {
 
-	n_requests := 360_000
+	// n_requests := 360_000
+	n_requests := 10
 	requests, err := load_requests()
 	time_pairs := make([]TimePair, n_requests)
 
@@ -126,7 +127,7 @@ func main() {
 		}
 	}()
 
-	f, err := os.Create("/output/responses_random.dat")
+	f, err := os.Create("./responses_random.dat")
 	defer f.Close()
 
 	if err != nil {
@@ -144,7 +145,7 @@ func main() {
 		}
 	}
 
-	g, err := os.Create("/output/latencies-random.dat")
+	g, err := os.Create("./latencies-random.dat")
 	defer g.Close()
 
 	for index, lat := range time_pairs {
