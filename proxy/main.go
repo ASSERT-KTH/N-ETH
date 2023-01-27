@@ -101,6 +101,7 @@ func Process(w http.ResponseWriter, r *http.Request) {
 		block_number, err := HexStringToInt(json_obj.Result.Number)
 
 		if err != nil {
+			fmt.Println("error parsing block number!")
 			block_number = 0
 		}
 
