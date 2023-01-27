@@ -12,7 +12,7 @@ import (
 
 type ContextEntry string
 
-var latest_block uint64 = 0
+var latest_block int64 = 0
 var targets = []string{
 	"http://localhost:8545", // geth
 	"http://localhost:8546", // besu
@@ -105,8 +105,10 @@ func Process(w http.ResponseWriter, r *http.Request) {
 			block_number = 0
 		}
 
-		if latest_block-block_number > 5 {
-			fmt.Println("outdated response!")
+		distance := latest_block - block_number
+
+		if distance > 5 {
+			fmt.Printf("outdated response! block_number: %d latest: %d\n", block_number, latest_block)
 			strategy.Failure(target)
 			response.Update(Degraded_freshness, resp.StatusCode, resp_body)
 			continue
