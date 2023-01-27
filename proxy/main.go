@@ -70,7 +70,7 @@ func Process(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(err.Error())
 			strategy.Failure(target)
 
-			response.Update(Unavailable, resp.StatusCode, nil)
+			response.Update(Unavailable, 500, nil) // 500 as internal server error
 			continue
 		}
 
