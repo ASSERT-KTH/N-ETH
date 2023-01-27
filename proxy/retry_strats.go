@@ -183,19 +183,20 @@ func (s *AdaptiveStrategy) Failure(index int32) {
 
 var retry_strat_type reflect.Type
 
-func SelectStrategy(s string) reflect.Type {
+func SelectStrategy(s string) {
 	switch s {
 	case "fixed":
-		return reflect.TypeOf(FixedPriorityStrategy{})
+		retry_strat_type = reflect.TypeOf(FixedPriorityStrategy{})
 	case "random":
-		return reflect.TypeOf(RandomStrategy{})
+		retry_strat_type = reflect.TypeOf(RandomStrategy{})
 	case "roundrobin":
-		return reflect.TypeOf(RoundRobinStrategy{})
+		retry_strat_type = reflect.TypeOf(RoundRobinStrategy{})
 	case "adaptive":
-		return reflect.TypeOf(AdaptiveStrategy{})
+		retry_strat_type = reflect.TypeOf(AdaptiveStrategy{})
+	default:
+		fmt.Println("retry strategy not found, fallback to adaptive")
+		retry_strat_type = reflect.TypeOf(AdaptiveStrategy{})
 	}
-	fmt.Println("retry strategy not found, fallback to adaptive")
-	return reflect.TypeOf(AdaptiveStrategy{})
 }
 
 func GetNewRetryStrategy() Strategy {
