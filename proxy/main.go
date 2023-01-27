@@ -7,12 +7,14 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
 type ContextEntry string
 
 var latest_block int64 = 0
+
 var targets = []string{
 	"http://localhost:8545", // geth
 	"http://localhost:8546", // besu
@@ -22,7 +24,7 @@ var targets = []string{
 
 func Process(w http.ResponseWriter, r *http.Request) {
 
-	fmt.Println("received request!")
+	// fmt.Println("received request!")
 
 	response := new(ComparableResponse)
 
@@ -42,8 +44,7 @@ func Process(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	strategy := new(AdaptiveStrategy)
-	strategy.Init()
+	strategy := GetNewRetryStrategy()
 
 	success := false
 	tries := 0
@@ -54,7 +55,7 @@ func Process(w http.ResponseWriter, r *http.Request) {
 		// targetIdx := r.Context().Value("request-id").(int32)
 		target := strategy.GetNext()
 
-		fmt.Printf("sending req to target %d!\n", target)
+		// fmt.Printf("sending req to target %d!\n", target)
 
 		resp, err := client.Post(
 			targets[target],
@@ -62,7 +63,7 @@ func Process(w http.ResponseWriter, r *http.Request) {
 			bytes.NewBuffer(body),
 		)
 
-		fmt.Println("received res!")
+		// fmt.Println("received res!")
 
 		if err != nil {
 			// possible request failure on request
@@ -137,9 +138,11 @@ func handleRequests() {
 	log.Fatal(http.ListenAndServe(":8080", mux))
 }
 
-func main() {
-	// 1. receive request
-	handleRequests()
+func SetRetryStrat(s string) {
 
-	fmt.Println("hello world")
+}
+
+func main() {
+	SelectStrategy(os.Args[1])
+	handleRequests()
 }

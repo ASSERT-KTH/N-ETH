@@ -4,17 +4,16 @@ import (
 	"errors"
 	"fmt"
 	"math/rand"
+	"reflect"
 	"sort"
 	"sync"
 )
 
-type RetryStragety int
-
 type Strategy interface {
 	GetNext() int32
 	Init()
-	Success()
-	Failure()
+	Success(int32)
+	Failure(int32)
 }
 
 type FixedPriorityStrategy struct {
@@ -31,8 +30,8 @@ func (s *FixedPriorityStrategy) GetNext() int32 {
 	defer func() { s.index++ }()
 	return s.index
 }
-func (s *FixedPriorityStrategy) Success() {}
-func (s *FixedPriorityStrategy) Failure() {}
+func (s *FixedPriorityStrategy) Success(index int32) {}
+func (s *FixedPriorityStrategy) Failure(index int32) {}
 
 var rrIndex int32 = 0
 var rrIndexMutex = sync.Mutex{}
@@ -55,8 +54,8 @@ func (s *RoundRobinStrategy) GetNext() int32 {
 	return s.index
 }
 
-func (s *RoundRobinStrategy) Success() {}
-func (s *RoundRobinStrategy) Failure() {}
+func (s *RoundRobinStrategy) Success(index int32) {}
+func (s *RoundRobinStrategy) Failure(index int32) {}
 
 type RandomStrategy struct {
 	index        int32
@@ -79,8 +78,8 @@ func (s *RandomStrategy) GetNext() int32 {
 	return s.index
 }
 
-func (s *RandomStrategy) Success() {}
-func (s *RandomStrategy) Failure() {}
+func (s *RandomStrategy) Success(index int32) {}
+func (s *RandomStrategy) Failure(index int32) {}
 
 type AdaptiveScore struct {
 	index     int32
@@ -166,18 +165,45 @@ func (s *AdaptiveStrategy) GetNext() int32 {
 	return s.priorityList[s.index]
 }
 
-func (s *AdaptiveStrategy) Success(index int32) int32 {
+func (s *AdaptiveStrategy) Success(index int32) {
 	adaptiveOrderMutex.Lock()
 	adaptiveOrder.addSuccess(index)
 	adaptiveOrderMutex.Unlock()
 	// adaptiveOrder.debug()
-	return s.index
+	// return s.index
 }
 
-func (s *AdaptiveStrategy) Failure(index int32) int32 {
+func (s *AdaptiveStrategy) Failure(index int32) {
 	adaptiveOrderMutex.Lock()
 	adaptiveOrder.addFailure(index)
 	adaptiveOrderMutex.Unlock()
 	// adaptiveOrder.debug()
-	return s.index
+	// return s.index
+}
+
+var retry_strat_type reflect.Type
+
+func SelectStrategy(s string) reflect.Type {
+	switch s {
+	case "fixed":
+		return reflect.TypeOf(FixedPriorityStrategy{})
+	case "random":
+		return reflect.TypeOf(RandomStrategy{})
+	case "roundrobin":
+		return reflect.TypeOf(RoundRobinStrategy{})
+	case "adaptive":
+		return reflect.TypeOf(AdaptiveStrategy{})
+	}
+	fmt.Println("retry strategy not found, fallback to adaptive")
+	return reflect.TypeOf(AdaptiveStrategy{})
+}
+
+func GetNewRetryStrategy() Strategy {
+	if retry_strat_type == nil {
+		panic("retry strategy not set")
+	}
+
+	r := reflect.New(retry_strat_type).Interface().(Strategy)
+	r.Init()
+	return r
 }
