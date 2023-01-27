@@ -8,18 +8,35 @@ import (
 	"time"
 )
 
-var clients = []string{
-	"geth",
-	"besu",
-	"erigon",
-	"nethermind",
+type ClientInfo struct {
+	name string
+	port string
 }
 
-func RunClient(target string, wg *sync.WaitGroup, stop chan int) {
+var clients = []ClientInfo{
+	{
+		name: "geth",
+		port: "8545",
+	},
+	{
+		name: "besu",
+		port: "8546",
+	},
+	{
+		name: "erigon",
+		port: "8547",
+	},
+	{
+		name: "nethermind",
+		port: "8548",
+	},
+}
 
-	fmt.Printf("init sync for %s\n", target)
+func RunClient(target ClientInfo, wg *sync.WaitGroup, stop chan int) {
 
-	nvme_dir := fmt.Sprintf("%s/docker-nvme-%s", os.Getenv("HOME"), target)
+	fmt.Printf("init sync for %s\n", target.name)
+
+	nvme_dir := fmt.Sprintf("%s/docker-nvme-%s", os.Getenv("HOME"), target.name)
 	output_dir := os.Getenv("OUTPUT_DIR")
 
 	cmd := exec.Command(
@@ -34,12 +51,14 @@ func RunClient(target string, wg *sync.WaitGroup, stop chan int) {
 		fmt.Sprintf("%s:/output", output_dir),
 		"-e",
 		"ETHERSCAN_API_KEY",
-		fmt.Sprintf("javierron/neth:%s", target),
+		"-p",
+		fmt.Sprintf("%s:8545", target.port),
+		fmt.Sprintf("javierron/neth:%s", target.name),
 		"./synchronize-ready.sh", //command
-		target,
+		target.name,
 	)
 
-	fmt.Printf("Begin sync %s in path %s\n", target, nvme_dir)
+	fmt.Printf("Begin sync %s in path %s\n", target.name, nvme_dir)
 	fmt.Println(cmd.String())
 
 	outfile, err := os.Create(fmt.Sprintf("%s/docker-sync-%s.log", output_dir, target))
