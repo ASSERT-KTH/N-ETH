@@ -24,7 +24,7 @@ type FixedPriorityStrategy struct {
 
 func (s *FixedPriorityStrategy) Init() {
 	s.index = 0
-	s.priorityList = []int32{0, 1, 2}
+	s.priorityList = []int32{0, 1, 2, 3}
 }
 
 func (s *FixedPriorityStrategy) GetNext() int32 {
@@ -64,7 +64,7 @@ type RandomStrategy struct {
 }
 
 func (s *RandomStrategy) Init() {
-	s.priorityList = []int32{0, 1, 2}
+	s.priorityList = []int32{0, 1, 2, 3}
 	rand.Shuffle(
 		len(s.priorityList),
 		func(i int, j int) {
@@ -151,6 +151,7 @@ var adaptiveOrder = AdaptiveOrder{
 	&AdaptiveScore{index: 0, requests: 0, successes: 0, score: 1.0},
 	&AdaptiveScore{index: 1, requests: 0, successes: 0, score: 1.0},
 	&AdaptiveScore{index: 2, requests: 0, successes: 0, score: 1.0},
+	&AdaptiveScore{index: 3, requests: 0, successes: 0, score: 1.0},
 }
 var adaptiveOrderMutex = sync.Mutex{}
 
@@ -175,7 +176,7 @@ func (s *AdaptiveStrategy) Success(index int32) int32 {
 	adaptiveOrderMutex.Lock()
 	adaptiveOrder.addSuccess(index)
 	adaptiveOrderMutex.Unlock()
-	adaptiveOrder.debug()
+	// adaptiveOrder.debug()
 	return s.index
 }
 
@@ -183,6 +184,6 @@ func (s *AdaptiveStrategy) Failure(index int32) int32 {
 	adaptiveOrderMutex.Lock()
 	adaptiveOrder.addFailure(index)
 	adaptiveOrderMutex.Unlock()
-	adaptiveOrder.debug()
+	// adaptiveOrder.debug()
 	return s.index
 }
