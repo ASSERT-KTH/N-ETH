@@ -123,12 +123,6 @@ func (s *AdaptiveOrder) getIndexSlice() []int32 {
 	for _, v := range *s {
 		r = append(r, v.index)
 	}
-	rand.Shuffle(
-		len(r),
-		func(i int, j int) {
-			r[i], r[j] = r[j], r[i]
-		},
-	)
 	return r
 }
 
