@@ -13,19 +13,12 @@ import (
 type ContextEntry string
 
 var latest_block uint64 = 0
-
-// var idCounter int32 = 0
-
-// func addRequestID(next http.Handler) http.Handler {
-// 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-// 		ctx := r.Context()
-// 		ctx = context.WithValue(ctx, ContextEntry("request-id"), atomic.LoadInt32(&idCounter))
-// 		atomic.AddInt32(&idCounter, 1)
-// 		fmt.Println(idCounter)
-// 		rctx := r.WithContext(ctx)
-// 		next.ServeHTTP(w, rctx)
-// 	})
-// }
+var targets = []string{
+	"http://localhost:8545", // geth
+	"http://localhost:8546", // besu
+	"http://localhost:8547", // erigon
+	"http://localhost:8548", // nethermind
+}
 
 func Process(w http.ResponseWriter, r *http.Request) {
 

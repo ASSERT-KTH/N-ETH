@@ -1,5 +1,7 @@
 FROM ubuntu:focal
 
+WORKDIR /wrkspc
+
 # update repos
 RUN apt-get update
 
@@ -58,8 +60,8 @@ RUN rm -rf /usr/local/go && tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
 ENV PATH="${PATH}:/usr/local/go/bin"
 RUN rm go1.19.3.linux-amd64.tar.gz
 
-COPY ./*.sh /
-COPY ./config.toml /
-COPY ./*.go /
-COPY ./*.json /
+COPY ./*.sh /wrkspc/
+COPY ./config.toml /wrkspc/
+COPY ./*.go /wrkspc/
+COPY ./*.json /wrkspc/
 # CMD bash single-version-controller.sh

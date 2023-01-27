@@ -52,7 +52,7 @@ DATA_DIR_PARAM=$(get_config "$TARGET.datadir_flag")=$WORKING_DIR/$(get_config "$
 
 JWT_FLAG=$(get_config "$TARGET.jwt_flag")
 TARGET_JWT_FILE=$WORKING_DIR/$(get_config "$TARGET.jwt_path")
-if [ -z JWT_FLAG ]; then
+if [ ! -z $JWT_FLAG ]; then
     JWT_PARAM="$JWT_FLAG=$TARGET_JWT_FILE"
 fi 
 
@@ -89,7 +89,7 @@ do
     sleep 30
 
     # curl to etherscan
-    ETHERSCAN_BLOCK_HEX=`curl 'https://api.etherscan.io/api?module=proxy&action=eth_blockNumber' | jq -r .result | awk '{ print substr( $0, 3 ) }' | awk '{print toupper($0)}'`
+    ETHERSCAN_BLOCK_HEX=`curl 'https://api.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey='"$ETHERSCAN_API_KEY" | jq -r .result | awk '{ print substr( $0, 3 ) }' | awk '{print toupper($0)}'`
     ETHERSCAN_BLOCK=`echo "obase=10; ibase=16; $ETHERSCAN_BLOCK_HEX" | bc`
 
     # curl to target and get number

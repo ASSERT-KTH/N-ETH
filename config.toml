@@ -2,28 +2,28 @@ chaos_eth_dir   = "royal-chaos/chaoseth"
 output_dir      = "/output"
 
 [geth]
-exec_cmd        = "geth -http"
+exec_cmd        = "geth --http --http.addr=0.0.0.0"
 datadir_flag    = "--datadir"
 datadir         = "nvme/data-dir"
-grep_str        = "[g]eth -http"
+grep_str        = "[g]eth --http"
 jwt_path        = "nvme/data-dir/geth/jwtsecret"
 
 [besu]
-exec_cmd        = "besu --rpc-http-enabled --pruning-enabled"
+exec_cmd        = "besu --rpc-http-enabled --pruning-enabled --sync-mode=X_SNAP --data-storage-format=BONSAI --rpc-http-host=0.0.0.0"
 datadir_flag    = "--data-path"
 datadir         = "nvme/data-dir"
 grep_str        = "besu\\.home"
 jwt_path        = "nvme/data-dir/jwt.hex"
 
 [erigon]
-exec_cmd        = "erigon --http --prune.h.older=90000 --prune.t.older=90000 --prune.c.older=90000 --prune.r.before=11052984"
+exec_cmd        = "erigon --http --prune.h.older=90000 --prune.t.older=90000 --prune.c.older=90000 --prune.r.before=11052984 --http.addr=0.0.0.0"
 datadir_flag    = "--datadir"
 datadir         = "nvme/data-dir"
 grep_str        = "[e]rigon --http"
 jwt_path        = "nvme/data-dir/jwt.hex"
 
 [nethermind]
-exec_cmd        = "Nethermind.Runner -c mainnet"
+exec_cmd        = "Nethermind.Runner -c mainnet --JsonRpc.Host=0.0.0.0"
 datadir_flag    = "--datadir"
 datadir         = "nvme/data-dir"
 grep_str        = "[N]ethermind.Runner -c mainnet"
