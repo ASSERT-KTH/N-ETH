@@ -114,7 +114,7 @@ func (s *AdaptiveOrder) get(i int32) (*AdaptiveScore, error) {
 
 func (s *AdaptiveOrder) sort() {
 	sort.Slice(*s, func(i, j int) bool {
-		return (*s)[i].score < (*s)[j].score
+		return (*s)[i].score > (*s)[j].score
 	})
 }
 
@@ -123,6 +123,12 @@ func (s *AdaptiveOrder) getIndexSlice() []int32 {
 	for _, v := range *s {
 		r = append(r, v.index)
 	}
+	rand.Shuffle(
+		len(r),
+		func(i int, j int) {
+			r[i], r[j] = r[j], r[i]
+		},
+	)
 	return r
 }
 
@@ -142,9 +148,9 @@ func (s *AdaptiveOrder) addFailure(index int32) {
 }
 
 var adaptiveOrder = AdaptiveOrder{
-	&AdaptiveScore{index: 0, requests: 1, successes: 1},
-	&AdaptiveScore{index: 1, requests: 1, successes: 1},
-	&AdaptiveScore{index: 2, requests: 1, successes: 1},
+	&AdaptiveScore{index: 0, requests: 0, successes: 0, score: 1.0},
+	&AdaptiveScore{index: 1, requests: 0, successes: 0, score: 1.0},
+	&AdaptiveScore{index: 2, requests: 0, successes: 0, score: 1.0},
 }
 var adaptiveOrderMutex = sync.Mutex{}
 
