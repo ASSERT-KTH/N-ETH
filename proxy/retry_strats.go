@@ -28,7 +28,7 @@ func (s *FixedPriorityStrategy) Init() {
 
 func (s *FixedPriorityStrategy) GetNext() int32 {
 	defer func() { s.index++ }()
-	return s.index
+	return s.priorityList[s.index]
 }
 func (s *FixedPriorityStrategy) Success(index int32) {}
 func (s *FixedPriorityStrategy) Failure(index int32) {}
@@ -42,7 +42,7 @@ type RoundRobinStrategy struct {
 }
 
 func (s *RoundRobinStrategy) Init() {
-	s.size = 3
+	s.size = 4
 	rrIndexMutex.Lock()
 	s.index = rrIndex
 	rrIndex = (rrIndex + 1) % s.size
@@ -75,7 +75,7 @@ func (s *RandomStrategy) Init() {
 
 func (s *RandomStrategy) GetNext() int32 {
 	defer func() { s.index++ }()
-	return s.index
+	return s.priorityList[s.index]
 }
 
 func (s *RandomStrategy) Success(index int32) {}
