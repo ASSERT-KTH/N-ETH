@@ -90,6 +90,7 @@ func RunClient(target ClientInfo, wg *sync.WaitGroup, stop chan int) {
 }
 
 func PollInitialSync() {
+	time.Sleep(30 * time.Second)
 	all_clients_ready := false
 	for !all_clients_ready {
 		all_clients_ready = true
