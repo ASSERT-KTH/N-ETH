@@ -95,7 +95,7 @@ func PollInitialSync() {
 		all_clients_ready = true
 		for _, client := range clients {
 			dat, err := os.ReadFile(
-				fmt.Sprintf("%s/ipc-%s.dat", os.Getenv("OUTPUT_DIR"), client),
+				fmt.Sprintf("%s/ipc-%s.dat", os.Getenv("OUTPUT_DIR"), client.name),
 			)
 
 			if err != nil {
@@ -106,6 +106,7 @@ func PollInitialSync() {
 		}
 
 		if !all_clients_ready {
+			fmt.Printf("Clients are synchronizing...")
 			time.Sleep(10 * time.Second)
 		}
 	}
