@@ -61,7 +61,7 @@ func RunClient(target ClientInfo, wg *sync.WaitGroup, stop chan int) {
 	fmt.Printf("Begin sync %s in path %s\n", target.name, nvme_dir)
 	fmt.Println(cmd.String())
 
-	outfile, err := os.Create(fmt.Sprintf("%s/docker-sync-%s.log", output_dir, target))
+	outfile, err := os.Create(fmt.Sprintf("%s/docker-sync-%s.log", output_dir, target.name))
 	if err != nil {
 		panic(err)
 	}
@@ -69,7 +69,7 @@ func RunClient(target ClientInfo, wg *sync.WaitGroup, stop chan int) {
 
 	cmd.Stdout = outfile
 
-	errfile, err := os.Create(fmt.Sprintf("%s/docker-sync-err-%s.log", output_dir, target))
+	errfile, err := os.Create(fmt.Sprintf("%s/docker-sync-err-%s.log", output_dir, target.name))
 	if err != nil {
 		panic(err)
 	}
@@ -79,13 +79,13 @@ func RunClient(target ClientInfo, wg *sync.WaitGroup, stop chan int) {
 	cmd.Start()
 
 	<-stop
-	fmt.Printf("%s: interrupt sync script\n", target)
+	fmt.Printf("%s: interrupt sync script\n", target.name)
 	cmd.Process.Signal(os.Interrupt)
 
-	fmt.Printf("%s: check for stop\n", target)
+	fmt.Printf("%s: check for stop\n", target.name)
 	cmd.Wait()
 
-	fmt.Printf("%s: done stopping\n", target)
+	fmt.Printf("%s: done stopping\n", target.name)
 	wg.Done()
 }
 
@@ -145,9 +145,9 @@ func main() {
 
 	CheckEnvs()
 
+	// sync targets
 	SyncSourceClients()
 	fmt.Println("All clients synchronized and stopped!")
-	// sync targets
 
 	//foreach error model
 	//	 copy targets
