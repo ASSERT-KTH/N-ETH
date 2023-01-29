@@ -15,11 +15,12 @@ type ContextEntry string
 
 var latest_block int64 = 0
 
+//TODO: move this to config file
 var targets = []string{
-	"http://localhost:8545", // geth
-	"http://localhost:8546", // besu
-	"http://localhost:8547", // erigon
-	"http://localhost:8548", // nethermind
+	"http://172.17.0.1:8645", // nethermind
+	"http://172.17.0.1:8646", // geth
+	"http://172.17.0.1:8647", // erigon
+	"http://172.17.0.1:8648", // besu
 }
 
 func Process(w http.ResponseWriter, r *http.Request) {

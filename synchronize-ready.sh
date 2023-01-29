@@ -41,6 +41,8 @@ get_config () {
     stoml $CONFIG_FILE $1
 }
 
+echo "WAIT" > $OUTPUT_DIR/ipc-$TARGET.dat
+
 # get working dir
 WORKING_DIR=$HOME
 OUTPUT_DIR=$(get_config "output_dir")
@@ -75,8 +77,6 @@ sleep 2
 
 # check is synchonized < 2 blocks from etherscan
 SYNC_DISTANCE=10000
-
-echo "WAIT" > $OUTPUT_DIR/ipc-$TARGET.dat
 
 # wait ~10 min for nethermind ports to init
 if [ "$TARGET" = "nethermind" ]; then
