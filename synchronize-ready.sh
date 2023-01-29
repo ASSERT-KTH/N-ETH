@@ -41,11 +41,11 @@ get_config () {
     stoml $CONFIG_FILE $1
 }
 
-echo "WAIT" > $OUTPUT_DIR/ipc-$TARGET.dat
 
 # get working dir
 WORKING_DIR=$HOME
 OUTPUT_DIR=$(get_config "output_dir")
+echo "WAIT" > $OUTPUT_DIR/ipc-$TARGET.dat
 
 # start target
 TARGET_LOG="$OUTPUT_DIR/$TARGET-sync-$(date -Iseconds).log"
