@@ -356,6 +356,8 @@ func RunProxy() {
 		"-p",
 		"8080:8080",
 		"javierron/neth:proxy",
+		"./proxy",
+		"adaptive",
 	}
 
 	cmd := exec.Command("docker", args...)
