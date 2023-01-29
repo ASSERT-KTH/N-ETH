@@ -361,6 +361,7 @@ func RunProxy() {
 	}
 
 	cmd := exec.Command("docker", args...)
+	println(cmd.String())
 	cmd.Run()
 }
 
@@ -373,9 +374,18 @@ func RunWorkload() {
 	cmd.Run()
 }
 
+func CleanSyncFlags() {
+	for _, client := range clients {
+		os.Remove(
+			fmt.Sprintf("%s/ipc-%s.dat", os.Getenv("OUTPUT_DIR"), client.name),
+		)
+	}
+}
+
 func main() {
 
 	CheckEnvs()
+	CleanSyncFlags()
 	RunProxy()
 
 	stop_sync_chan := make(chan os.Signal)
