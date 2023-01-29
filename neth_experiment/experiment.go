@@ -46,6 +46,7 @@ type ClientInfo struct {
 	name         string
 	port         string
 	disk_name    string
+	image_name   string
 	source_index int
 	target_index int
 }
@@ -55,6 +56,7 @@ var clients = []ClientInfo{
 		name:         "geth",
 		port:         "8545",
 		disk_name:    "geth",
+		image_name:   "javierron/neth:geth",
 		source_index: 1,
 		target_index: 5,
 	},
@@ -62,6 +64,7 @@ var clients = []ClientInfo{
 		name:         "besu",
 		port:         "8546",
 		disk_name:    "besu",
+		image_name:   "javierron/neth:besu",
 		source_index: 3,
 		target_index: 7,
 	},
@@ -69,6 +72,7 @@ var clients = []ClientInfo{
 		name:         "erigon",
 		port:         "8547",
 		disk_name:    "erigon",
+		image_name:   "javierron/neth:erigon",
 		source_index: 2,
 		target_index: 6,
 	},
@@ -76,6 +80,7 @@ var clients = []ClientInfo{
 		name:         "nethermind",
 		port:         "8548",
 		disk_name:    "nethermind",
+		image_name:   "javierron/neth:nethermind",
 		source_index: 0,
 		target_index: 4,
 	},
@@ -83,24 +88,28 @@ var clients = []ClientInfo{
 
 var experiment_clients = []ClientInfo{
 	{
-		name:      "geth",
-		port:      "8555",
-		disk_name: "geth-copy",
+		name:       "geth",
+		port:       "8555",
+		disk_name:  "geth-copy",
+		image_name: "javierron/neth:geth-kernel",
 	},
 	{
-		name:      "besu",
-		port:      "8556",
-		disk_name: "besu-copy",
+		name:       "besu",
+		port:       "8556",
+		disk_name:  "besu-copy",
+		image_name: "javierron/neth:besu-kernel",
 	},
 	{
-		name:      "erigon",
-		port:      "8557",
-		disk_name: "erigon-copy",
+		name:       "erigon",
+		port:       "8557",
+		disk_name:  "erigon-copy",
+		image_name: "javierron/neth:erigon-kernel",
 	},
 	{
-		name:      "nethermind",
-		port:      "8558",
-		disk_name: "nethermind-copy",
+		name:       "nethermind",
+		port:       "8558",
+		disk_name:  "nethermind-copy",
+		image_name: "javierron/neth:nethermind-kernel",
 	},
 }
 
@@ -124,7 +133,7 @@ func RunClient(target ClientInfo, script string, wg *sync.WaitGroup, stop chan o
 		"ETHERSCAN_API_KEY",
 		"-p",
 		fmt.Sprintf("%s:8545", target.port),
-		fmt.Sprintf("javierron/neth:%s", target.name),
+		fmt.Sprintf(target.image_name),
 		script,
 		target.name,
 	}
