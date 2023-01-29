@@ -173,7 +173,14 @@ func WaitForAllClientsSync() {
 			)
 
 			if err != nil {
-				panic(err)
+				if os.IsNotExist(err) {
+					fmt.Printf("Client %s not yet started...\n", client.name)
+
+					all_clients_ready = all_clients_ready && false
+					continue
+				} else {
+					panic(err)
+				}
 			}
 
 			all_clients_ready = all_clients_ready && (string(dat) == "READY\n")
