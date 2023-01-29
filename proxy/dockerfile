@@ -1,0 +1,11 @@
+FROM golang:alpine3.17
+WORKDIR /app
+
+COPY *.go ./
+COPY go.mod ./
+RUN go build .
+
+FROM alpine:latest
+
+WORKDIR /app
+COPY --from=0 /app/proxy ./proxy
