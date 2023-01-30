@@ -121,7 +121,7 @@ func RunClient(target ClientInfo, script string, wg *sync.WaitGroup, stop chan o
 	nvme_dir := fmt.Sprintf("%s/docker-nvme-%s", os.Getenv("HOME"), target.disk_name)
 
 	//hack
-	error_model_index := ""
+	error_model_index := "source"
 	if len(extra_args) > 1 {
 		error_model_index = extra_args[1]
 	}
@@ -428,7 +428,7 @@ func RunWorkload(experiment_tag string) {
 
 func CleanSyncFlags(poll_clients []ClientInfo, exp_tag string) {
 	for _, client := range clients {
-		os.Remove(
+		err := os.Remove(
 			fmt.Sprintf(
 				"%s/%s-%s/ipc-%s.dat",
 				os.Getenv("OUTPUT_DIR"),
@@ -437,13 +437,17 @@ func CleanSyncFlags(poll_clients []ClientInfo, exp_tag string) {
 				client.name,
 			),
 		)
+
+		if err != nil && !os.IsNotExist(err) {
+			panic(err)
+		}
 	}
 }
 
 func main() {
 
 	CheckEnvs()
-	CleanSyncFlags(clients, "")
+	CleanSyncFlags(clients, "source")
 	RunProxy()
 
 	stop_sync_chan := make(chan os.Signal)
@@ -451,7 +455,7 @@ func main() {
 	// sync targets
 	go SyncSourceClients(stop_sync_chan, restart_sync_chan)
 
-	WaitForAllClientsSync(clients, "")
+	WaitForAllClientsSync(clients, "source")
 	fmt.Println("All clients synchronized!")
 
 	//foreach error model
