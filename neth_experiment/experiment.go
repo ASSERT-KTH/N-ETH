@@ -114,20 +114,13 @@ var experiment_clients = []ClientInfo{
 	},
 }
 
-func RunClient(target ClientInfo, script string, wg *sync.WaitGroup, stop chan os.Signal, extra_args ...string) {
+func RunClient(target ClientInfo, script string, tag string, wg *sync.WaitGroup, stop chan os.Signal, extra_args ...string) {
 
 	fmt.Printf("init sync for %s\n", target.name)
 
 	nvme_dir := fmt.Sprintf("%s/docker-nvme-%s", os.Getenv("HOME"), target.disk_name)
 
-	//hack
-	error_model_index := "source"
-	if len(extra_args) > 1 {
-		error_model_index = extra_args[1]
-	}
-	//end hack
-
-	output_dir := fmt.Sprintf("%s/%s-%s", os.Getenv("OUTPUT_DIR"), target.disk_name, error_model_index)
+	output_dir := fmt.Sprintf("%s/%s-%s", os.Getenv("OUTPUT_DIR"), target.name, tag)
 	err := os.Mkdir(output_dir, 0775)
 
 	if err != nil && !os.IsExist(err) {
@@ -158,7 +151,7 @@ func RunClient(target ClientInfo, script string, wg *sync.WaitGroup, stop chan o
 	fmt.Printf("Begin sync %s in path %s\n", target.name, nvme_dir)
 	fmt.Println(cmd.String())
 
-	outfile, err := os.Create(fmt.Sprintf("%s/docker-sync-%s.log", output_dir, target.disk_name))
+	outfile, err := os.Create(fmt.Sprintf("%s/docker-sync-%s.log", output_dir, target.name))
 	if err != nil {
 		panic(err)
 	}
@@ -229,17 +222,20 @@ func SyncSourceClients(stop_chan chan os.Signal, restart_chan chan int) {
 	wg := new(sync.WaitGroup)
 
 	for {
-		stop_clients_chan := make(chan os.Signal)
 		wg.Add(len(clients))
 
+		channel_slice := make([]chan os.Signal, 4)
+
 		for _, client := range clients {
-			go RunClient(client, "./synchronize-ready.sh", wg, stop_clients_chan)
+			stop_clients_chan := make(chan os.Signal)
+			channel_slice = append(channel_slice, stop_clients_chan)
+			go RunClient(client, "./synchronize-ready.sh", "source", wg, stop_clients_chan)
 		}
 
 		sig := <-stop_chan
 
-		for range clients {
-			stop_clients_chan <- sig
+		for _, ch := range channel_slice {
+			ch <- sig
 		}
 
 		wg.Wait()
@@ -249,21 +245,23 @@ func SyncSourceClients(stop_chan chan os.Signal, restart_chan chan int) {
 	}
 }
 
-func StartExperimentClients(script string, stop_chan chan os.Signal, extra_args ...string) {
+func StartExperimentClients(script string, tag string, stop_chan chan os.Signal, extra_args ...string) {
 
 	wg := new(sync.WaitGroup)
 
-	stop_clients_chan := make(chan os.Signal)
+	channel_slice := make([]chan os.Signal, 4)
 	wg.Add(len(experiment_clients))
 
 	for _, client := range experiment_clients {
-		go RunClient(client, script, wg, stop_clients_chan, extra_args...)
+		stop_clients_chan := make(chan os.Signal)
+		channel_slice = append(channel_slice, stop_clients_chan)
+		go RunClient(client, script, tag, wg, stop_clients_chan, extra_args...)
 	}
 
 	sig := <-stop_chan
 
-	for range experiment_clients {
-		stop_clients_chan <- sig
+	for _, ch := range channel_slice {
+		ch <- sig
 	}
 
 	wg.Wait()
@@ -480,8 +478,8 @@ func main() {
 
 		go StartExperimentClients(
 			"./synchronize-ready.sh",
-			experiments_sync_chan,
 			fmt.Sprintf("pre-sync-%s", error_model_tag),
+			experiments_sync_chan,
 		)
 
 		WaitForAllClientsSync(experiment_clients, fmt.Sprintf("pre-sync-%s", error_model_tag))
@@ -496,9 +494,9 @@ func main() {
 		error_model_path := fmt.Sprintf("%s/%s", error_models_prefix, error_model)
 		go StartExperimentClients(
 			"./n-version-fault-injection.sh",
+			error_model_tag,
 			experiments_sync_chan,
 			error_model_path,
-			error_model_tag,
 		)
 
 		fmt.Println("Started experiment clients with fault injection!")
