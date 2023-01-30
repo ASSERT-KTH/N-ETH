@@ -193,9 +193,13 @@ func main() {
 	}()
 
 	output_dir := fmt.Sprintf("%s/requests-%s", os.Getenv("OUTPUT_DIR"), experiment_tag)
-	os.Mkdir(output_dir, 0775)
+	err := os.Mkdir(output_dir, 0775)
 
-	f, err := os.Create(fmt.Sprintf("%s/responses-get-block.dat", os.Getenv("OUTPU")))
+	if err != nil && !os.IsExist(err) {
+		panic(err)
+	}
+
+	f, err := os.Create(fmt.Sprintf("%s/responses-get-block.dat", output_dir))
 	defer f.Close()
 
 	if err != nil {
@@ -213,7 +217,7 @@ func main() {
 		}
 	}
 
-	g, err := os.Create(fmt.Sprintf("%s/latencies-get-block.dat", os.Getenv("HOME")))
+	g, err := os.Create(fmt.Sprintf("%s/latencies-get-block.dat", output_dir))
 	defer g.Close()
 
 	for index, lat := range time_pairs {

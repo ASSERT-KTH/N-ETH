@@ -130,7 +130,7 @@ func RunClient(target ClientInfo, script string, wg *sync.WaitGroup, stop chan o
 	output_dir := fmt.Sprintf("%s/%s-%s", os.Getenv("OUTPUT_DIR"), target.disk_name, error_model_index)
 	err := os.Mkdir(output_dir, 0775)
 
-	if err != nil {
+	if err != nil && !os.IsExist(err) {
 		panic(err)
 	}
 
