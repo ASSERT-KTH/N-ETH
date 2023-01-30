@@ -49,7 +49,7 @@ while true; do
 
     JWT_FLAG=$(get_config "$TARGET.jwt_flag")
     TARGET_JWT_FILE=$WORKING_DIR/$(get_config "$TARGET.jwt_path")
-    if [ ! -z JWT_FLAG ]; then
+    if [ ! -z $JWT_FLAG ]; then
         JWT_PARAM="$JWT_FLAG=$TARGET_JWT_FILE"
     fi 
 
@@ -72,7 +72,7 @@ while true; do
     CHAOS_ETH_GREP_STR="[s]yscall_injector.py"
     cd $CHAOS_ETH_DIR
 
-    { $SUDO python syscall_injector.py --config $ERROR_MODELS -p $TARGET_PID &> $OUTPUT_DIR/chaos.log-$(date -Iseconds); } &
+    { $SUDO python syscall_injector.py --config $ERROR_MODELS -p $TARGET_PID &> $OUTPUT_DIR/chaos-$(date -Iseconds).log; } &
     CHAOS_ETH_PPID=$!
     CHAOS_ETH_GREP_STR=$CHAOS_ETH_PPID.*$CHAOS_ETH_GREP_STR
     CHAOS_ETH_PID=`ps axo pid,ppid,cmd | grep "$CHAOS_ETH_GREP_STR" | awk '{print $1}'`

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strconv"
 	"sync"
 	"time"
 )
@@ -118,7 +119,20 @@ func RunClient(target ClientInfo, script string, wg *sync.WaitGroup, stop chan o
 	fmt.Printf("init sync for %s\n", target.name)
 
 	nvme_dir := fmt.Sprintf("%s/docker-nvme-%s", os.Getenv("HOME"), target.disk_name)
-	output_dir := os.Getenv("OUTPUT_DIR")
+
+	//hack
+	error_model_index := ""
+	if len(extra_args) > 1 {
+		error_model_index = extra_args[1]
+	}
+	//end hack
+
+	output_dir := fmt.Sprintf("%s/%s-%s", os.Getenv("OUTPUT_DIR"), target.disk_name, error_model_index)
+	err := os.Mkdir(output_dir, 0775)
+
+	if err != nil {
+		panic(err)
+	}
 
 	args := []string{
 		"run",
@@ -172,13 +186,20 @@ func RunClient(target ClientInfo, script string, wg *sync.WaitGroup, stop chan o
 	wg.Done()
 }
 
-func WaitForAllClientsSync() {
+func WaitForAllClientsSync(poll_clients []ClientInfo, exp_tag string) {
 	all_clients_ready := false
 	for !all_clients_ready {
 		all_clients_ready = true
-		for _, client := range clients {
+		for _, client := range poll_clients {
 			dat, err := os.ReadFile(
-				fmt.Sprintf("%s/ipc-%s.dat", os.Getenv("OUTPUT_DIR"), client.name),
+				//fmt.Sprintf("%s/%s-%s", os.Getenv("OUTPUT_DIR"), target.disk_name, error_model_index)
+				fmt.Sprintf(
+					"%s/%s-%s/ipc-%s.dat",
+					os.Getenv("OUTPUT_DIR"),
+					client.disk_name,
+					exp_tag,
+					client.name,
+				),
 			)
 
 			if err != nil {
@@ -200,6 +221,7 @@ func WaitForAllClientsSync() {
 			time.Sleep(10 * time.Second)
 		}
 	}
+	CleanSyncFlags(poll_clients, exp_tag)
 }
 
 func SyncSourceClients(stop_chan chan os.Signal, restart_chan chan int) {
@@ -376,24 +398,44 @@ func RunProxy() {
 		"adaptive",
 	}
 
+	outfile, err := os.Create(
+		fmt.Sprintf(
+			"%s/proxy.log",
+			os.Getenv("OUTPUT_DIR"),
+		),
+	)
+
+	if err != nil {
+		panic(err)
+	}
+	defer outfile.Close()
+
 	cmd := exec.Command("docker", args...)
 	println(cmd.String())
+	cmd.Stdout = outfile
 	cmd.Run()
 }
 
-func RunWorkload() {
+func RunWorkload(experiment_tag string) {
 	cmd := exec.Command(
 		"go",
 		"run",
 		"requests-get-block.go",
+		experiment_tag,
 	)
 	cmd.Run()
 }
 
-func CleanSyncFlags() {
+func CleanSyncFlags(poll_clients []ClientInfo, exp_tag string) {
 	for _, client := range clients {
 		os.Remove(
-			fmt.Sprintf("%s/ipc-%s.dat", os.Getenv("OUTPUT_DIR"), client.name),
+			fmt.Sprintf(
+				"%s/%s-%s/ipc-%s.dat",
+				os.Getenv("OUTPUT_DIR"),
+				client.disk_name,
+				exp_tag,
+				client.name,
+			),
 		)
 	}
 }
@@ -401,7 +443,7 @@ func CleanSyncFlags() {
 func main() {
 
 	CheckEnvs()
-	CleanSyncFlags()
+	CleanSyncFlags(clients, "")
 	RunProxy()
 
 	stop_sync_chan := make(chan os.Signal)
@@ -409,11 +451,11 @@ func main() {
 	// sync targets
 	go SyncSourceClients(stop_sync_chan, restart_sync_chan)
 
-	WaitForAllClientsSync()
+	WaitForAllClientsSync(clients, "")
 	fmt.Println("All clients synchronized!")
 
 	//foreach error model
-	for _, error_model := range error_models {
+	for error_model_index, error_model := range error_models {
 
 		//   stop sync
 		stop_sync_chan <- os.Interrupt
@@ -428,9 +470,17 @@ func main() {
 
 		// sync copies
 		fmt.Println("Starting experiment clients sync!")
+
+		error_model_tag := strconv.Itoa(error_model_index)
 		experiments_sync_chan := make(chan os.Signal)
-		go StartExperimentClients("./synchronize-ready.sh", experiments_sync_chan)
-		WaitForAllClientsSync()
+
+		go StartExperimentClients(
+			"./synchronize-ready.sh",
+			experiments_sync_chan,
+			fmt.Sprintf("pre-sync-%s", error_model_tag),
+		)
+
+		WaitForAllClientsSync(experiment_clients, fmt.Sprintf("pre-sync-%s", error_model_tag))
 		fmt.Println("Experiment clients synced!")
 
 		experiments_sync_chan <- os.Interrupt
@@ -444,6 +494,7 @@ func main() {
 			"./n-version-fault-injection.sh",
 			experiments_sync_chan,
 			error_model_path,
+			error_model_tag,
 		)
 
 		fmt.Println("Started experiment clients with fault injection!")
@@ -451,7 +502,7 @@ func main() {
 		time.Sleep(30 * time.Second)
 
 		fmt.Println("Running workload")
-		RunWorkload()
+		RunWorkload(error_model_tag)
 		fmt.Println("Workload Done!")
 
 		fmt.Println("Closing experiment clients!")

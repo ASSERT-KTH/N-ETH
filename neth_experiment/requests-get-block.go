@@ -166,6 +166,12 @@ func updateEtherscanBlockNumber() {
 
 func main() {
 
+	if len(os.Args) < 2 {
+		fmt.Println("second argument must exist and should be the experiment tag")
+		os.Exit(-1)
+	}
+	experiment_tag := os.Args[1]
+
 	n_requests := 360_000
 	time_pairs := make([]TimePair, n_requests)
 
@@ -186,7 +192,10 @@ func main() {
 		}
 	}()
 
-	f, err := os.Create(fmt.Sprintf("%s/responses-get-block.dat", os.Getenv("HOME")))
+	output_dir := fmt.Sprintf("%s/requests-%s", os.Getenv("OUTPUT_DIR"), experiment_tag)
+	os.Mkdir(output_dir, 0775)
+
+	f, err := os.Create(fmt.Sprintf("%s/responses-get-block.dat", os.Getenv("OUTPU")))
 	defer f.Close()
 
 	if err != nil {
