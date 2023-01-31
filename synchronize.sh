@@ -21,11 +21,11 @@ graceful_shutdown()
     do
         sleep 10
         TARGET_GREP=""
-        if [ ! -z $TARGET_GREP_STR ]; then
+        if [ ! -z "$TARGET_GREP_STR" ]; then
             TARGET_GREP=`ps axo pid,ppid,cmd | grep "$TARGET_GREP_STR"`
         fi
         TEKU_GREP=""
-        if [ ! -z $TEKU_GREP_STR ]; then
+        if [ ! -z "$TEKU_GREP_STR" ]; then
             TEKU_GREP=`ps axo pid,ppid,cmd | grep "$TEKU_GREP_STR"`
         fi
     done
