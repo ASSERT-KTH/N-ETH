@@ -189,7 +189,7 @@ func WaitForAllClientsSync(poll_clients []ClientInfo, exp_tag string) {
 				fmt.Sprintf(
 					"%s/%s-%s/ipc-%s.dat",
 					os.Getenv("OUTPUT_DIR"),
-					client.disk_name,
+					client.name,
 					exp_tag,
 					client.name,
 				),
