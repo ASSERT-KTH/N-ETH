@@ -224,7 +224,7 @@ func SyncSourceClients(stop_chan chan os.Signal, restart_chan chan int) {
 	for {
 		wg.Add(len(clients))
 
-		channel_slice := make([]chan os.Signal, 4)
+		channel_slice := make([]chan os.Signal, 0, len(clients))
 
 		for _, client := range clients {
 			stop_clients_chan := make(chan os.Signal)
@@ -249,7 +249,7 @@ func StartExperimentClients(script string, tag string, stop_chan chan os.Signal,
 
 	wg := new(sync.WaitGroup)
 
-	channel_slice := make([]chan os.Signal, 4)
+	channel_slice := make([]chan os.Signal, 0, len(experiment_clients))
 	wg.Add(len(experiment_clients))
 
 	for _, client := range experiment_clients {
