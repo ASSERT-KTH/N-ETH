@@ -447,7 +447,7 @@ func main() {
 
 	CheckEnvs()
 	CleanSyncFlags(clients, "source")
-	RunProxy()
+	go RunProxy()
 
 	stop_sync_chan := make(chan os.Signal)
 	restart_sync_chan := make(chan int)
