@@ -80,7 +80,7 @@ SYNC_DISTANCE=10000
 
 # wait ~10 min for nethermind ports to init
 if [ "$TARGET" = "nethermind" ]; then
-    sleep 600
+    sleep 120
 fi
 
 while [ true ]
