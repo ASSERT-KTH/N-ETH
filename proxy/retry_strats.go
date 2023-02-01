@@ -220,7 +220,7 @@ func (s *AdaptiveStrategy) Failure(index int32) {
 	// return s.index
 }
 
-func (s *AdaptiveOrder) LogStatus() {
+func (s *AdaptiveStrategy) LogStatus() {
 	fmt.Printf("%+v", s)
 	fmt.Printf("%+v", adaptiveOrder)
 }
