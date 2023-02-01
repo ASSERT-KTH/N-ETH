@@ -90,25 +90,25 @@ var clients = []ClientInfo{
 var experiment_clients = []ClientInfo{
 	{
 		name:       "geth",
-		port:       "8555",
+		port:       "8645",
 		disk_name:  "geth-copy",
 		image_name: "javierron/neth:geth-kernel",
 	},
 	{
 		name:       "besu",
-		port:       "8556",
+		port:       "8646",
 		disk_name:  "besu-copy",
 		image_name: "javierron/neth:besu-kernel",
 	},
 	{
 		name:       "erigon",
-		port:       "8557",
+		port:       "8647",
 		disk_name:  "erigon-copy",
 		image_name: "javierron/neth:erigon-kernel",
 	},
 	{
 		name:       "nethermind",
-		port:       "8558",
+		port:       "8648",
 		disk_name:  "nethermind-copy",
 		image_name: "javierron/neth:nethermind-kernel",
 	},
