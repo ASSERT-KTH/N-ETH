@@ -1,6 +1,12 @@
 #!/bin/bash
 set -x
 
+trap forced_shutdown SIGINT SIGQUIT SIGTERM
+
+forced_shutdown()
+{
+    exit
+}
 
 
 # TODO:

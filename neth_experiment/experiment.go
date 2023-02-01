@@ -240,7 +240,7 @@ func SyncSourceClients(stop_chan chan os.Signal, restart_chan chan int) {
 
 		wg.Wait()
 
-		stop_chan <- nil
+		stop_chan <- sig
 		<-restart_chan
 	}
 }
@@ -265,7 +265,7 @@ func StartExperimentClients(script string, tag string, stop_chan chan os.Signal,
 	}
 
 	wg.Wait()
-	stop_chan <- nil
+	stop_chan <- sig
 }
 
 func CheckEnvs() {
@@ -411,6 +411,7 @@ func RunProxy() {
 	cmd := exec.Command("docker", args...)
 	println(cmd.String())
 	cmd.Stdout = outfile
+	cmd.Stderr = outfile
 	cmd.Run()
 }
 
@@ -508,7 +509,7 @@ func main() {
 		fmt.Println("Workload Done!")
 
 		fmt.Println("Closing experiment clients!")
-		experiments_sync_chan <- os.Kill
+		experiments_sync_chan <- os.Interrupt
 
 		fmt.Println("Cleaning up containers...")
 		<-experiments_sync_chan
