@@ -396,9 +396,12 @@ func RunProxy(tag string, stop chan int) {
 		"adaptive",
 	}
 
+	cmd := exec.Command("docker", args...)
+	println(cmd.String())
+
 	outfile, err := os.Create(
 		fmt.Sprintf(
-			"%s-%s/proxy.log",
+			"%s/proxy-%s.log",
 			os.Getenv("OUTPUT_DIR"),
 			tag,
 		),
@@ -409,10 +412,22 @@ func RunProxy(tag string, stop chan int) {
 	}
 	defer outfile.Close()
 
-	cmd := exec.Command("docker", args...)
-	println(cmd.String())
 	cmd.Stdout = outfile
-	cmd.Stderr = outfile
+
+	errfile, err := os.Create(
+		fmt.Sprintf(
+			"%s/proxy-err-%s.log",
+			os.Getenv("OUTPUT_DIR"),
+			tag,
+		),
+	)
+
+	if err != nil {
+		panic(err)
+	}
+	defer errfile.Close()
+	cmd.Stderr = errfile
+
 	cmd.Run()
 
 	<-stop
