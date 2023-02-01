@@ -386,7 +386,7 @@ func CopyClients() {
 	// start clients
 }
 
-func RunProxy() {
+func RunProxy(tag string, stop chan int) {
 	args := []string{
 		"run",
 		"-p",
@@ -398,8 +398,9 @@ func RunProxy() {
 
 	outfile, err := os.Create(
 		fmt.Sprintf(
-			"%s/proxy.log",
+			"%s-%s/proxy.log",
 			os.Getenv("OUTPUT_DIR"),
+			tag,
 		),
 	)
 
@@ -413,6 +414,13 @@ func RunProxy() {
 	cmd.Stdout = outfile
 	cmd.Stderr = outfile
 	cmd.Run()
+
+	<-stop
+
+	cmd.Process.Signal(os.Interrupt)
+	cmd.Wait()
+
+	stop <- 0
 }
 
 func RunWorkload(experiment_tag string) {
@@ -447,7 +455,6 @@ func main() {
 
 	CheckEnvs()
 	CleanSyncFlags(clients, "source")
-	go RunProxy()
 
 	stop_sync_chan := make(chan os.Signal)
 	restart_sync_chan := make(chan int)
@@ -499,14 +506,23 @@ func main() {
 			experiments_sync_chan,
 			error_model_path,
 		)
-
 		fmt.Println("Started experiment clients with fault injection!")
+
+		proxy_stop := make(chan int)
+
+		go RunProxy(error_model_tag, proxy_stop)
+		fmt.Println("Started proxy!")
 
 		time.Sleep(30 * time.Second)
 
 		fmt.Println("Running workload")
 		RunWorkload(error_model_tag)
 		fmt.Println("Workload Done!")
+
+		fmt.Println("Shutting down proxy...")
+		proxy_stop <- 0
+		<-proxy_stop
+		fmt.Println("Proxy shut down!")
 
 		fmt.Println("Closing experiment clients!")
 		experiments_sync_chan <- os.Interrupt

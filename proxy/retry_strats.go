@@ -14,11 +14,14 @@ type Strategy interface {
 	Init()
 	Success(int32)
 	Failure(int32)
+	LogStatus()
 }
 
 type FixedPriorityStrategy struct {
 	index        int32
 	priorityList []int32
+	failures     int32
+	successes    int32
 }
 
 func (s *FixedPriorityStrategy) Init() {
@@ -30,15 +33,27 @@ func (s *FixedPriorityStrategy) GetNext() int32 {
 	defer func() { s.index++ }()
 	return s.priorityList[s.index]
 }
-func (s *FixedPriorityStrategy) Success(index int32) {}
-func (s *FixedPriorityStrategy) Failure(index int32) {}
+
+func (s *FixedPriorityStrategy) Success(index int32) {
+	s.successes++
+}
+
+func (s *FixedPriorityStrategy) Failure(index int32) {
+	s.failures++
+}
+
+func (s *FixedPriorityStrategy) LogStatus() {
+	fmt.Printf("%+v", s)
+}
 
 var rrIndex int32 = 0
 var rrIndexMutex = sync.Mutex{}
 
 type RoundRobinStrategy struct {
-	index int32
-	size  int32
+	index     int32
+	size      int32
+	successes int32
+	failures  int32
 }
 
 func (s *RoundRobinStrategy) Init() {
@@ -54,12 +69,23 @@ func (s *RoundRobinStrategy) GetNext() int32 {
 	return s.index
 }
 
-func (s *RoundRobinStrategy) Success(index int32) {}
-func (s *RoundRobinStrategy) Failure(index int32) {}
+func (s *RoundRobinStrategy) Success(index int32) {
+	s.successes++
+}
+
+func (s *RoundRobinStrategy) Failure(index int32) {
+	s.failures++
+}
+
+func (s *RoundRobinStrategy) LogStatus() {
+	fmt.Printf("%+v", s)
+}
 
 type RandomStrategy struct {
 	index        int32
 	priorityList []int32
+	successes    int32
+	failures     int32
 }
 
 func (s *RandomStrategy) Init() {
@@ -78,8 +104,17 @@ func (s *RandomStrategy) GetNext() int32 {
 	return s.priorityList[s.index]
 }
 
-func (s *RandomStrategy) Success(index int32) {}
-func (s *RandomStrategy) Failure(index int32) {}
+func (s *RandomStrategy) Success(index int32) {
+	s.successes++
+}
+
+func (s *RandomStrategy) Failure(index int32) {
+	s.failures++
+}
+
+func (s *RandomStrategy) LogStatus() {
+	fmt.Printf("%+v", s)
+}
 
 type AdaptiveScore struct {
 	index     int32
@@ -151,6 +186,8 @@ var adaptiveOrderMutex = sync.Mutex{}
 type AdaptiveStrategy struct {
 	index        int32
 	priorityList []int32
+	successes    int32
+	failures     int32
 }
 
 func (s *AdaptiveStrategy) Init() {
@@ -169,6 +206,7 @@ func (s *AdaptiveStrategy) Success(index int32) {
 	adaptiveOrderMutex.Lock()
 	adaptiveOrder.addSuccess(index)
 	adaptiveOrderMutex.Unlock()
+	s.successes++
 	// adaptiveOrder.debug()
 	// return s.index
 }
@@ -177,8 +215,14 @@ func (s *AdaptiveStrategy) Failure(index int32) {
 	adaptiveOrderMutex.Lock()
 	adaptiveOrder.addFailure(index)
 	adaptiveOrderMutex.Unlock()
+	s.failures++
 	// adaptiveOrder.debug()
 	// return s.index
+}
+
+func (s *AdaptiveOrder) LogStatus() {
+	fmt.Printf("%+v", s)
+	fmt.Printf("%+v", adaptiveOrder)
 }
 
 var retry_strat_type reflect.Type

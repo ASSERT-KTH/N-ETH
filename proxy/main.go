@@ -127,6 +127,8 @@ func Process(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(response.statusCode)
 	w.Write(response.body)
+
+	strategy.LogStatus()
 }
 
 func handleRequests() {
