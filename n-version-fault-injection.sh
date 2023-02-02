@@ -38,7 +38,7 @@ get_config () {
 
 WORKING_DIR=$HOME
 OUTPUT_DIR=$(get_config "output_dir")
-CHAOS_ETH_DIR=/$(get_config "chaos_eth_dir")
+CHAOS_ETH_DIR=$(get_config "chaos_eth_dir")
 ERROR_MODELS="$WORKING_DIR/error_models.json"
 wget -O $ERROR_MODELS $ERROR_MODEL_URL
 PRE_SYNC_CMD=$(pwd)/synchronize-stop.sh
@@ -76,9 +76,8 @@ while true; do
     #attach error injection
     sleep 10
     CHAOS_ETH_GREP_STR="[s]yscall_injector.py"
-    cd $CHAOS_ETH_DIR
-
-    { $SUDO python syscall_injector.py --config $ERROR_MODELS -p $TARGET_PID &> $OUTPUT_DIR/chaos-$(date -Iseconds).log; } &
+    
+    { $SUDO python $CHAOS_ETH_DIR/syscall_injector.py --config $ERROR_MODELS -p $TARGET_PID &> $OUTPUT_DIR/chaos-$(date -Iseconds).log; } &
     CHAOS_ETH_PPID=$!
     CHAOS_ETH_GREP_STR=$CHAOS_ETH_PPID.*$CHAOS_ETH_GREP_STR
     CHAOS_ETH_PID=`ps axo pid,ppid,cmd | grep "$CHAOS_ETH_GREP_STR" | awk '{print $1}'`
