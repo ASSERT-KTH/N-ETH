@@ -428,7 +428,7 @@ func RunProxy(tag string, stop chan int) {
 	defer errfile.Close()
 	cmd.Stderr = errfile
 
-	cmd.Run()
+	cmd.Start()
 
 	<-stop
 
