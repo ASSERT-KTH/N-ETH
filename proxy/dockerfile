@@ -9,3 +9,4 @@ FROM alpine:latest
 
 WORKDIR /app
 COPY --from=0 /app/proxy ./proxy
+COPY ./run-proxy.sh ./run-proxy.sh
