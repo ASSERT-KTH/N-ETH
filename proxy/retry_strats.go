@@ -131,10 +131,9 @@ type AdaptiveOrder []*AdaptiveScore
 
 func (s *AdaptiveOrder) debug() {
 	for _, v := range *s {
-		fmt.Printf("index: %d, score: %f\n", v.index, v.score)
-		fmt.Printf("index: %d, successes: %d\n", v.index, v.successes)
-		fmt.Printf("index: %d, requests: %d\n", v.index, v.requests)
+		fmt.Printf("%+v\n", v)
 	}
+	fmt.Println("")
 }
 
 func (s *AdaptiveOrder) get(i int32) (*AdaptiveScore, error) {
@@ -222,7 +221,7 @@ func (s *AdaptiveStrategy) Failure(index int32) {
 
 func (s *AdaptiveStrategy) LogStatus() {
 	fmt.Printf("%+v\n", s)
-	fmt.Printf("%+v\n", adaptiveOrder)
+	adaptiveOrder.debug()
 }
 
 var retry_strat_type reflect.Type
