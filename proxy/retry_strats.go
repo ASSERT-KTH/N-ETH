@@ -43,7 +43,7 @@ func (s *FixedPriorityStrategy) Failure(index int32) {
 }
 
 func (s *FixedPriorityStrategy) LogStatus() {
-	fmt.Printf("%+v", s)
+	fmt.Printf("%+v\n", s)
 }
 
 var rrIndex int32 = 0
@@ -78,7 +78,7 @@ func (s *RoundRobinStrategy) Failure(index int32) {
 }
 
 func (s *RoundRobinStrategy) LogStatus() {
-	fmt.Printf("%+v", s)
+	fmt.Printf("%+v\n", s)
 }
 
 type RandomStrategy struct {
@@ -113,7 +113,7 @@ func (s *RandomStrategy) Failure(index int32) {
 }
 
 func (s *RandomStrategy) LogStatus() {
-	fmt.Printf("%+v", s)
+	fmt.Printf("%+v\n", s)
 }
 
 type AdaptiveScore struct {
@@ -221,8 +221,8 @@ func (s *AdaptiveStrategy) Failure(index int32) {
 }
 
 func (s *AdaptiveStrategy) LogStatus() {
-	fmt.Printf("%+v", s)
-	fmt.Printf("%+v", adaptiveOrder)
+	fmt.Printf("%+v\n", s)
+	fmt.Printf("%+v\n", adaptiveOrder)
 }
 
 var retry_strat_type reflect.Type
