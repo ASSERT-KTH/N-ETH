@@ -36,7 +36,7 @@ func Process(w http.ResponseWriter, r *http.Request) {
 
 	//TODO handle timeouts!
 	client := http.Client{
-		Timeout: 1 * time.Second,
+		Timeout: 250 * time.Millisecond,
 	}
 
 	body, err := ioutil.ReadAll(r.Body)
