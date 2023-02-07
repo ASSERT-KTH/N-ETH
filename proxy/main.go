@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"sync/atomic"
 	"time"
 )
 
@@ -107,15 +108,15 @@ func Process(w http.ResponseWriter, r *http.Request) {
 			block_number = 0
 		}
 
-		distance := latest_block - block_number
+		distance := atomic.LoadInt64(&latest_block) - block_number
 
 		if distance > 5 {
 			fmt.Printf("outdated response! block_number: %d latest: %d\n", block_number, latest_block)
 			strategy.Failure(target)
 			response.Update(Degraded_freshness, resp.StatusCode, resp_body)
 			continue
-		} else if latest_block < block_number {
-			latest_block = block_number
+		} else if atomic.LoadInt64(&latest_block) < block_number {
+			atomic.SwapInt64(&latest_block, block_number)
 		}
 
 		success = true
@@ -141,11 +142,15 @@ func handleRequests() {
 	log.Fatal(http.ListenAndServe(":8080", mux))
 }
 
-func SetRetryStrat(s string) {
-
+func UpdateLatestBlock() {
+	for {
+		time.Sleep(12 * time.Second)
+		atomic.AddInt64(&latest_block, 1)
+	}
 }
 
 func main() {
+	go UpdateLatestBlock()
 	SelectStrategy(os.Args[1])
 	handleRequests()
 }
