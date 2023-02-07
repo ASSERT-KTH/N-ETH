@@ -74,7 +74,8 @@ while true; do
     TEKU_PID=`ps axo pid,ppid,cmd | grep "$TEKU_GREP_STR" | awk '{print $1}'`
 
     #attach error injection
-    sleep 10
+    # delay two minutes to catch up
+    sleep 120
     CHAOS_ETH_GREP_STR="[s]yscall_injector.py"
     
     { $SUDO python $CHAOS_ETH_DIR/syscall_injector.py --config $ERROR_MODELS -p $TARGET_PID &> $OUTPUT_DIR/chaos-$(date -Iseconds).log; } &

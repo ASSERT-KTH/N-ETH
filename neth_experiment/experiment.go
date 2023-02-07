@@ -528,7 +528,7 @@ func main() {
 		go RunProxy(error_model_tag, proxy_stop)
 		fmt.Println("Started proxy!")
 
-		time.Sleep(30 * time.Second)
+		time.Sleep(180 * time.Second)
 
 		fmt.Println("Running workload")
 		RunWorkload(error_model_tag)
