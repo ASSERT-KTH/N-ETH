@@ -69,7 +69,6 @@ func Process(w http.ResponseWriter, r *http.Request) {
 
 		if err != nil {
 			// possible request failure on request
-			tries += 1
 			fmt.Println(err.Error())
 			strategy.Failure(target)
 
@@ -82,7 +81,6 @@ func Process(w http.ResponseWriter, r *http.Request) {
 		// handle possible response failures
 		if err != nil {
 			// possible response failure on reading request
-			tries += 1
 			fmt.Println(err.Error())
 			strategy.Failure(target)
 			response.Update(Degraded_http, resp.StatusCode, resp_body)
@@ -94,7 +92,6 @@ func Process(w http.ResponseWriter, r *http.Request) {
 
 		if err != nil {
 			// possible response failure on parsing json
-			tries += 1
 			fmt.Println(err.Error())
 			strategy.Failure(target)
 			response.Update(Degraded_json, resp.StatusCode, resp_body)
@@ -124,6 +121,8 @@ func Process(w http.ResponseWriter, r *http.Request) {
 		// fmt.Println(string(resp_body))
 		strategy.Success(target)
 		response.Update(Available, resp.StatusCode, resp_body)
+
+		tries += 1
 	}
 
 	w.WriteHeader(response.statusCode)
