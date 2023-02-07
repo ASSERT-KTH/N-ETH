@@ -120,7 +120,9 @@ func Process(w http.ResponseWriter, r *http.Request) {
 			response.Update(Degraded_freshness, resp.StatusCode, resp_body)
 			tries += 1
 			continue
-		} else if atomic.LoadInt64(&latest_block) < block_number {
+		}
+
+		if distance < 0 {
 			atomic.SwapInt64(&latest_block, block_number)
 		}
 
