@@ -73,6 +73,7 @@ func Process(w http.ResponseWriter, r *http.Request) {
 			strategy.Failure(target)
 
 			response.Update(Unavailable, 500, nil) // 500 as internal server error
+			tries += 1
 			continue
 		}
 
@@ -84,6 +85,7 @@ func Process(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(err.Error())
 			strategy.Failure(target)
 			response.Update(Degraded_http, resp.StatusCode, resp_body)
+			tries += 1
 			continue
 		}
 
@@ -95,6 +97,7 @@ func Process(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(err.Error())
 			strategy.Failure(target)
 			response.Update(Degraded_json, resp.StatusCode, resp_body)
+			tries += 1
 			continue
 		}
 
@@ -105,6 +108,7 @@ func Process(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(err.Error())
 			strategy.Failure(target)
 			response.Update(Degraded_json, resp.StatusCode, resp_body)
+			tries += 1
 			continue
 		}
 
@@ -114,18 +118,18 @@ func Process(w http.ResponseWriter, r *http.Request) {
 			fmt.Printf("outdated response! block_number: %d latest: %d\n", block_number, latest_block)
 			strategy.Failure(target)
 			response.Update(Degraded_freshness, resp.StatusCode, resp_body)
+			tries += 1
 			continue
 		} else if atomic.LoadInt64(&latest_block) < block_number {
 			atomic.SwapInt64(&latest_block, block_number)
 		}
 
 		success = true
+		tries += 1
 		// relay response
 		// fmt.Println(string(resp_body))
 		strategy.Success(target)
 		response.Update(Available, resp.StatusCode, resp_body)
-
-		tries += 1
 	}
 
 	w.WriteHeader(response.statusCode)
