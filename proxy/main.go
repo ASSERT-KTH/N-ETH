@@ -102,7 +102,10 @@ func Process(w http.ResponseWriter, r *http.Request) {
 
 		if err != nil {
 			fmt.Println("error parsing block number!")
-			block_number = 0
+			fmt.Println(err.Error())
+			strategy.Failure(target)
+			response.Update(Degraded_json, resp.StatusCode, resp_body)
+			continue
 		}
 
 		distance := atomic.LoadInt64(&latest_block) - block_number
