@@ -24,8 +24,10 @@ var targets = []string{
 	"http://172.17.0.1:8648", // besu
 }
 
-func Process(w http.ResponseWriter, r *http.Request) {
+var id = 0
 
+func Process(w http.ResponseWriter, r *http.Request) {
+	id++
 	// fmt.Println("received request!")
 
 	response := new(ComparableResponse)
@@ -137,6 +139,7 @@ func Process(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(response.statusCode)
 	w.Write(response.body)
 
+	fmt.Println(id)
 	strategy.LogStatus()
 }
 

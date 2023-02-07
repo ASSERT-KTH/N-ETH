@@ -23,7 +23,7 @@ func (me *ComparableResponse) Update(availabilityStatus AvailabilityStatus, stat
 		me.statusCode = statusCode
 		me.body = body
 		me.availabilityStatus = availabilityStatus
-	} else if availabilityStatus > me.availabilityStatus {
+	} else if availabilityStatus < me.availabilityStatus {
 		// if other is better assign
 		me.statusCode = statusCode
 		me.body = body
