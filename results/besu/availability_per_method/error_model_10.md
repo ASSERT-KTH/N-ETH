@@ -1,60 +1,53 @@
-|    | method_name                             |   total | result                                                                                    |   count |   percentage |
-|---:|:----------------------------------------|--------:|:------------------------------------------------------------------------------------------|--------:|-------------:|
-|  0 | eth_blockNumber                         |   17267 | error: Post "http://localhost:8545": EOF                                                  |       2 |  0.000115828 |
-|  1 | eth_blockNumber                         |   17267 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     122 |  0.0070655   |
-|  2 | eth_blockNumber                         |   17267 | success                                                                                   |   17143 |  0.992819    |
-|  3 | eth_estimateGas                         |   17199 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     127 |  0.00738415  |
-|  4 | eth_estimateGas                         |   17199 | success                                                                                   |   17072 |  0.992616    |
-|  5 | eth_feeHistory                          |   17099 | error: Post "http://localhost:8545": EOF                                                  |       2 |  0.000116966 |
-|  6 | eth_feeHistory                          |   17099 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     133 |  0.00777823  |
-|  7 | eth_feeHistory                          |   17099 | success                                                                                   |   16964 |  0.992105    |
-|  8 | eth_gasPrice                            |   17133 | error: Post "http://localhost:8545": EOF                                                  |       1 |  5.83669e-05 |
-|  9 | eth_gasPrice                            |   17133 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     130 |  0.0075877   |
-| 10 | eth_gasPrice                            |   17133 | success                                                                                   |   17002 |  0.992354    |
-| 11 | eth_getBalance                          |   17049 | error: Post "http://localhost:8545": EOF                                                  |       1 |  5.86545e-05 |
-| 12 | eth_getBalance                          |   17049 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     135 |  0.00791835  |
-| 13 | eth_getBalance                          |   17049 | success                                                                                   |   16913 |  0.992023    |
-| 14 | eth_getBlockByHash                      |   16990 | error: Post "http://localhost:8545": EOF                                                  |       1 |  5.88582e-05 |
-| 15 | eth_getBlockByHash                      |   16990 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     109 |  0.00641554  |
-| 16 | eth_getBlockByHash                      |   16990 | success                                                                                   |   16880 |  0.993526    |
-| 17 | eth_getBlockByNumber                    |   17138 | error: Post "http://localhost:8545": EOF                                                  |       2 |  0.0001167   |
-| 18 | eth_getBlockByNumber                    |   17138 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     129 |  0.00752713  |
-| 19 | eth_getBlockByNumber                    |   17138 | success                                                                                   |   17007 |  0.992356    |
-| 20 | eth_getBlockTransactionCountByHash      |   17427 | error: Post "http://localhost:8545": EOF                                                  |       1 |  5.73822e-05 |
-| 21 | eth_getBlockTransactionCountByHash      |   17427 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     120 |  0.00688587  |
-| 22 | eth_getBlockTransactionCountByHash      |   17427 | success                                                                                   |   17306 |  0.993057    |
-| 23 | eth_getBlockTransactionCountByNumber    |   17036 | error: Post "http://localhost:8545": EOF                                                  |       2 |  0.000117398 |
-| 24 | eth_getBlockTransactionCountByNumber    |   17036 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     135 |  0.0079244   |
-| 25 | eth_getBlockTransactionCountByNumber    |   17036 | success                                                                                   |   16899 |  0.991958    |
-| 26 | eth_getCode                             |   17127 | error: Post "http://localhost:8545": EOF                                                  |       2 |  0.000116775 |
-| 27 | eth_getCode                             |   17127 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     153 |  0.00893326  |
-| 28 | eth_getCode                             |   17127 | success                                                                                   |   16972 |  0.99095     |
-| 29 | eth_getLogs                             |   17125 | error: Post "http://localhost:8545": EOF                                                  |       1 |  5.83942e-05 |
-| 30 | eth_getLogs                             |   17125 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     123 |  0.00718248  |
-| 31 | eth_getLogs                             |   17125 | success                                                                                   |   17001 |  0.992759    |
-| 32 | eth_getStorageAt                        |   17173 | error: Post "http://localhost:8545": EOF                                                  |       2 |  0.000116462 |
-| 33 | eth_getStorageAt                        |   17173 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     135 |  0.00786118  |
-| 34 | eth_getStorageAt                        |   17173 | success                                                                                   |   17036 |  0.992022    |
-| 35 | eth_getTransactionByBlockHashAndIndex   |   17381 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     119 |  0.00684656  |
-| 36 | eth_getTransactionByBlockHashAndIndex   |   17381 | success                                                                                   |   17262 |  0.993153    |
-| 37 | eth_getTransactionByBlockNumberAndIndex |   16882 | error: Post "http://localhost:8545": EOF                                                  |       1 |  5.92347e-05 |
-| 38 | eth_getTransactionByBlockNumberAndIndex |   16882 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     164 |  0.00971449  |
-| 39 | eth_getTransactionByBlockNumberAndIndex |   16882 | success                                                                                   |   16717 |  0.990226    |
-| 40 | eth_getTransactionByHash                |   17239 | error: Post "http://localhost:8545": EOF                                                  |       1 |  5.8008e-05  |
-| 41 | eth_getTransactionByHash                |   17239 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     131 |  0.00759905  |
-| 42 | eth_getTransactionByHash                |   17239 | success                                                                                   |   17107 |  0.992343    |
-| 43 | eth_getTransactionCount                 |   17175 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     137 |  0.00797671  |
-| 44 | eth_getTransactionCount                 |   17175 | success                                                                                   |   17038 |  0.992023    |
-| 45 | eth_getTransactionReceipt               |   17090 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     124 |  0.00725571  |
-| 46 | eth_getTransactionReceipt               |   17090 | success                                                                                   |   16966 |  0.992744    |
-| 47 | eth_getUncleByBlockHashAndIndex         |   17368 | error: Post "http://localhost:8545": EOF                                                  |       3 |  0.000172731 |
-| 48 | eth_getUncleByBlockHashAndIndex         |   17368 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     145 |  0.00834869  |
-| 49 | eth_getUncleByBlockHashAndIndex         |   17368 | success                                                                                   |   17220 |  0.991479    |
-| 50 | eth_getUncleByBlockNumberAndIndex       |   16871 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     136 |  0.00806117  |
-| 51 | eth_getUncleByBlockNumberAndIndex       |   16871 | success                                                                                   |   16735 |  0.991939    |
-| 52 | eth_getUncleCountByBlockHash            |   17126 | error: Post "http://localhost:8545": EOF                                                  |       1 |  5.83908e-05 |
-| 53 | eth_getUncleCountByBlockHash            |   17126 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     158 |  0.00922574  |
-| 54 | eth_getUncleCountByBlockHash            |   17126 | success                                                                                   |   16967 |  0.990716    |
-| 55 | eth_getUncleCountByBlockNumber          |   17105 | error: Post "http://localhost:8545": EOF                                                  |       1 |  5.84624e-05 |
-| 56 | eth_getUncleCountByBlockNumber          |   17105 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused |     139 |  0.00812628  |
-| 57 | eth_getUncleCountByBlockNumber          |   17105 | success                                                                                   |   16965 |  0.991815    |
+|    | method_name                             |   total | result                                                                                                              |   count |   percentage |
+|---:|:----------------------------------------|--------:|:--------------------------------------------------------------------------------------------------------------------|--------:|-------------:|
+|  0 | eth_blockNumber                         |   17267 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     124 |  0.00718133  |
+|  1 | eth_blockNumber                         |   17267 | success                                                                                                             |   17143 |  0.992819    |
+|  2 | eth_estimateGas                         |   17199 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     128 |  0.00744229  |
+|  3 | eth_estimateGas                         |   17199 | success                                                                                                             |   17071 |  0.992558    |
+|  4 | eth_feeHistory                          |   17099 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     131 |  0.00766127  |
+|  5 | eth_feeHistory                          |   17099 | success                                                                                                             |   16968 |  0.992339    |
+|  6 | eth_gasPrice                            |   17133 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     138 |  0.00805463  |
+|  7 | eth_gasPrice                            |   17133 | success                                                                                                             |   16995 |  0.991945    |
+|  8 | eth_getBalance                          |   17049 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     135 |  0.00791835  |
+|  9 | eth_getBalance                          |   17049 | error: invalid byte in chunk length                                                                                 |       1 |  5.86545e-05 |
+| 10 | eth_getBalance                          |   17049 | success                                                                                                             |   16913 |  0.992023    |
+| 11 | eth_getBlockByHash                      |   16990 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     136 |  0.00800471  |
+| 12 | eth_getBlockByHash                      |   16990 | error: invalid byte in chunk length                                                                                 |     105 |  0.00618011  |
+| 13 | eth_getBlockByHash                      |   16990 | success                                                                                                             |   16749 |  0.985815    |
+| 14 | eth_getBlockByNumber                    |   17138 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     152 |  0.00886918  |
+| 15 | eth_getBlockByNumber                    |   17138 | error: invalid byte in chunk length                                                                                 |      40 |  0.00233399  |
+| 16 | eth_getBlockByNumber                    |   17138 | success                                                                                                             |   16946 |  0.988797    |
+| 17 | eth_getBlockTransactionCountByHash      |   17427 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     139 |  0.00797613  |
+| 18 | eth_getBlockTransactionCountByHash      |   17427 | error: invalid byte in chunk length                                                                                 |       1 |  5.73822e-05 |
+| 19 | eth_getBlockTransactionCountByHash      |   17427 | success                                                                                                             |   17287 |  0.991966    |
+| 20 | eth_getBlockTransactionCountByNumber    |   17036 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     136 |  0.00798309  |
+| 21 | eth_getBlockTransactionCountByNumber    |   17036 | error: Post "http://localhost:8545": read: connection reset by peer                                                 |       1 |  5.86992e-05 |
+| 22 | eth_getBlockTransactionCountByNumber    |   17036 | success                                                                                                             |   16899 |  0.991958    |
+| 23 | eth_getCode                             |   17127 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     129 |  0.00753197  |
+| 24 | eth_getCode                             |   17127 | error: invalid byte in chunk length                                                                                 |      92 |  0.00537164  |
+| 25 | eth_getCode                             |   17127 | success                                                                                                             |   16906 |  0.987096    |
+| 26 | eth_getLogs                             |   17125 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     146 |  0.00852555  |
+| 27 | eth_getLogs                             |   17125 | error: gzip: invalid checksum                                                                                       |     126 |  0.00735766  |
+| 28 | eth_getLogs                             |   17125 | error: invalid byte in chunk length                                                                                 |      90 |  0.00525547  |
+| 29 | eth_getLogs                             |   17125 | success                                                                                                             |   16763 |  0.978861    |
+| 30 | eth_getStorageAt                        |   17173 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     111 |  0.00646363  |
+| 31 | eth_getStorageAt                        |   17173 | success                                                                                                             |   17062 |  0.993536    |
+| 32 | eth_getTransactionByBlockHashAndIndex   |   17381 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     134 |  0.00770957  |
+| 33 | eth_getTransactionByBlockHashAndIndex   |   17381 | success                                                                                                             |   17247 |  0.99229     |
+| 34 | eth_getTransactionByBlockNumberAndIndex |   16882 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     119 |  0.00704893  |
+| 35 | eth_getTransactionByBlockNumberAndIndex |   16882 | error: Post "http://localhost:8545": net/http: HTTP/1.x transport connection broken: malformed HTTP response "1144" |       1 |  5.92347e-05 |
+| 36 | eth_getTransactionByBlockNumberAndIndex |   16882 | success                                                                                                             |   16762 |  0.992892    |
+| 37 | eth_getTransactionByHash                |   17239 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     142 |  0.00823714  |
+| 38 | eth_getTransactionByHash                |   17239 | success                                                                                                             |   17097 |  0.991763    |
+| 39 | eth_getTransactionCount                 |   17175 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     136 |  0.00791849  |
+| 40 | eth_getTransactionCount                 |   17175 | success                                                                                                             |   17039 |  0.992082    |
+| 41 | eth_getTransactionReceipt               |   17090 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     138 |  0.0080749   |
+| 42 | eth_getTransactionReceipt               |   17090 | success                                                                                                             |   16952 |  0.991925    |
+| 43 | eth_getUncleByBlockHashAndIndex         |   17368 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     149 |  0.008579    |
+| 44 | eth_getUncleByBlockHashAndIndex         |   17368 | success                                                                                                             |   17219 |  0.991421    |
+| 45 | eth_getUncleByBlockNumberAndIndex       |   16871 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     145 |  0.00859463  |
+| 46 | eth_getUncleByBlockNumberAndIndex       |   16871 | success                                                                                                             |   16726 |  0.991405    |
+| 47 | eth_getUncleCountByBlockHash            |   17126 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     142 |  0.00829149  |
+| 48 | eth_getUncleCountByBlockHash            |   17126 | success                                                                                                             |   16984 |  0.991709    |
+| 49 | eth_getUncleCountByBlockNumber          |   17105 | error: Post "http://localhost:8545": dial tcp 127.0.0.1:8545: connect: connection refused                           |     134 |  0.00783397  |
+| 50 | eth_getUncleCountByBlockNumber          |   17105 | success                                                                                                             |   16971 |  0.992166    |

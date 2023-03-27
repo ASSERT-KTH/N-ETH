@@ -1,4 +1,5 @@
 | status      |   percentage |   count |
 |:------------|-------------:|--------:|
-| available   |      0.99998 |  359992 |
-| unavailable |      0.00002 |       8 |
+| available   |      0.73862 |  265904 |
+| degraded    |      0.25365 |   91314 |
+| unavailable |      0.00773 |    2782 |

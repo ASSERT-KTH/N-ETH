@@ -1,4 +1,4 @@
 | status      |   percentage |   count |
 |:------------|-------------:|--------:|
-| available   |      0.99996 |  359986 |
-| unavailable |      0.00004 |      14 |
+| available   |      0.99674 |  358827 |
+| unavailable |      0.00326 |    1173 |
