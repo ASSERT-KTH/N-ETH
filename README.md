@@ -49,7 +49,7 @@ FI strategies are located in [this directory](error_models)
 
 ### Experiment data
 
-Experimental data is located in [this directory](results)
+Contact @javierron for access to experiment data.
 
 ## Misc
 
