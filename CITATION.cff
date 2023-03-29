@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+preferred-citation:
+  title: "Highly Available Blockchain Nodes With N-Version Design"
+  doi: "https://doi.org/10.48550/arXiv.2303.14438"
+  year: "2023"
+  type: article
+  journal: "arXiv preprint"
+  authors:
+    - family-names: Ron
+      given-names: Javier
+    - family-names: Soto-Valero
+      given-names: César
+    - family-names: Zhang
+      given-names: Long
+    - family-names: Baudry
+      given-names: Benoit
+    - family-names: Monperrus
+      given-names: Martin
