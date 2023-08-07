@@ -1,6 +1,12 @@
 {
   "experiments": [
     {
+      "syscall_name": "accept4",
+      "error_code": "-EAGAIN",
+      "original_mean_rate": 0.49944444444444447,
+      "failure_rate": 0.5244166666666668
+    },
+    {
       "syscall_name": "recvmmsg",
       "error_code": "-EAGAIN",
       "original_mean_rate": 0.4970447967676863,
@@ -47,12 +53,6 @@
       "error_code": "-ENOTEMPTY",
       "original_mean_rate": 0.15185185185185185,
       "failure_rate": 0.15944444444444444
-    },
-    {
-      "syscall_name": "shutdown",
-      "error_code": "-ENOTCONN",
-      "original_mean_rate": 0.14868849111752852,
-      "failure_rate": 0.15612291567340494
     }
   ]
 }

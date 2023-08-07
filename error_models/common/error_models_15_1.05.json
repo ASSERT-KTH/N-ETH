@@ -1,6 +1,12 @@
 {
   "experiments": [
     {
+      "syscall_name": "accept4",
+      "error_code": "-EAGAIN",
+      "original_mean_rate": 0.49944444444444447,
+      "failure_rate": 0.5244166666666668
+    },
+    {
       "syscall_name": "recvmmsg",
       "error_code": "-EAGAIN",
       "original_mean_rate": 0.4970447967676863,
@@ -83,12 +89,6 @@
       "error_code": "-ENETUNREACH",
       "original_mean_rate": 0.043374415687463835,
       "failure_rate": 0.045543136471837026
-    },
-    {
-      "syscall_name": "lseek",
-      "error_code": "-EINVAL",
-      "original_mean_rate": 0.04157598728240382,
-      "failure_rate": 0.04365478664652401
     }
   ]
 }

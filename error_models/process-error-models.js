@@ -27,7 +27,8 @@ errormodels.forEach(em => {
 const filtered = []
 
 Object.keys(union).forEach(k => {
-    if (union[k][0].syscall_name !== "accept4") {
+    // if (union[k][0].syscall_name !== "accept4") {
+    if (true) {
         filtered.push(union[k])
     }
 })

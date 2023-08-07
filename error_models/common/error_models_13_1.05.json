@@ -1,6 +1,12 @@
 {
   "experiments": [
     {
+      "syscall_name": "accept4",
+      "error_code": "-EAGAIN",
+      "original_mean_rate": 0.49944444444444447,
+      "failure_rate": 0.5244166666666668
+    },
+    {
       "syscall_name": "recvmmsg",
       "error_code": "-EAGAIN",
       "original_mean_rate": 0.4970447967676863,
@@ -71,12 +77,6 @@
       "error_code": "-EAGAIN",
       "original_mean_rate": 0.10560071241889422,
       "failure_rate": 0.11088074803983894
-    },
-    {
-      "syscall_name": "ioctl",
-      "error_code": "-ENOTTY",
-      "original_mean_rate": 0.10173110064257522,
-      "failure_rate": 0.10681765567470398
     }
   ]
 }

@@ -1,6 +1,12 @@
 {
   "experiments": [
     {
+      "syscall_name": "accept4",
+      "error_code": "-EAGAIN",
+      "original_mean_rate": 0.49944444444444447,
+      "failure_rate": 0.5244166666666668
+    },
+    {
       "syscall_name": "recvmmsg",
       "error_code": "-EAGAIN",
       "original_mean_rate": 0.4970447967676863,
@@ -107,12 +113,6 @@
       "error_code": "-EPERM",
       "original_mean_rate": 0.004886046450959282,
       "failure_rate": 0.005130348773507246
-    },
-    {
-      "syscall_name": "futex",
-      "error_code": "-ETIMEDOUT",
-      "original_mean_rate": 0.003665403955610856,
-      "failure_rate": 0.003848674153391399
     }
   ]
 }

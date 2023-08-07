@@ -1,6 +1,12 @@
 {
   "experiments": [
     {
+      "syscall_name": "accept4",
+      "error_code": "-EAGAIN",
+      "original_mean_rate": 0.49944444444444447,
+      "failure_rate": 0.5244166666666668
+    },
+    {
       "syscall_name": "recvmmsg",
       "error_code": "-EAGAIN",
       "original_mean_rate": 0.4970447967676863,
@@ -155,12 +161,6 @@
       "error_code": "-EINTR",
       "original_mean_rate": 0.00017678077783590628,
       "failure_rate": 0.0001856198167277016
-    },
-    {
-      "syscall_name": "read",
-      "error_code": "-ECONNRESET",
-      "original_mean_rate": 0.00011598362680139207,
-      "failure_rate": 0.00012178280814146168
     }
   ]
 }
