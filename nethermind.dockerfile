@@ -29,7 +29,7 @@ RUN apt-get install -y bison build-essential cmake flex git libedit-dev \
   libllvm12 llvm-12-dev libclang-12-dev python zlib1g-dev libelf-dev libfl-dev python3-distutils
 
 RUN git clone https://github.com/iovisor/bcc.git
-RUN mkdir bcc/build
+RUN cd bcc && git checkout v0.26.0
 RUN cd bcc/build && cmake .. && make && make install && \
         cmake -DPYTHON_CMD=python .. && cd src/python/ && make && make install
 RUN rm -rf bcc
