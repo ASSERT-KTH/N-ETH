@@ -22,9 +22,9 @@ RUN chmod 775 stoml_linux_amd64
 RUN mv stoml_linux_amd64 /usr/local/bin/stoml
 
 # install python + chaos-eth
-RUN apt-get install -y python
 RUN apt-get install -y bison build-essential cmake flex git libedit-dev \
-  libllvm12 llvm-12-dev libclang-12-dev python zlib1g-dev libelf-dev libfl-dev python3-distutils
+  libllvm12 llvm-12-dev libclang-12-dev python2 zlib1g-dev libelf-dev libfl-dev python3-distutils
+RUN ln /usr/bin/python2 /usr/bin/python
 
 RUN git clone https://github.com/iovisor/bcc.git
 RUN cd bcc && git checkout v0.26.0
