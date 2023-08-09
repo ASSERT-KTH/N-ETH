@@ -1,4 +1,4 @@
-FROM javierron:/neth:base
+FROM javierron/neth:base
 
 WORKDIR /wrkspc
 
