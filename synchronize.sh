@@ -83,7 +83,7 @@ do
     sleep 30
 
     # curl to etherscan
-    ETHERSCAN_BLOCK_HEX=`curl 'https://api.etherscan.io/api?module=proxy&action=eth_blockNumber' | jq -r .result | awk '{ print substr( $0, 3 ) }' | awk '{print toupper($0)}'`
+    ETHERSCAN_BLOCK_HEX=`curl 'https://api.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey='"$ETHERSCAN_API_KEY" | jq -r .result | awk '{ print substr( $0, 3 ) }' | awk '{print toupper($0)}'`
     ETHERSCAN_BLOCK=`echo "obase=10; ibase=16; $ETHERSCAN_BLOCK_HEX" | bc`
 
     # curl to target and get number
