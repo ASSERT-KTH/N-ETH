@@ -57,7 +57,7 @@ if [ -z JWT_FLAG ]; then
 fi 
 
 { $TARGET_CMD $JWT_PARAM $DATA_DIR_PARAM &> $TARGET_LOG; } &
-
+sleep 2
 TARGET_PPID=$!
 TARGET_GREP_STR=$TARGET_PPID.*$(get_config "$TARGET.grep_str")
 TARGET_PID=`ps axo pid,ppid,cmd | grep "$TARGET_GREP_STR" | awk '{print $1}'`
@@ -67,6 +67,7 @@ sleep 60
 # start teku
 TEKU_LOG=$OUTPUT_DIR/teku-sync-$(date -Iseconds).log
 { teku --ee-endpoint=http://localhost:8551 --ee-jwt-secret-file=$TARGET_JWT_FILE --data-beacon-path=$WORKING_DIR/nvme/teku-data-dir/ &> $TEKU_LOG; } &
+sleep 2
 TEKU_PPID=$!
 TEKU_GREP_STR=$TEKU_PPID.*teku\\.home
 TEKU_PID=`ps axo pid,ppid,cmd | grep $TEKU_GREP_STR | awk '{print $1}'`
