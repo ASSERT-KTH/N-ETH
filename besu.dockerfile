@@ -1,4 +1,4 @@
-FROM javierron:neth-base
+FROM javierron/neth:base
 
 # install besu
 RUN git clone https://github.com/hyperledger/besu.git

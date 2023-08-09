@@ -1,4 +1,4 @@
-FROM javierron:neth-base
+FROM javierron/neth:base
 
 # install go + geth
 RUN apt-get install -y gcc make
