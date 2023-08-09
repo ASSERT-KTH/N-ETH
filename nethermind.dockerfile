@@ -11,7 +11,7 @@ RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata
 RUN apt-get install -y openjdk-11-jdk git
 
 RUN git clone https://github.com/ConsenSys/teku.git
-RUN cd teku && git checkout 22.10.1 && ./gradlew installDist
+RUN cd teku && git checkout 23.8.0 && ./gradlew installDist
 RUN cp -r teku/build/install/teku /usr/local/teku
 ENV PATH="${PATH}:/usr/local/teku/bin"
 RUN rm -rf teku
@@ -48,7 +48,7 @@ RUN apt-get update
 RUN apt-get install -y dotnet-sdk-6.0 libsnappy-dev libc6-dev libc6 librocksdb5.17
 
 RUN git clone https://github.com/nethermindeth/nethermind --recursive
-RUN cd nethermind && git checkout 1.14.5
+RUN cd nethermind && git checkout 1.20.1
 RUN cd nethermind/src/Nethermind/Nethermind.Runner && dotnet build -c Release
 RUN mkdir /usr/local/nethermind
 RUN cp -r nethermind/src/Nethermind/Nethermind.Runner/bin /usr/local/nethermind/bin

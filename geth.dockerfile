@@ -45,7 +45,7 @@ ENV PATH="${PATH}:/usr/local/go/bin"
 RUN rm go1.19.3.linux-amd64.tar.gz
 
 RUN git clone https://github.com/ethereum/go-ethereum.git
-RUN cd go-ethereum && git checkout v1.10.25 && make geth
+RUN cd go-ethereum && git checkout v1.12.0 && make geth
 RUN cp go-ethereum/build/bin/geth /usr/local/bin/geth
 RUN rm -rf go-ethereum
 

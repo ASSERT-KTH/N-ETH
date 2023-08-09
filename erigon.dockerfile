@@ -9,7 +9,7 @@ RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata
 RUN apt-get install -y openjdk-11-jdk git
 
 RUN git clone https://github.com/ConsenSys/teku.git
-RUN cd teku && git checkout 22.10.1 && ./gradlew installDist
+RUN cd teku && git checkout 23.8.0 && ./gradlew installDist
 RUN cp -r teku/build/install/teku /usr/local/teku
 ENV PATH="${PATH}:/usr/local/teku/bin"
 RUN rm -rf teku
@@ -45,7 +45,7 @@ ENV PATH="${PATH}:/usr/local/go/bin"
 RUN rm go1.19.3.linux-amd64.tar.gz
 
 RUN git clone https://github.com/ledgerwatch/erigon.git
-RUN cd erigon && git checkout v2.28.1 && make erigon
+RUN cd erigon && git checkout v2.48.1 && make erigon
 RUN cp erigon/build/bin/erigon /usr/local/bin/erigon
 RUN rm -rf erigon
 
