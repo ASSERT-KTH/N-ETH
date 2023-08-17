@@ -1,0 +1,52 @@
+[[clients]]
+    name = "geth"
+    disk_name = "docker-nvme-geth"
+    image_name = "javierron/neth:geth"
+    nvme_index = 0
+
+[[clients]]
+    name = "besu"
+    disk_name = "docker-nvme-besu"
+    image_name = "javierron/neth:besu"
+    nvme_index = 1
+
+[[clients]]
+    name = "erigon"
+    disk_name = "docker-nvme-erigon"
+    image_name = "javierron/neth:erigon"
+    nvme_index = 2
+
+[[clients]]
+    name = "nethermind"
+    disk_name = "docker-nvme-nethermind"
+    image_name = "javierron/neth:nethermind"
+    nvme_index = 3
+
+
+[[experiments]]
+    clients = ["geth"]
+    workloads = ["random", "get_block"]
+
+[[experiments]]
+    clients = ["besu"]
+    workloads = ["random", "get_block"]
+
+[[experiments]]
+    clients = ["erigon"]
+    workloads = ["random", "get_block"]
+
+[[experiments]]
+    clients = ["nethermind"]
+    workloads = ["random", "get_block"]
+
+[[experiments]]
+    clients = ["geth", "besu"]
+    workloads = ["get_block"]
+
+[[experiments]]
+    clients = ["geth", "besu", "nethermind"]
+    workloads = ["get_block"]
+
+[[experiments]]
+    clients = ["geth", "besu", "nethermind", "erigon"]
+    workloads = ["get_block"]

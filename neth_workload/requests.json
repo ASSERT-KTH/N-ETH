@@ -1,0 +1,189 @@
+[
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_getBlockByNumber",
+        "id": 1,
+        "params": [
+            "0xa55e27",
+            false
+        ]
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_gasPrice",
+        "id": 1,
+        "params": []
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_estimateGas",
+        "id": 1,
+        "params": [
+            {
+                "to": "0x5657a2B688506c4f7408e28A28D7ACA4752b00ce",
+                "value": "0x1"
+            },
+            "pending"
+        ]
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_getBlockTransactionCountByHash",
+        "id": 1,
+        "params": [
+            "0x704f25ae4ae0ab904e9c7ec44a69efcb4bfd97c764ccbe8cc572c0caeca51d9b"
+        ]
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_getUncleCountByBlockHash",
+        "id": 1,
+        "params": [
+            "0x704f25ae4ae0ab904e9c7ec44a69efcb4bfd97c764ccbe8cc572c0caeca51d9b"
+        ]
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_getBlockByHash",
+        "id": 1,
+        "params": [
+            "0x704f25ae4ae0ab904e9c7ec44a69efcb4bfd97c764ccbe8cc572c0caeca51d9b",
+            false
+        ]
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_getTransactionByHash",
+        "id": 1,
+        "params": [
+            "0x704f25ae4ae0ab904e9c7ec44a69efcb4bfd97c764ccbe8cc572c0caeca51d9b"
+        ]
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_getTransactionByBlockHashAndIndex",
+        "id": 1,
+        "params": [
+            "0x704f25ae4ae0ab904e9c7ec44a69efcb4bfd97c764ccbe8cc572c0caeca51d9b",
+            "0x0"
+        ]
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_getStorageAt",
+        "id": 1,
+        "params": [
+            "0x7f268357A8c2552623316e2562D90e642bB538E5",
+            "0x0",
+            "latest"
+        ]
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_getCode",
+        "id": 1,
+        "params": [
+            "0x7f268357A8c2552623316e2562D90e642bB538E5",
+            "latest"
+        ]
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_getUncleByBlockHashAndIndex",
+        "id": 1,
+        "params": [
+            "0x704f25ae4ae0ab904e9c7ec44a69efcb4bfd97c764ccbe8cc572c0caeca51d9b",
+            "0x0"
+        ]
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_getTransactionCount",
+        "id": 1,
+        "params": [
+            "0x5657a2B688506c4f7408e28A28D7ACA4752b00ce",
+            "latest"
+        ]
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_blockNumber",
+        "id": 1,
+        "params": []
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_getBalance",
+        "id": 1,
+        "params": [
+            "0x5657a2B688506c4f7408e28A28D7ACA4752b00ce",
+            "latest"
+        ]
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_getBlockTransactionCountByNumber",
+        "id": 1,
+        "params": [
+            "0xa55e27"
+        ]
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_getUncleCountByBlockNumber",
+        "id": 1,
+        "params": [
+            "0xa55e27"
+        ]
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_getTransactionByBlockNumberAndIndex",
+        "id": 1,
+        "params": [
+            "0xa55e27",
+            "0x0"
+        ]
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_getTransactionReceipt",
+        "id": 1,
+        "params": [
+            "0x6bbc88ab26354c42705007ee978076923cfe8cd948a6f22e9233313d71ad5a6a"
+        ]
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_getUncleByBlockNumberAndIndex",
+        "id": 1,
+        "params": [
+            "0xa55e27",
+            "0x0"
+        ]
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_feeHistory",
+        "id": 1,
+        "params": [
+            "0xf",
+            "latest",
+            [
+                25,
+                75
+            ]
+        ]
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "eth_getLogs",
+        "id": 1,
+        "params": [
+            {
+                "fromBlock": "0xa55e27",
+                "toBlock": "0xa55e27"
+            }
+        ]
+    }
+]

@@ -7,9 +7,11 @@ import (
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/BurntSushi/toml"
 )
 
-var error_models_prefix = "https://raw.githubusercontent.com/KTH/n-version-ethereum/neth/error_models/common"
+var error_models_prefix = "https://raw.githubusercontent.com/ASSERT-KTH/N-ETH/main/error_models/common"
 var error_models = []string{
 	"error_models_1_1.05.json",
 	"error_models_2_1.05.json",
@@ -30,97 +32,33 @@ var error_models = []string{
 	"error_models_17_1.05.json",
 	"error_models_18_1.05.json",
 	"error_models_19_1.05.json",
-	"error_models_20_1.05.json",
-	"error_models_21_1.05.json",
-	"error_models_22_1.05.json",
-	"error_models_23_1.05.json",
-	"error_models_24_1.05.json",
-	"error_models_25_1.05.json",
-	"error_models_26_1.05.json",
-	"error_models_27_1.05.json",
-	"error_models_28_1.05.json",
-	"error_models_29_1.05.json",
-	"error_models_30_1.05.json",
+}
+
+type Config struct {
+	Clients     []ClientInfo
+	Experiments []Experiment
+}
+
+type Experiment struct {
+	Clients   []string
+	Workloads []string
 }
 
 type ClientInfo struct {
-	name         string
-	port         string
-	disk_name    string
-	image_name   string
-	source_index int
-	target_index int
-}
-
-var clients = []ClientInfo{
-	{
-		name:         "geth",
-		port:         "8545",
-		disk_name:    "geth",
-		image_name:   "javierron/neth:geth",
-		source_index: 1,
-		target_index: 5,
-	},
-	{
-		name:         "besu",
-		port:         "8546",
-		disk_name:    "besu",
-		image_name:   "javierron/neth:besu",
-		source_index: 3,
-		target_index: 7,
-	},
-	{
-		name:         "erigon",
-		port:         "8547",
-		disk_name:    "erigon",
-		image_name:   "javierron/neth:erigon",
-		source_index: 2,
-		target_index: 6,
-	},
-	{
-		name:         "nethermind",
-		port:         "8548",
-		disk_name:    "nethermind",
-		image_name:   "javierron/neth:nethermind",
-		source_index: 0,
-		target_index: 4,
-	},
-}
-
-var experiment_clients = []ClientInfo{
-	{
-		name:       "geth",
-		port:       "8645",
-		disk_name:  "geth-copy",
-		image_name: "javierron/neth:geth-kernel",
-	},
-	{
-		name:       "besu",
-		port:       "8646",
-		disk_name:  "besu-copy",
-		image_name: "javierron/neth:besu-kernel",
-	},
-	{
-		name:       "erigon",
-		port:       "8647",
-		disk_name:  "erigon-copy",
-		image_name: "javierron/neth:erigon-kernel",
-	},
-	{
-		name:       "nethermind",
-		port:       "8648",
-		disk_name:  "nethermind-copy",
-		image_name: "javierron/neth:nethermind-kernel",
-	},
+	Name       string
+	Port       string
+	Disk_name  string
+	Image_name string
+	Nvme_index int
 }
 
 func RunClient(target ClientInfo, script string, tag string, wg *sync.WaitGroup, stop chan os.Signal, extra_args ...string) {
 
-	fmt.Printf("init sync for %s\n", target.name)
+	fmt.Printf("init sync for %s\n", target.Name)
 
-	nvme_dir := fmt.Sprintf("%s/docker-nvme-%s", os.Getenv("HOME"), target.disk_name)
+	nvme_dir := fmt.Sprintf("%s/%s", os.Getenv("HOME"), target.Disk_name)
 
-	output_dir := fmt.Sprintf("%s/%s-%s", os.Getenv("OUTPUT_DIR"), target.name, tag)
+	output_dir := fmt.Sprintf("%s/%s-%s", os.Getenv("OUTPUT_DIR"), target.Name, tag)
 	err := os.Mkdir(output_dir, 0775)
 
 	if err != nil && !os.IsExist(err) {
@@ -139,19 +77,19 @@ func RunClient(target ClientInfo, script string, tag string, wg *sync.WaitGroup,
 		"-e",
 		"ETHERSCAN_API_KEY",
 		"-p",
-		fmt.Sprintf("%s:8545", target.port),
-		fmt.Sprintf(target.image_name),
+		fmt.Sprintf("%s:8545", target.Port),
+		fmt.Sprintf(target.Image_name),
 		script,
-		target.name,
+		target.Name,
 	}
 
 	args = append(args, extra_args...)
 	cmd := exec.Command("docker", args...)
 
-	fmt.Printf("Begin sync %s in path %s\n", target.name, nvme_dir)
+	fmt.Printf("Begin sync %s in path %s\n", target.Name, nvme_dir)
 	fmt.Println(cmd.String())
 
-	outfile, err := os.Create(fmt.Sprintf("%s/docker-sync-%s.log", output_dir, target.name))
+	outfile, err := os.Create(fmt.Sprintf("%s/docker-sync-%s.log", output_dir, target.Name))
 	if err != nil {
 		panic(err)
 	}
@@ -159,7 +97,7 @@ func RunClient(target ClientInfo, script string, tag string, wg *sync.WaitGroup,
 
 	cmd.Stdout = outfile
 
-	errfile, err := os.Create(fmt.Sprintf("%s/docker-sync-err-%s.log", output_dir, target.disk_name))
+	errfile, err := os.Create(fmt.Sprintf("%s/docker-sync-err-%s.log", output_dir, target.Name))
 	if err != nil {
 		panic(err)
 	}
@@ -169,13 +107,13 @@ func RunClient(target ClientInfo, script string, tag string, wg *sync.WaitGroup,
 	cmd.Start()
 
 	sig := <-stop
-	fmt.Printf("%s: %s sync script\n", target.disk_name, sig)
+	fmt.Printf("%s: %s sync script\n", target.Disk_name, sig)
 	cmd.Process.Signal(sig)
 
-	fmt.Printf("%s: check for stop\n", target.disk_name)
+	fmt.Printf("%s: check for stop\n", target.Disk_name)
 	cmd.Wait()
 
-	fmt.Printf("%s: done stopping\n", target.disk_name)
+	fmt.Printf("%s: done stopping\n", target.Disk_name)
 	wg.Done()
 }
 
@@ -189,15 +127,15 @@ func WaitForAllClientsSync(poll_clients []ClientInfo, exp_tag string) {
 				fmt.Sprintf(
 					"%s/%s-%s/ipc-%s.dat",
 					os.Getenv("OUTPUT_DIR"),
-					client.name,
+					client.Name,
 					exp_tag,
-					client.name,
+					client.Name,
 				),
 			)
 
 			if err != nil {
 				if os.IsNotExist(err) {
-					fmt.Printf("Client %s not yet started...\n", client.name)
+					fmt.Printf("Client %s not yet started...\n", client.Name)
 
 					all_clients_ready = all_clients_ready && false
 					continue
@@ -217,16 +155,16 @@ func WaitForAllClientsSync(poll_clients []ClientInfo, exp_tag string) {
 	CleanSyncFlags(poll_clients, exp_tag)
 }
 
-func SyncSourceClients(stop_chan chan os.Signal, restart_chan chan int) {
+func SyncSourceClients(source_clients []ClientInfo, stop_chan chan os.Signal, restart_chan chan int) {
 
 	wg := new(sync.WaitGroup)
 
 	for {
-		wg.Add(len(clients))
+		wg.Add(len(source_clients))
 
-		channel_slice := make([]chan os.Signal, 0, len(clients))
+		channel_slice := make([]chan os.Signal, 0, len(source_clients))
 
-		for _, client := range clients {
+		for _, client := range source_clients {
 			stop_clients_chan := make(chan os.Signal)
 			channel_slice = append(channel_slice, stop_clients_chan)
 			go RunClient(client, "./synchronize-ready.sh", "source", wg, stop_clients_chan)
@@ -245,7 +183,7 @@ func SyncSourceClients(stop_chan chan os.Signal, restart_chan chan int) {
 	}
 }
 
-func StartExperimentClients(script string, tag string, stop_chan chan os.Signal, extra_args ...string) {
+func StartExperimentClients(experiment_clients []ClientInfo, script string, tag string, stop_chan chan os.Signal, extra_args ...string) {
 
 	wg := new(sync.WaitGroup)
 
@@ -277,20 +215,20 @@ func CheckEnvs() {
 	}
 }
 
-func CopyState(client ClientInfo, wg *sync.WaitGroup) {
+func CopyState(client ClientInfo, wg *sync.WaitGroup, target_index int) {
 
-	source_partition := fmt.Sprintf("/dev/nvme%dn1p1", client.source_index)
+	source_partition := fmt.Sprintf("/dev/nvme%dn1p1", client.Nvme_index)
 	source_partition_mount_point := fmt.Sprintf(
 		"%s/docker-nvme-%s",
 		os.Getenv("HOME"),
-		client.name,
+		"client.name",
 	)
 
-	target_partition := fmt.Sprintf("/dev/nvme%dn1p1", client.target_index)
+	target_partition := fmt.Sprintf("/dev/nvme%dn1p1", target_index)
 	target_partition_mount_point := fmt.Sprintf(
 		"%s/docker-nvme-%s-copy",
 		os.Getenv("HOME"),
-		client.name,
+		"client.name",
 	)
 
 	umount_source := exec.Command(
@@ -329,8 +267,8 @@ func CopyState(client ClientInfo, wg *sync.WaitGroup) {
 		fmt.Sprintf(
 			"%s/dd_progress-%d-%d.log",
 			os.Getenv("HOME"),
-			client.source_index,
-			client.target_index,
+			client.Nvme_index,
+			target_index,
 		),
 	)
 
@@ -370,20 +308,22 @@ func CopyState(client ClientInfo, wg *sync.WaitGroup) {
 	wg.Done()
 }
 
-func CopyClients() {
+func getFreeNvmeIndex(source_index int) int {
+	//TODO: implement
+	return source_index + 4
+}
 
-	//stop clients
+func CopyClients(source_clients []ClientInfo) {
 
 	wg := new(sync.WaitGroup)
-	wg.Add(len(clients))
+	wg.Add(len(source_clients))
 
-	for _, client := range clients {
-		go CopyState(client, wg)
+	for _, client := range source_clients {
+		target_index := getFreeNvmeIndex(client.Nvme_index)
+		go CopyState(client, wg, target_index)
 	}
 
 	wg.Wait()
-
-	// start clients
 }
 
 func RunProxy(tag string, stop chan int) {
@@ -439,24 +379,25 @@ func RunProxy(tag string, stop chan int) {
 }
 
 func RunWorkload(experiment_tag string) {
+	//TODO: compile workload program
+	//TODO: merge workloads in same program
 	cmd := exec.Command(
-		"go",
-		"run",
-		"requests-get-block.go",
+		"./workload",
+		"get_block",
 		experiment_tag,
 	)
 	cmd.Run()
 }
 
-func CleanSyncFlags(poll_clients []ClientInfo, exp_tag string) {
-	for _, client := range clients {
+func CleanSyncFlags(source_clients []ClientInfo, exp_tag string) {
+	for i, client := range source_clients {
 		err := os.Remove(
 			fmt.Sprintf(
-				"%s/%s-%s/ipc-%s.dat",
+				"%s/%s-%s/ipc-%d.dat",
 				os.Getenv("OUTPUT_DIR"),
-				client.disk_name,
+				client.Disk_name,
 				exp_tag,
-				client.name,
+				i,
 			),
 		)
 
@@ -466,85 +407,184 @@ func CleanSyncFlags(poll_clients []ClientInfo, exp_tag string) {
 	}
 }
 
+func LoadAvailableClients(config *Config) map[string]ClientInfo {
+
+	ret := make(map[string]ClientInfo)
+
+	for _, config_client := range config.Clients {
+		client := ClientInfo{
+			Port:       "not-set",
+			Name:       config_client.Name,
+			Disk_name:  config_client.Disk_name,
+			Image_name: config_client.Image_name,
+			Nvme_index: config_client.Nvme_index,
+		}
+		ret[config_client.Name] = client
+	}
+	return ret
+}
+
+func ReadConfig() *Config {
+	var ex Config // := new(Config)
+
+	_, err := toml.DecodeFile("./config.toml", &ex)
+
+	if err != nil {
+		panic(err)
+	}
+	return &ex
+
+}
+
+func CreateExperimentClientList(
+	experiment Experiment,
+	avaliable_clients map[string]ClientInfo,
+) []ClientInfo {
+
+	initial_port := 8645
+
+	experiment_clients := make([]ClientInfo, 0)
+
+	for i, client_name := range experiment.Clients {
+		client := avaliable_clients[client_name]
+		client.Port = strconv.Itoa(initial_port + i)
+		client.Image_name = client.Image_name + "-kernel"
+		client.Disk_name = client.Disk_name + fmt.Sprintf("-copy-%d", i)
+		experiment_clients = append(experiment_clients, client)
+	}
+
+	return experiment_clients
+}
+
+func CreateSourceClientList(
+	experiment Experiment,
+	avaliable_clients map[string]ClientInfo,
+) []ClientInfo {
+
+	initial_port := 8545
+
+	//make a set of strings
+	set := make(map[string]bool)
+
+	//for each client in experiment.clients
+	for _, client_name := range experiment.Clients {
+		//add client to set
+		set[client_name] = true
+	}
+
+	source_clients := make([]ClientInfo, 0)
+
+	for name := range set {
+		client := avaliable_clients[name]
+		client.Port = strconv.Itoa(initial_port)
+		source_clients = append(source_clients, client)
+		initial_port++
+	}
+
+	return source_clients
+}
+
 func main() {
 
-	CheckEnvs()
-	CleanSyncFlags(clients, "source")
+	// CheckEnvs()
 
-	stop_sync_chan := make(chan os.Signal)
-	restart_sync_chan := make(chan int)
-	// sync targets
-	go SyncSourceClients(stop_sync_chan, restart_sync_chan)
+	config := ReadConfig()
 
-	WaitForAllClientsSync(clients, "source")
-	fmt.Println("All clients synchronized!")
+	fmt.Print("read config\n")
+	fmt.Printf("%v\n", config)
 
-	//foreach error model
-	for error_model_index, error_model := range error_models {
+	available_clients := LoadAvailableClients(config)
 
-		//   stop sync
-		stop_sync_chan <- os.Interrupt
-		<-stop_sync_chan
-		fmt.Println("All clients stopped!")
+	// for each experiment
 
-		// copy targets
-		CopyClients()
-		fmt.Println("All clients copied!")
-		restart_sync_chan <- 1
-		fmt.Println("Restarting source clients sync!")
+	for _, exp := range config.Experiments {
+		source_clients := CreateSourceClientList(exp, available_clients)
+		experiment_clients := CreateExperimentClientList(exp, available_clients)
 
-		// sync copies
-		fmt.Println("Starting experiment clients sync!")
+		fmt.Println("======================================")
+		fmt.Printf("Source clients: %v\n", source_clients)
+		fmt.Printf("Experiment clients: %v\n", experiment_clients)
+		fmt.Println("======================================")
 
-		error_model_tag := strconv.Itoa(error_model_index)
-		experiments_sync_chan := make(chan os.Signal)
+		CleanSyncFlags(source_clients, "source")
 
-		go StartExperimentClients(
-			"./synchronize-ready.sh",
-			fmt.Sprintf("pre-sync-%s", error_model_tag),
-			experiments_sync_chan,
-		)
+		stop_sync_chan := make(chan os.Signal)
+		restart_sync_chan := make(chan int)
+		// sync targets
+		go SyncSourceClients(source_clients, stop_sync_chan, restart_sync_chan)
 
-		WaitForAllClientsSync(experiment_clients, fmt.Sprintf("pre-sync-%s", error_model_tag))
-		fmt.Println("Experiment clients synced!")
+		WaitForAllClientsSync(source_clients, "source")
+		fmt.Println("All clients synchronized!")
 
-		experiments_sync_chan <- os.Interrupt
-		<-experiments_sync_chan
+		//foreach error model
+		for error_model_index, error_model := range error_models {
 
-		fmt.Println("Experiment clients stopped!")
+			//   stop sync
+			stop_sync_chan <- os.Interrupt
+			<-stop_sync_chan
+			fmt.Println("All clients stopped!")
 
-		fmt.Println("Starting experiment clients with fault injection!")
-		error_model_path := fmt.Sprintf("%s/%s", error_models_prefix, error_model)
-		go StartExperimentClients(
-			"./n-version-fault-injection.sh",
-			error_model_tag,
-			experiments_sync_chan,
-			error_model_path,
-		)
-		fmt.Println("Started experiment clients with fault injection!")
+			// copy targets
+			CopyClients(source_clients)
+			fmt.Println("All clients copied!")
+			restart_sync_chan <- 1
+			fmt.Println("Restarting source clients sync!")
 
-		proxy_stop := make(chan int)
+			// sync copies
+			fmt.Println("Starting experiment clients sync!")
 
-		go RunProxy(error_model_tag, proxy_stop)
-		fmt.Println("Started proxy!")
+			error_model_tag := strconv.Itoa(error_model_index)
+			experiments_sync_chan := make(chan os.Signal)
 
-		time.Sleep(180 * time.Second)
+			go StartExperimentClients(
+				experiment_clients,
+				"./synchronize-ready.sh",
+				fmt.Sprintf("pre-sync-%s", error_model_tag),
+				experiments_sync_chan,
+			)
 
-		fmt.Println("Running workload")
-		RunWorkload(error_model_tag)
-		fmt.Println("Workload Done!")
+			WaitForAllClientsSync(experiment_clients, fmt.Sprintf("pre-sync-%s", error_model_tag))
+			fmt.Println("Experiment clients synced!")
 
-		fmt.Println("Shutting down proxy...")
-		proxy_stop <- 0
-		<-proxy_stop
-		fmt.Println("Proxy shut down!")
+			experiments_sync_chan <- os.Interrupt
+			<-experiments_sync_chan
 
-		fmt.Println("Closing experiment clients!")
-		experiments_sync_chan <- os.Interrupt
+			fmt.Println("Experiment clients stopped!")
 
-		fmt.Println("Cleaning up containers...")
-		<-experiments_sync_chan
+			fmt.Println("Starting experiment clients with fault injection!")
+			error_model_path := fmt.Sprintf("%s/%s", error_models_prefix, error_model)
+			go StartExperimentClients(
+				experiment_clients,
+				"./n-version-fault-injection.sh",
+				error_model_tag,
+				experiments_sync_chan,
+				error_model_path,
+			)
+			fmt.Println("Started experiment clients with fault injection!")
 
-		time.Sleep(10 * time.Second)
+			proxy_stop := make(chan int)
+
+			go RunProxy(error_model_tag, proxy_stop)
+			fmt.Println("Started proxy!")
+
+			time.Sleep(180 * time.Second)
+
+			fmt.Println("Running workload")
+			RunWorkload(error_model_tag)
+			fmt.Println("Workload Done!")
+
+			fmt.Println("Shutting down proxy...")
+			proxy_stop <- 0
+			<-proxy_stop
+			fmt.Println("Proxy shut down!")
+
+			fmt.Println("Closing experiment clients!")
+			experiments_sync_chan <- os.Interrupt
+
+			fmt.Println("Cleaning up containers...")
+			<-experiments_sync_chan
+
+			time.Sleep(10 * time.Second)
+		}
 	}
 }
