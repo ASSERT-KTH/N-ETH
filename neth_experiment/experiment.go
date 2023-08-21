@@ -226,9 +226,8 @@ func CopyState(client ClientInfo, wg *sync.WaitGroup, target_index int) {
 
 	target_partition := fmt.Sprintf("/dev/nvme%dn1p1", target_index)
 	target_partition_mount_point := fmt.Sprintf(
-		"%s/%s",
-		os.Getenv("HOME"),
-		client.Disk_name,
+		"%s-copy",
+		source_partition_mount_point,
 	)
 
 	umount_source := exec.Command(
@@ -447,7 +446,7 @@ func CreateExperimentClientList(
 		client := avaliable_clients[client_name]
 		client.Port = strconv.Itoa(initial_port + i)
 		client.Image_name = client.Image_name + "-kernel"
-		client.Disk_name = client.Disk_name + fmt.Sprintf("-copy-%d", i)
+		client.Disk_name = client.Disk_name + "-copy"
 		experiment_clients = append(experiment_clients, client)
 	}
 
