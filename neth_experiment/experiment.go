@@ -379,10 +379,8 @@ func RunProxy(tag string, stop chan int) {
 }
 
 func RunWorkload(experiment_tag string) {
-	//TODO: compile workload program
-	//TODO: merge workloads in same program
 	cmd := exec.Command(
-		"./workload",
+		"../neth_workload/workload",
 		"get_block",
 		experiment_tag,
 	)
@@ -449,7 +447,7 @@ func CreateExperimentClientList(
 		client := avaliable_clients[client_name]
 		client.Port = strconv.Itoa(initial_port + i)
 		client.Image_name = client.Image_name + "-kernel"
-		client.Disk_name = client.Disk_name + fmt.Sprintf("-copy-%d", i)
+		client.Disk_name = client.Disk_name + fmt.Sprintf("-copy-%s-%d", client_name, i)
 		experiment_clients = append(experiment_clients, client)
 	}
 

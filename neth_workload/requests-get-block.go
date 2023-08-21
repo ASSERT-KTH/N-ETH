@@ -15,6 +15,10 @@ func do_get_block_request(address string, index int, req Request, time_pairs *[]
 
 	json_data, err := json.Marshal(req)
 
+	if err != nil {
+		panic(err)
+	}
+
 	client := http.Client{
 		Timeout: 1 * time.Second,
 	}

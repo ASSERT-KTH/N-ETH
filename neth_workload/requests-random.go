@@ -15,6 +15,10 @@ func do_random_request(address string, index int, req Request, time_pairs *[]Tim
 
 	json_data, err := json.Marshal(req)
 
+	if err != nil {
+		panic(err)
+	}
+
 	client := http.Client{
 		Timeout: 10 * time.Second,
 	}
