@@ -11,7 +11,7 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-var error_models_prefix = "https://raw.githubusercontent.com/ASSERT-KTH/N-ETH/main/error_models/common"
+var error_models_prefix = "https://raw.githubusercontent.com/ASSERT-KTH/N-ETH/main/error_models/non-repeat/common"
 var error_models = []string{
 	"error_models_1_1.05.json",
 	"error_models_2_1.05.json",
