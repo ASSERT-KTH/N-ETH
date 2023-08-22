@@ -11,7 +11,7 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-var error_models_prefix = "https://raw.githubusercontent.com/ASSERT-KTH/N-ETH/main/error_models/non-repeat/common"
+var error_models_prefix = "https://raw.githubusercontent.com/ASSERT-KTH/N-ETH/main/error_models/common/non-repeat"
 var error_models = []string{
 	"error_models_1_1.05.json",
 	"error_models_2_1.05.json",
@@ -535,10 +535,14 @@ func main() {
 			for _, client := range exp.Clients {
 				clients_string = fmt.Sprintf("%s-%s", clients_string, client)
 			}
+
+			clients_string = clients_string[1:]
+
 			tag := fmt.Sprintf("%s-%s", clients_string, strconv.Itoa(error_model_index))
 
-			error_model_tag := strconv.Itoa(error_model_index)
 			experiments_sync_chan := make(chan os.Signal)
+
+			fmt.Printf("Starting experiment clients for tag: %s \n", tag)
 
 			go StartExperimentClients(
 				experiment_clients,
@@ -547,7 +551,7 @@ func main() {
 				experiments_sync_chan,
 			)
 
-			WaitForAllClientsSync(experiment_clients, fmt.Sprintf("pre-sync-%s", error_model_tag))
+			WaitForAllClientsSync(experiment_clients, fmt.Sprintf("pre-sync-%s", tag))
 			fmt.Println("Experiment clients synced!")
 
 			experiments_sync_chan <- os.Interrupt
@@ -560,7 +564,7 @@ func main() {
 			go StartExperimentClients(
 				experiment_clients,
 				"./n-version-fault-injection.sh",
-				error_model_tag,
+				tag,
 				experiments_sync_chan,
 				error_model_path,
 			)
@@ -568,13 +572,13 @@ func main() {
 
 			proxy_stop := make(chan int)
 
-			go RunProxy(error_model_tag, len(experiment_clients), proxy_stop)
+			go RunProxy(tag, len(experiment_clients), proxy_stop)
 			fmt.Println("Started proxy!")
 
 			time.Sleep(180 * time.Second)
 
 			fmt.Println("Running workload")
-			RunWorkload(error_model_tag)
+			RunWorkload(tag)
 			fmt.Println("Workload Done!")
 
 			fmt.Println("Shutting down proxy...")
