@@ -325,7 +325,7 @@ func CopyClients(source_clients []ClientInfo) {
 	wg.Wait()
 }
 
-func RunProxy(tag string, stop chan int) {
+func RunProxy(tag string, n int, stop chan int) {
 	args := []string{
 		"run",
 		"-p",
@@ -333,6 +333,7 @@ func RunProxy(tag string, stop chan int) {
 		"javierron/neth:proxy",
 		"./proxy",
 		"adaptive",
+		fmt.Sprintf("%d", n),
 	}
 
 	cmd := exec.Command("docker", args...)
@@ -530,13 +531,19 @@ func main() {
 			// sync copies
 			fmt.Println("Starting experiment clients sync!")
 
+			clients_string := ""
+			for _, client := range exp.Clients {
+				clients_string = fmt.Sprintf("%s-%s", clients_string, client)
+			}
+			tag := fmt.Sprintf("%s-%s", clients_string, strconv.Itoa(error_model_index))
+
 			error_model_tag := strconv.Itoa(error_model_index)
 			experiments_sync_chan := make(chan os.Signal)
 
 			go StartExperimentClients(
 				experiment_clients,
 				"./synchronize-ready.sh",
-				fmt.Sprintf("pre-sync-%s", error_model_tag),
+				fmt.Sprintf("pre-sync-%s", tag),
 				experiments_sync_chan,
 			)
 
@@ -561,7 +568,7 @@ func main() {
 
 			proxy_stop := make(chan int)
 
-			go RunProxy(error_model_tag, proxy_stop)
+			go RunProxy(error_model_tag, len(experiment_clients), proxy_stop)
 			fmt.Println("Started proxy!")
 
 			time.Sleep(180 * time.Second)

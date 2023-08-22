@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"sync/atomic"
 	"time"
 )
@@ -161,6 +162,21 @@ func UpdateLatestBlock() {
 }
 
 func main() {
+
+	//read target from args
+	if len(os.Args) < 3 {
+		fmt.Println("usage: ./proxy <strategy> <N>")
+		os.Exit(-1)
+	}
+	n, err := strconv.Atoi(os.Args[2])
+
+	if err != nil || n < 1 || n > 4 {
+		fmt.Println("invalid N")
+		os.Exit(-1)
+	}
+
+	targets = targets[:n]
+
 	go UpdateLatestBlock()
 	SelectStrategy(os.Args[1])
 	handleRequests()

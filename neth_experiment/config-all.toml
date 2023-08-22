@@ -25,26 +25,58 @@
 
 [[experiments]]
     clients = ["geth"]
-    workloads = ["random", "get_block"]
+    workloads = ["get_block"]
 
 [[experiments]]
     clients = ["besu"]
-    workloads = ["random", "get_block"]
+    workloads = ["get_block"]
 
 [[experiments]]
     clients = ["erigon"]
-    workloads = ["random", "get_block"]
+    workloads = ["get_block"]
 
 [[experiments]]
     clients = ["nethermind"]
-    workloads = ["random", "get_block"]
+    workloads = ["get_block"]
 
 [[experiments]]
     clients = ["geth", "besu"]
     workloads = ["get_block"]
 
 [[experiments]]
+    clients = ["geth", "nethermind"]
+    workloads = ["get_block"]
+
+[[experiments]]
+    clients = ["geth", "erigon"]
+    workloads = ["get_block"]
+
+[[experiments]]
+    clients = ["besu", "nethermind"]
+    workloads = ["get_block"]
+
+[[experiments]]
+    clients = ["besu", "erigon"]
+    workloads = ["get_block"]
+
+[[experiments]]
+    clients = ["nethermind", "erigon"]
+    workloads = ["get_block"]
+
+[[experiments]]
     clients = ["geth", "besu", "nethermind"]
+    workloads = ["get_block"]
+
+[[experiments]]
+    clients = ["geth", "besu", "erigon"]
+    workloads = ["get_block"]
+
+[[experiments]]
+    clients = ["geth", "nethermind", "erigon"]
+    workloads = ["get_block"]
+
+[[experiments]]
+    clients = ["besu", "nethermind", "erigon"]
     workloads = ["get_block"]
 
 [[experiments]]

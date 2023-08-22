@@ -33,7 +33,7 @@ func main() {
 
 	config := Config{
 		proxy_address: "http://172.17.0.1:8080",
-		n_requests:    100_000,
+		n_requests:    360_000,
 	}
 
 	switch workload_name {
