@@ -32,6 +32,7 @@ var error_models = []string{
 	"error_models_17_1.05.json",
 	"error_models_18_1.05.json",
 	"error_models_19_1.05.json",
+	"error_models_20_1.05.json",
 }
 
 type Config struct {
@@ -155,7 +156,10 @@ func WaitForAllClientsSync(poll_clients []ClientInfo, exp_tag string) {
 	CleanSyncFlags(poll_clients, exp_tag)
 }
 
-func SyncSourceClients(source_clients []ClientInfo, stop_chan chan os.Signal, restart_chan chan int) {
+func SyncSourceClients(source_clients []ClientInfo, stop_chan chan struct {
+	os.Signal
+	bool
+}, restart_chan chan int) {
 
 	wg := new(sync.WaitGroup)
 
@@ -173,13 +177,17 @@ func SyncSourceClients(source_clients []ClientInfo, stop_chan chan os.Signal, re
 		sig := <-stop_chan
 
 		for _, ch := range channel_slice {
-			ch <- sig
+			ch <- sig.Signal
 		}
 
 		wg.Wait()
 
 		stop_chan <- sig
-		<-restart_chan
+		if sig.bool {
+			<-restart_chan
+		} else {
+			return
+		}
 	}
 }
 
@@ -328,6 +336,7 @@ func CopyClients(source_clients []ClientInfo) {
 func RunProxy(tag string, n int, stop chan int) {
 	args := []string{
 		"run",
+		"--rm",
 		"-p",
 		"8080:8080",
 		"javierron/neth:proxy",
@@ -506,7 +515,10 @@ func main() {
 
 		CleanSyncFlags(source_clients, "source")
 
-		stop_sync_chan := make(chan os.Signal)
+		stop_sync_chan := make(chan struct {
+			os.Signal
+			bool
+		})
 		restart_sync_chan := make(chan int)
 		// sync targets
 		go SyncSourceClients(source_clients, stop_sync_chan, restart_sync_chan)
@@ -518,7 +530,10 @@ func main() {
 		for error_model_index, error_model := range error_models {
 
 			//   stop sync
-			stop_sync_chan <- os.Interrupt
+			stop_sync_chan <- struct {
+				os.Signal
+				bool
+			}{os.Interrupt, true}
 			<-stop_sync_chan
 			fmt.Println("All clients stopped!")
 
@@ -594,5 +609,13 @@ func main() {
 
 			time.Sleep(10 * time.Second)
 		}
+
+		fmt.Println("Closing source clients!")
+		stop_sync_chan <- struct {
+			os.Signal
+			bool
+		}{os.Interrupt, false}
+		<-stop_sync_chan
+		fmt.Println("Closed source clients!")
 	}
 }

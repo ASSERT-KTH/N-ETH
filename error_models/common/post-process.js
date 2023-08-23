@@ -22,9 +22,13 @@ const main = ()  => {
                 final.push(last_item)
             }
         }
+        
+        obj = {
+            experiments: final
+        }
 
         //print final to json file
-        fs.writeFileSync(`./non-repeat/error_models_${final.length}_1.05.json`, JSON.stringify(final, null, 2))
+        fs.writeFileSync(`./non-repeat/error_models_${final.length}_1.05.json`, JSON.stringify(obj, null, 2))
     }
 }
 
