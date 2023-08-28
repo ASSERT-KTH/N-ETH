@@ -26,8 +26,8 @@ func main() {
 
 	//validate experiment tag
 	experiment_tag := os.Args[2]
-	if len(experiment_tag) > 8 {
-		fmt.Println("Experiment tag must be less than 8 characters")
+	if len(experiment_tag) > 512 {
+		fmt.Println("Experiment tag must be less than 512 characters")
 		os.Exit(-1)
 	}
 
