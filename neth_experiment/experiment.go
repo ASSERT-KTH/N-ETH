@@ -393,6 +393,22 @@ func RunWorkload(experiment_tag string) {
 		"get_block",
 		experiment_tag,
 	)
+
+	outfile, err := os.Create(
+		fmt.Sprintf(
+			"%s/workload-%s.log",
+			os.Getenv("OUTPUT_DIR"),
+			experiment_tag,
+		),
+	)
+
+	if err != nil {
+		panic(err)
+	}
+	defer outfile.Close()
+
+	cmd.Stdout = outfile
+
 	cmd.Run()
 }
 
