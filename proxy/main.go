@@ -19,10 +19,10 @@ var latest_block int64 = 0
 
 //TODO: move this to config file
 var targets = []string{
-	"http://172.17.0.1:8645", // nethermind
-	"http://172.17.0.1:8646", // geth
-	"http://172.17.0.1:8647", // erigon
-	"http://172.17.0.1:8648", // besu
+	"http://127.0.0.1:8645", // nethermind
+	"http://127.0.0.1:8646", // geth
+	"http://127.0.0.1:8647", // erigon
+	"http://127.0.0.1:8648", // besu
 }
 
 var id = 0

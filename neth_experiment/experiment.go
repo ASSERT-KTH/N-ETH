@@ -335,17 +335,11 @@ func CopyClients(source_clients []ClientInfo) {
 
 func RunProxy(tag string, n int, stop chan int) {
 	args := []string{
-		"run",
-		"--rm",
-		"-p",
-		"8080:8080",
-		"javierron/neth:proxy",
-		"./proxy",
 		"adaptive",
 		fmt.Sprintf("%d", n),
 	}
 
-	cmd := exec.Command("docker", args...)
+	cmd := exec.Command("../proxy/proxy", args...)
 	println(cmd.String())
 
 	outfile, err := os.Create(
