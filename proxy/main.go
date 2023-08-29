@@ -175,8 +175,6 @@ func main() {
 		os.Exit(-1)
 	}
 
-	targets = targets[:n]
-
 	go UpdateLatestBlock()
 	SelectStrategy(os.Args[1])
 	handleRequests()
