@@ -21,6 +21,8 @@ RUN rm -rf /usr/local/go && tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
 ENV PATH="${PATH}:/usr/local/go/bin"
 RUN rm go1.19.3.linux-amd64.tar.gz
 
+RUN ln -s /royal-chaos /wrkspc/royal-chaos
+
 COPY ./*.sh /wrkspc/
 COPY ./config.toml /wrkspc/
 COPY ./*.go /wrkspc/
