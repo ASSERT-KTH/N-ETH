@@ -1,6 +1,17 @@
 # N-ETH
 
-A high-availability N-version Ethereum node protoype 
+The N-version Ethereum node protoype of the following paper:
+
+```bibtex
+@article{2303.14438,
+ title = {Highly Available Blockchain Nodes With N-Version Design},
+ journal = {IEEE Transactions on Dependable and Secure Computing},
+ year = {2023},
+ doi = {10.1109/TDSC.2023.3346195},
+ author = {Javier Ron and César Soto-Valero and Long Zhang and Benoit Baudry and Martin Monperrus},
+ url = {http://arxiv.org/pdf/2303.14438},
+}
+```
 
 ## Description
 
